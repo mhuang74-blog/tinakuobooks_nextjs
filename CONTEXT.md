@@ -4,7 +4,12 @@
 
 **Work** — one published creative piece by an author: a book, a stage
 performance, or a downloadable activity. Each Work has one canonical Chinese
-edition and at most one English translation.
+edition — the one the site presents — plus any superseded editions recorded in
+`docs/works-catalog.md`, and at most one English translation.
+
+**Edition** — one printing or release of a Work: a retitled reissue, anniversary
+edition, second edition, simplified-Chinese edition, ebook, or audiobook.
+Editions never get their own Work page.
 
 **Collection** — a curated grouping of Works by audience or genre. Collections
 are editorial categories, not free-form tags.
