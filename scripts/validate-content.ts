@@ -109,8 +109,8 @@ for (const enFile of enFiles) {
 const works = getAllWorks()
 const pending = works.filter((work) => work.translationPending)
 
-if (portfolioWorks.length !== 10) {
-  errors.push(`content/portfolio.ts: expected 10 portfolio works, found ${portfolioWorks.length}`)
+if (portfolioWorks.length !== 16) {
+  errors.push(`content/portfolio.ts: expected 16 portfolio works, found ${portfolioWorks.length}`)
 }
 
 const seenPortfolioSlug = new Set<string>()
