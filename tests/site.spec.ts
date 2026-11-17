@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('Chinese home', () => {
-  test('renders the hero, featured work, and the ten-work shelf', async ({ page }) => {
+  test('renders the hero, featured work, and the sixteen-work shelf', async ({ page }) => {
     const response = await page.goto('/')
     expect(response?.status()).toBe(200)
 
@@ -11,20 +11,20 @@ test.describe('Chinese home', () => {
       page.locator('aside.feature').getByRole('heading', { level: 2, name: '《暗號偵探社》' }),
     ).toBeVisible()
 
-    await expect(page.locator('.shelf article')).toHaveCount(10)
-    await expect(page.locator('#result-count')).toHaveText('共 10 部作品')
+    await expect(page.locator('.shelf article')).toHaveCount(16)
+    await expect(page.locator('#result-count')).toHaveText('共 16 部作品')
   })
 
   test('filters the shelf and resets it', async ({ page }) => {
     await page.goto('/')
 
     await page.getByRole('button', { name: '繪本', exact: true }).click()
-    await expect(page.locator('#result-count')).toHaveText('顯示 1 部，共 10 部')
-    await expect(page.locator('.shelf article')).toHaveCount(1)
+    await expect(page.locator('#result-count')).toHaveText('顯示 3 部，共 16 部')
+    await expect(page.locator('.shelf article')).toHaveCount(3)
 
     await page.getByRole('button', { name: '重置篩選' }).click()
-    await expect(page.locator('#result-count')).toHaveText('共 10 部作品')
-    await expect(page.locator('.shelf article')).toHaveCount(10)
+    await expect(page.locator('#result-count')).toHaveText('共 16 部作品')
+    await expect(page.locator('.shelf article')).toHaveCount(16)
   })
 
   test('opens a work dialog, shows facts, and restores focus on Escape', async ({ page }) => {
@@ -78,7 +78,7 @@ test.describe('Chinese site', () => {
 
     const status = page.getByRole('status')
     const search = page.getByLabel('搜尋作品')
-    await expect(page.locator('main article')).toHaveCount(11)
+    await expect(page.locator('main article')).toHaveCount(17)
 
     await search.fill('豹')
     await expect(status).toHaveText('2 件作品')
@@ -86,19 +86,19 @@ test.describe('Chinese site', () => {
     await expect(page.locator('main article')).toHaveCount(2)
 
     await page.getByRole('button', { name: '清除篩選' }).click()
-    await expect(status).toHaveText('11 件作品')
+    await expect(status).toHaveText('17 件作品')
 
     await page.getByRole('button', { name: '繪本', exact: true }).click()
-    await expect(status).toHaveText('1 件作品')
-    await expect(page.locator('main article')).toHaveCount(1)
+    await expect(status).toHaveText('3 件作品')
+    await expect(page.locator('main article')).toHaveCount(3)
     await expect(page).toHaveURL(/collection=picture-book/)
 
     await page.getByLabel('排序').selectOption('title')
     await expect(page).toHaveURL(/sort=title/)
 
     await page.getByRole('button', { name: '全部', exact: true }).click()
-    await expect(status).toHaveText('11 件作品')
-    await expect(page.locator('main article')).toHaveCount(11)
+    await expect(status).toHaveText('17 件作品')
+    await expect(page.locator('main article')).toHaveCount(17)
   })
 
   test('work page links to its English counterpart', async ({ page }) => {
@@ -116,11 +116,11 @@ test.describe('Chinese site', () => {
   test('legacy trailing-slash routes keep working', async ({ page }) => {
     const pictureBook = await page.goto('/tag/picture-book/')
     expect(pictureBook?.status()).toBe(200)
-    await expect(page.locator('main article')).toHaveCount(1)
+    await expect(page.locator('main article')).toHaveCount(3)
 
     const author = await page.goto('/author/tina/')
     expect(author?.status()).toBe(200)
-    await expect(page.locator('main article')).toHaveCount(10)
+    await expect(page.locator('main article')).toHaveCount(16)
 
     const about = await page.goto('/about/')
     expect(about?.status()).toBe(200)
@@ -192,7 +192,7 @@ test.describe('English site', () => {
     expect(response?.status()).toBe(200)
 
     await expect(page.getByRole('heading', { level: 1, name: 'Tina Kuo' })).toBeVisible()
-    await expect(page.locator('.shelf article')).toHaveCount(10)
+    await expect(page.locator('.shelf article')).toHaveCount(16)
 
     await page.getByRole('button', { name: 'Open The Secret Code Detective Club' }).click()
     const dialog = page.getByRole('dialog', { name: 'The Secret Code Detective Club' })
@@ -206,7 +206,7 @@ test.describe('English site', () => {
 
     const status = page.getByRole('status')
     const search = page.getByLabel('Search works')
-    await expect(page.locator('main article')).toHaveCount(11)
+    await expect(page.locator('main article')).toHaveCount(17)
 
     await search.fill('leopard')
     await expect(status).toHaveText('2 works')
@@ -214,8 +214,8 @@ test.describe('English site', () => {
 
     await page.getByRole('button', { name: 'Clear filters' }).click()
     await page.getByRole('button', { name: 'Picture Book', exact: true }).click()
-    await expect(status).toHaveText('1 work')
-    await expect(page.locator('main article')).toHaveCount(1)
+    await expect(status).toHaveText('3 works')
+    await expect(page.locator('main article')).toHaveCount(3)
   })
 
   test('about page renders in English', async ({ page }) => {

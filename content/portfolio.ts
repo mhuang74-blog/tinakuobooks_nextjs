@@ -23,6 +23,70 @@ export const featuredSlug = '暗號偵探社'
 
 export const portfolioWorks: PortfolioEntry[] = [
   {
+    slug: "胡阿布偵探事件簿-誰綁架了黑總統",
+    category: 'young-adult-fiction',
+    year: '2026',
+    art: { src: "/images/book-cover-胡阿布偵探事件簿.webp", width: 1000, height: 1389 },
+    reader: { zh: "小說 · 小學中年級以上", en: "Novel · Ages 10+" },
+    credit: { zh: "插畫：Salt&Finger", en: "Illustrations by Salt&Finger" },
+    tagline: {
+      zh: "紅狐狸胡阿布的第一樁大案：掌管陸地的黑猩猩總統不見了。",
+      en: "The red fox Hu Abu's first big case: the chimpanzee president who governs the land has vanished.",
+    },
+    excerpt: {
+      zh: "《丁小飛校園日記》、《機器人宅急便》人氣作家郭瀞婷 首部短篇連作小說 歡樂爆笑登場！ 友愛環境、相互扶持、動人親情 真相原來不是最終的答案，每個案件都有更揪心的抉擇！ 三次謎案任務 次次都有驚喜結局！",
+      en: "After humans abandon Earth, red fox Hu Abu inherits an eight-generation line of detectives and finally lands the case that could make his name: the chimpanzee president who governs the land has vanished. He sets out with a willow ptarmigan and an amphibious salamander investigator, flying on a vulture-piloted presidential plane into affairs that span land, sea, and sky. Three linked stories, each hiding a harder choice than the mystery itself.",
+    },
+  },
+  {
+    slug: "丁小飛校園日記5-我要成為YouTuber",
+    category: 'funny-fiction',
+    year: '2023',
+    art: { src: "/images/book-cover-丁小飛校園日記5-我要成為YouTuber.webp", width: 1000, height: 1401 },
+    reader: { zh: "校園日記 · 小學中年級以上", en: "School diary · Ages 8+" },
+    credit: { zh: "插畫：水腦", en: "Illustrations by Shui Nao" },
+    tagline: {
+      zh: "丁小飛架起鏡頭開頻道，才發現做節目比吃飯睡覺還難。",
+      en: "Ding Xiaofei sets up a camera and starts a channel, only to find a show is harder than eating or sleeping.",
+    },
+    excerpt: {
+      zh: "★★等待多年，《丁小飛校園日記》最新續集終於登場★★ 且看小小囧男丁小飛如何華麗變身為超人氣Youtuber！ \\小學生好口碑不斷，最想說服爸媽買的書！// 無厘頭功力媲美櫻桃小丸子，搞笑程度更勝《葛瑞的囧日記》， 最爆笑最勵志最有共鳴的校園生存守則！",
+      en: "When classmates start their own livestream channels, Ding Xiaofei sets up a camera too, only to find that running a show is far harder than eating or sleeping. He has to pick a channel theme, find a producer, design every episode, and deal with his older brother A-Da, who has abruptly become an \"idiom prophecy master.\" The fifth book turns a livestream beginner's fumbling into a school survival guide.",
+    },
+  },
+  {
+    slug: "機器人宅急便2-能寄勇氣嗎",
+    category: 'young-adult-fiction',
+    year: '2023',
+    art: { src: "/images/book-cover-機器人宅急便2.webp", width: 1000, height: 1373 },
+    reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
+    credit: { zh: "插畫：摸摸傑夫", en: "Illustrations by Momo Jeff" },
+    tagline: {
+      zh: "看不見也摸不到的「勇氣」，該怎麼寄給九十六歲的奶奶？",
+      en: "How do you deliver \"courage\" — invisible and intangible — to a ninety-six-year-old grandmother?",
+    },
+    excerpt: {
+      zh: "最爆笑的《丁小飛校園日記》系列暢銷作家 郭瀞婷 幽默暖心讀本 機器人宅急便系列第二彈！ 「什麼都可以寄」宅急便面臨關店危機！ 有心人士惡意陷害，讓宅急便生意岌岌可危， 一個女孩的神祕委託，可以挽救宅急便嗎？",
+      en: "After their \"we deliver anything\" courier shop becomes locally famous, Bala and Billy are ordered by a robot inspector to fix a compliance problem within three days, or the shop closes and both are shipped back to the factory. Just then a girl walks in wanting to send \"courage\" to her ninety-six-year-old grandmother. Working out how to deliver something invisible becomes their only way to keep the shop open.",
+    },
+  },
+  {
+    slug: "機器人宅急便1-什麼都可以寄",
+    category: 'young-adult-fiction',
+    year: '2022',
+    art: { src: "/images/book-cover-機器人宅急便1.webp", width: 1000, height: 1372 },
+    reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
+    credit: { zh: "插畫：摸摸傑夫", en: "Illustrations by Momo Jeff" },
+    tagline: {
+      zh: "二〇九九年，一間「什麼都可以寄」的機器人宅急便開張了。",
+      en: "In 2099, a robot courier shop that delivers anything opens for business.",
+    },
+    excerpt: {
+      zh: "最爆笑的《丁小飛校園日記》系列暢銷作家 郭瀞婷全新幽默暖心讀本 你有東西要寄嗎？ 不管是有形的物品，還是無形的期待， 「什麼都可以寄」機器人宅急便全都使命必達， 化不可能為可能，傳遞所有的心意！ ──書末附機器人宅急便手作桌上立牌──",
+      en: "In 2099 humans leave everything to robots. Courier Bala is thrown out by her boss for being too thorough and too slow, so she and the robot Billy open their own \"we deliver anything\" shop. Their first customer wants an enormous block of ice delivered to a polar bear, and the pair must beat melting, a blizzard, and some meddling seabirds to finish the job.",
+    },
+  },
+  {
     slug: '小兒子報告-沙發有黑洞',
     category: 'stage-performance',
     year: '2020',
@@ -131,9 +195,41 @@ export const portfolioWorks: PortfolioEntry[] = [
     },
   },
   {
-    slug: '丁小飛校園日記1-時光膠囊的祕密',
+    slug: '丁小飛校園日記4-聰明眼鏡',
     category: 'funny-fiction',
     year: '2017',
+    art: { src: '/images/portfolio/work-ding-4.webp', width: 284, height: 406 },
+    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
+    credit: { zh: '', en: '' },
+    tagline: {
+      zh: '一句「我也有」，滾成了愈來愈大的謊。',
+      en: 'One “me too” rolls into a lie that keeps growing.',
+    },
+    excerpt: {
+      zh: '聽到班上同學炫耀自己有一副全球限量眼鏡，丁小飛脫口而出：「我也有！」為了掩蓋自己說謊的事實，丁小飛開始瞎掰眼鏡的「不在場證明」。',
+      en: 'Because of a pair of globally limited-edition "clever glasses," Ding Xiaofei is nicknamed "Ding the Puppet" by his classmates. Everyone starts looking at Xiaofei differently — how can he escape the shadow of being a liar? The most agonizing tug-of-war in his mind — face it bravely together with Ding Xiaofei!',
+    },
+  },
+  {
+    slug: '丁小飛校園日記3-副班長爭奪戰',
+    category: 'funny-fiction',
+    year: '2014',
+    art: { src: '/images/portfolio/work-ding-3.webp', width: 289, height: 417 },
+    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
+    credit: { zh: '', en: '' },
+    tagline: {
+      zh: '副班長頭銜與好朋友，哪一個比較重要？',
+      en: 'Vice class president, or a good friend — which matters more?',
+    },
+    excerpt: {
+      zh: '據說有名的人小時候都當過「幹部」，丁小飛決心爭取副班長的職位。誰知半路殺出程咬金——好朋友何李羅不僅被提名，最後還高票當選！妒意如霧氣籠罩丁小飛。',
+      en: 'To defend his standing, Ding Xiaofei goes to war! The title of vice class president vs. a good friend — which one matters more? The most moving tug-of-war over friendship — protect what is most precious together with Ding Xiaofei!',
+    },
+  },
+  {
+    slug: '丁小飛校園日記1-時光膠囊的祕密',
+    category: 'funny-fiction',
+    year: '2013',
     art: { src: '/images/portfolio/work-ding-1.webp', width: 637, height: 900 },
     reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
     credit: { zh: '', en: '' },
@@ -149,7 +245,7 @@ export const portfolioWorks: PortfolioEntry[] = [
   {
     slug: '丁小飛校園日記2-誰是最佳小隊長',
     category: 'funny-fiction',
-    year: '2017',
+    year: '2013',
     art: { src: '/images/portfolio/work-ding-2.webp', width: 290, height: 418 },
     reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
     credit: { zh: '', en: '' },
@@ -163,35 +259,35 @@ export const portfolioWorks: PortfolioEntry[] = [
     },
   },
   {
-    slug: '丁小飛校園日記3-副班長爭奪戰',
-    category: 'funny-fiction',
-    year: '2017',
-    art: { src: '/images/portfolio/work-ding-3.webp', width: 289, height: 417 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
+    slug: "你願不願意做我最好的朋友",
+    category: 'picture-book',
+    year: '2009',
+    art: { src: "/images/book-cover-你願不願意做我最好的朋友.webp", width: 200, height: 280 },
+    reader: { zh: "繪本 · 親子共讀，學前至低年級", en: "Picture book · Read together, preschool–early grade" },
+    credit: { zh: "文·圖：郭瀞婷", en: "Written and illustrated by Tina Kuo" },
     tagline: {
-      zh: '副班長頭銜與好朋友，哪一個比較重要？',
-      en: 'Vice class president, or a good friend — which matters more?',
+      zh: "小狗舒比出發，去尋找什麼才是「真正的」好朋友。",
+      en: "A puppy named Shubi sets out to find what a \"real\" best friend is.",
     },
     excerpt: {
-      zh: '據說有名的人小時候都當過「幹部」，丁小飛決心爭取副班長的職位。誰知半路殺出程咬金——好朋友何李羅不僅被提名，最後還高票當選！妒意如霧氣籠罩丁小飛。',
-      en: 'To defend his standing, Ding Xiaofei goes to war! The title of vice class president vs. a good friend — which one matters more? The most moving tug-of-war over friendship — protect what is most precious together with Ding Xiaofei!',
+      zh: "當孩子慢慢成長，接觸群體生活之後，「朋友」將成為他們的另一個生活重心，此時父母也一定會擔心自己的孩子如何交朋友，以及是否交到了真正的好朋友。本書以樸素的繪圖風格、簡單的故事情節，藉由一隻小狗舒比尋找好朋友的過程，教導孩子何謂「真正的」好朋友。",
+      en: "A puppy named Shubi sets out to find a best friend and meets a monkey, a blue elephant, and an orange-red crab along the way. The picture book uses a simple story to ask what a \"real\" best friend is, with Chinese-English parallel text, zhuyin, and a bilingual story CD.",
     },
   },
   {
-    slug: '丁小飛校園日記4-聰明眼鏡',
-    category: 'funny-fiction',
-    year: '2017',
-    art: { src: '/images/portfolio/work-ding-4.webp', width: 284, height: 406 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
+    slug: "天使工廠",
+    category: 'picture-book',
+    year: '2009',
+    art: { src: "/images/book-cover-天使工廠.webp", width: 424, height: 580 },
+    reader: { zh: "繪本 · 親子共讀，學前至低年級", en: "Picture book · Read together, preschool–early grade" },
+    credit: { zh: "文·圖：郭瀞婷", en: "Written and illustrated by Tina Kuo" },
     tagline: {
-      zh: '一句「我也有」，滾成了愈來愈大的謊。',
-      en: 'One “me too” rolls into a lie that keeps growing.',
+      zh: "烏龜諾門什麼都不快樂，直到天使工廠寄來一封信。",
+      en: "A turtle named Nomen is unhappy with everything — until a letter from the Angel Factory arrives.",
     },
     excerpt: {
-      zh: '聽到班上同學炫耀自己有一副全球限量眼鏡，丁小飛脫口而出：「我也有！」為了掩蓋自己說謊的事實，丁小飛開始瞎掰眼鏡的「不在場證明」。',
-      en: 'Because of a pair of globally limited-edition "clever glasses," Ding Xiaofei is nicknamed "Ding the Puppet" by his classmates. Everyone starts looking at Xiaofei differently — how can he escape the shadow of being a liar? The most agonizing tug-of-war in his mind — face it bravely together with Ding Xiaofei!',
+      zh: "在地球的另一端，有一個烏龜的世界。那裡的烏龜們都很快樂，不過......烏龜諾門除外！",
+      en: "On the other side of the world is a world of turtles, where a turtle named Nomen is unhappy at work, on the walk, and at meals. Then a letter from the \"Angel Factory\" arrives and things begin to change. A picture book about imagination and kindness, with English text alongside the Chinese.",
     },
   },
 ]
@@ -347,7 +443,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十部作品，四種讀法', en: 'Ten works, four ways to read' },
+      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
       lead: {
         zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
         en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
@@ -357,8 +453,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       countFiltered: (visible, total) => `顯示 ${visible} 部，共 ${total} 部`,
       emptyTitle: { zh: '這個分類下還沒有作品。', en: 'No works in this category yet.' },
       emptyBody: {
-        zh: '試試看其他分類，或按「重置篩選」看全部十部作品。',
-        en: 'Try another category, or reset to see all ten works.',
+        zh: '試試看其他分類，或按「重置篩選」看全部十六部作品。',
+        en: 'Try another category, or reset to see all sixteen works.',
       },
       emptyCta: { zh: '看全部作品', en: 'See all works' },
       cardCta: { zh: '看這部作品', en: 'View this work' },
@@ -403,8 +499,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
             },
           ],
           books: {
-            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共四冊。',
-            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — four books in the series.",
+            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共五冊。',
+            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — five books in the series.",
           },
         },
         {
@@ -711,7 +807,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十部作品，四種讀法', en: 'Ten works, four ways to read' },
+      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
       lead: {
         zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
         en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
@@ -721,8 +817,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       countFiltered: (visible, total) => `Showing ${visible} of ${total} works`,
       emptyTitle: { zh: '這個分類下還沒有作品。', en: 'No works in this category yet.' },
       emptyBody: {
-        zh: '試試看其他分類，或按「重置篩選」看全部十部作品。',
-        en: 'Try another category, or reset to see all ten works.',
+        zh: '試試看其他分類，或按「重置篩選」看全部十六部作品。',
+        en: 'Try another category, or reset to see all sixteen works.',
       },
       emptyCta: { zh: '看全部作品', en: 'See all works' },
       cardCta: { zh: '看這部作品', en: 'View this work' },
@@ -767,8 +863,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
             },
           ],
           books: {
-            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共四冊。',
-            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — four books in the series.",
+            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共五冊。',
+            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — five books in the series.",
           },
         },
         {
