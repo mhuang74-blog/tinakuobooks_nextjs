@@ -1,3 +1,5 @@
+import type { Localized } from '@/lib/i18n'
+
 export const SITE_URL = 'https://www.tinakuobooks.com'
 export const SITE_TITLE_ZH = '郭瀞婷 Tina Kuo'
 export const SITE_TITLE_EN = 'Tina Kuo'
@@ -18,8 +20,10 @@ export const SITE_KEYWORDS = [
 export const GA_ID = 'G-T01JGM3EKW'
 export const ADSENSE_CLIENT = 'ca-pub-6071616698328487'
 export const FACEBOOK_URL = 'https://facebook.com/tinachingting'
-export const SOURCE_URL = 'https://github.com/mhuang74-blog/tinakuobooks_nextjs'
-export const MICHAEL_HUANG_URL = 'https://michaelhuang.xyz'
+export const MICHAEL_HUANG_URLS: Localized<string> = {
+  zh: 'https://michaelhuang.xyz/zh-tw',
+  en: 'https://michaelhuang.xyz',
+}
 
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString()

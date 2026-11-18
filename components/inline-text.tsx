@@ -50,8 +50,9 @@ export function InlineText({ parts, locale }: Props) {
           )
         }
 
+        const href = typeof part.href === 'string' ? part.href : part.href[locale]
         return (
-          <a key={key} href={part.href} rel="noopener">
+          <a key={key} href={href} rel="noopener">
             {part.label}
           </a>
         )
