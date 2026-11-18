@@ -6,6 +6,7 @@ import { homeCopy } from '@/content/portfolio'
 import { formatWorkLanguages, ui, type Locale } from '@/lib/i18n'
 import type { ShelfEntry } from '@/lib/portfolio'
 import { assetUrl } from '@/lib/site'
+import { term } from '@/lib/work-facts'
 
 type Props = {
   entry: ShelfEntry | null
@@ -21,6 +22,7 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const jumpToContact = useRef(false)
   const copy = homeCopy[locale].works
+  const strings = ui[locale]
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -56,9 +58,11 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
 
   const facts = entry
     ? [
-        [copy.dialog.category[locale], entry.categoryName],
+        [strings.typeKind, entry.reader],
         [copy.dialog.published[locale], entry.year],
-        [copy.dialog.reader[locale], entry.reader],
+        [copy.dialog.category[locale], entry.categoryName],
+        [strings.publisher, entry.facts.publisher],
+        [strings.availability, term('status', entry.facts.status, locale)],
         [copy.dialog.language[locale], formatWorkLanguages(entry.languages, locale)],
       ]
     : []
@@ -79,7 +83,7 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
           ref={closeRef}
           type="button"
           className="dialog-close"
-          aria-label={ui[locale].close}
+          aria-label={strings.close}
           onClick={() => dialogRef.current?.close()}
         >
           <CloseIcon className="od-icon" style={iconStyle} />
@@ -118,12 +122,6 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
                   </div>
                 ))}
               </dl>
-
-              <blockquote className="excerpt">
-                <p>{entry.excerpt}</p>
-              </blockquote>
-
-              {entry.credit ? <p className="dialog-credit">{entry.credit}</p> : null}
 
               <p className="dialog-note">
                 {copy.dialog.note[locale]}{' '}

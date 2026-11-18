@@ -57,7 +57,7 @@ test.describe('Chinese home', () => {
 
     const dialog = page.getByRole('dialog', { name: '《57號小豹》' })
     await expect(dialog).toBeVisible()
-    await expect(dialog.locator('.fact-list dd')).toHaveCount(4)
+    await expect(dialog.locator('.fact-list dd')).toHaveCount(6)
     await expect(dialog.locator('.fact-list')).toContainText('繪本')
 
     await page.keyboard.press('Escape')
@@ -418,6 +418,26 @@ test.describe('English site', () => {
     expect(response?.status()).toBe(200)
     await expect(page.getByRole('heading', { level: 1, name: 'About' })).toBeVisible()
   })
+})
+
+test('work facts, discussion and credits render in both locales', async ({ page }) => {
+  await page.goto('/動物星球偵探事件簿')
+
+  const facts = page.locator('.fact-list-wide')
+  await expect(facts.getByText('ISBN', { exact: true })).toBeVisible()
+  await expect(facts.getByText('9789578544161', { exact: true })).toBeVisible()
+  await expect(facts.getByText('九子', { exact: true })).toBeVisible()
+  await expect(page.locator('.work-questions li')).toHaveCount(2)
+
+  const structuredData = (await page.locator('script[type="application/ld+json"]').allTextContents())
+    .map((source) => JSON.parse(source))
+    .find((item) => item['@type'] === 'CreativeWork')
+  expect(structuredData.author).toHaveLength(6)
+  expect(structuredData.illustrator.name).toBe('九子')
+
+  await page.goto('/en/works/animal-planet-detective-files')
+  await expect(page.getByRole('heading', { name: 'For parents & teachers' })).toBeVisible()
+  await expect(page.locator('.work-questions li')).toHaveCount(2)
 })
 
 test.describe('Feeds and sitemap', () => {

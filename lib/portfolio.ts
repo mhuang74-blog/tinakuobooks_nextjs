@@ -7,6 +7,7 @@ import {
   type PortfolioCategory,
 } from '@/content/portfolio'
 import type { Locale, WorkLanguage } from '@/lib/i18n'
+import { term, type WorkFacts } from '@/lib/work-facts'
 import { getWorkBySlug } from '@/lib/works'
 
 export type ShelfEntry = {
@@ -20,8 +21,7 @@ export type ShelfEntry = {
   tagline: string
   description: string
   reader: string
-  credit: string
-  excerpt: string
+  facts: WorkFacts
   enTitle: string
   languages: WorkLanguage[]
 }
@@ -51,9 +51,8 @@ export function toShelfEntry(slug: string, locale: Locale): ShelfEntry | null {
     art: entry.art,
     tagline: entry.tagline[locale],
     description: work.description[locale],
-    reader: entry.reader[locale],
-    credit: entry.credit[locale],
-    excerpt: entry.excerpt[locale],
+    facts: work.facts,
+    reader: `${term('kind', work.facts.kind, locale)} · ${term('ageBand', work.facts.ageBand, locale)}`,
     enTitle: work.title.en,
     languages: work.languages,
   }
