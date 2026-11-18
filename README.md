@@ -113,6 +113,66 @@ deployed by the Vercel Git integration from
 ([`mhuang74-blog/tinakuobooks`](https://github.com/mhuang74-blog/tinakuobooks))
 is archived read-only and no longer serves the domain.
 
+### Inquiry email
+
+The home-page inquiry form posts to `app/api/inquiry/route.ts`, which sends one
+plain-text message through [Resend](https://resend.com) to
+`tina@tinakuobooks.com` with the visitor's address in `Reply-To`. The route
+never echoes visitor HTML and `to`/`from` are fixed, so it is not an open relay.
+
+Set these variables on the Vercel project for Production and Preview:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | yes | Resend API key. Without it the route answers `503 not_configured`. |
+| `TURNSTILE_SECRET_KEY` | yes | Cloudflare Turnstile secret, checked with Siteverify before every send. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | yes | Turnstile site key, read at build time. Without it the widget is not rendered. |
+| `INQUIRY_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo Website <website@send.tinakuobooks.com>`. |
+
+`send.tinakuobooks.com` is the Resend sending subdomain; verify it there and add
+the records Resend prints. The root `tinakuobooks.com` SPF record is untouched.
+
+### DNS and bot protection
+
+The zone is on Cloudflare (nameservers moved from Namecheap) and proxied to
+Vercel, because a Cloudflare rate limiting rule only sees proxied traffic.
+Migration order:
+
+1. Add the zone and import the records **DNS only** — Cloudflare's scan flips
+   A/AAAA/CNAME to proxied by default, which would proxy a hostname Vercel has
+   not yet re-validated.
+2. Switch the nameservers at Namecheap. DNS-only answers still resolve straight
+   to Vercel, so the site keeps serving on Vercel's own certificate.
+3. Wait until Vercel → Settings → Domains shows a valid configuration and an
+   issued certificate for `tinakuobooks.com` and `www.tinakuobooks.com`.
+4. Set SSL/TLS mode to **Full (strict)** first, then flip both hostnames to
+   **proxied** and confirm `cf-ray` in the response headers.
+5. Add a Configuration Rule that bypasses cache for URI path starting with
+   `/.well-known/` and never put a redirect or WAF rule on that path.
+
+- `tinakuobooks.com` `A` → `216.198.79.1` and `64.29.17.1`; `www` `CNAME` →
+  `c2a15262f57dfef7.vercel-dns-017.com`; both **proxied**. SSL/TLS mode must be
+  **Full (strict)** — Flexible loops against Vercel's HTTPS redirect.
+- Namecheap email forwarding `MX` (`eforward1`–`eforward5.registrar-servers.com`),
+  the SPF `TXT` record, the Google site-verification `TXT`, and the Resend
+  records for `send.` stay **DNS only**.
+- Free-plan rate limiting (one rule): path `/api/inquiry`, 10 requests per
+  10 seconds per IP, Block with status `429`. Cloudflare Free fixes the counting
+  and mitigation periods at 10 seconds and counts by IP only.
+- Never cache or block `/.well-known/*`: Vercel answers ACME challenges and
+  domain verification there, and a stale cached response blocks certificate
+  renewal on a live domain. Cloudflare cannot unproxy a single path — proxying is
+  per hostname — so the bypass rule is the only lever. Keep HTML out of the CDN
+  too: a cache entry that outlives a deploy pairs old HTML with asset paths the
+  new deployment no longer serves.
+- The route additionally keeps its own 5-per-10-minutes-per-IP limiter, which is
+  per serverless instance.
+
+Proxying adds a CDN hop that Vercel does not recommend, and Vercel's Bot
+Protection ruleset does not work behind a reverse proxy
+([Vercel](https://vercel.com/docs/security/reverse-proxy)); Turnstile covers the
+form instead.
+
 ## Licence
 
 Site content is licensed under CC-BY-4.0 with attribution; `LICENSE` holds the

@@ -8,6 +8,13 @@ import {
   type SyntheticEvent,
 } from 'react'
 import { homeCopy } from '@/content/portfolio'
+import {
+  INQUIRY_EMAIL_PATTERN,
+  INQUIRY_ENDPOINT,
+  INQUIRY_LIMITS,
+  type InquiryPayload,
+} from '@/lib/inquiry'
+import { Turnstile } from '@/components/turnstile'
 import type { Locale } from '@/lib/i18n'
 
 type FieldKey = 'name' | 'topic' | 'email' | 'message'
@@ -18,6 +25,21 @@ type Props = {
 
 const ICON_STYLE = { '--od-icon-size': '28px' } as CSSProperties
 
+// Turnstile can still be solving when the letter is ready, so give the widget
+// 30 × 100 ms before blaming the visitor for skipping the check.
+const TOKEN_WAIT_STEPS = 30
+
+async function awaitToken(read: () => string): Promise<string> {
+  for (let step = 0; step < TOKEN_WAIT_STEPS; step += 1) {
+    // Next's browser baseline includes Safari 16.4, which has no
+    // Promise.withResolvers, and built-ins are not polyfilled.
+    await new Promise<void>((resolve) => window.setTimeout(resolve, 100))
+    const token = read()
+    if (token) return token
+  }
+  return ''
+}
+
 const FIELD_ORDER: FieldKey[] = ['name', 'topic', 'email', 'message']
 
 const FIELD_IDS: Record<FieldKey, string> = {
@@ -27,8 +49,6 @@ const FIELD_IDS: Record<FieldKey, string> = {
   message: 'f-message',
 }
 
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-
 export function InquiryForm({ locale }: Props) {
   const strings = homeCopy[locale].contact.form
   const [errors, setErrors] = useState<Partial<Record<FieldKey, string>>>({})
@@ -36,13 +56,19 @@ export function InquiryForm({ locale }: Props) {
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState<{ who: string; topic: string } | null>(null)
   const [resetCount, setResetCount] = useState(0)
+  const [sendError, setSendError] = useState<string | null>(null)
+  const [captchaReset, setCaptchaReset] = useState(0)
 
   const formRef = useRef<HTMLFormElement>(null)
   const nameRef = useRef<HTMLInputElement>(null)
   const topicRef = useRef<HTMLSelectElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
+  const orgRef = useRef<HTMLInputElement>(null)
   const messageRef = useRef<HTMLTextAreaElement>(null)
+  const websiteRef = useRef<HTMLInputElement>(null)
   const successTitleRef = useRef<HTMLHeadingElement>(null)
+
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''
 
   const refs = {
     name: nameRef,
@@ -66,10 +92,21 @@ export function InquiryForm({ locale }: Props) {
   }
 
   const tests: Record<FieldKey, (value: string) => boolean> = {
-    name: (value) => value.trim().length > 0,
+    name: (value) => {
+      const trimmed = value.trim()
+      return trimmed.length > 0 && trimmed.length <= INQUIRY_LIMITS.name
+    },
     topic: (value) => value !== '',
-    email: (value) => EMAIL.test(value.trim()),
-    message: (value) => value.trim().length >= 10,
+    email: (value) => {
+      const trimmed = value.trim()
+      return (
+        INQUIRY_EMAIL_PATTERN.test(trimmed) && trimmed.length <= INQUIRY_LIMITS.email
+      )
+    },
+    message: (value) => {
+      const trimmed = value.trim()
+      return trimmed.length >= 10 && trimmed.length <= INQUIRY_LIMITS.message
+    },
   }
 
   function readField(key: FieldKey): string {
@@ -102,8 +139,14 @@ export function InquiryForm({ locale }: Props) {
     if (resetCount > 0) nameRef.current?.focus()
   }, [resetCount])
 
-  function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
+  function readToken(): string {
+    const element = formRef.current?.elements.namedItem('turnstileToken')
+    return element instanceof HTMLInputElement ? element.value : ''
+  }
+
+  async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault()
+    if (sending) return
 
     const invalid = FIELD_ORDER.filter((key) => !validate(key))
     if (invalid.length > 0) {
@@ -113,26 +156,68 @@ export function InquiryForm({ locale }: Props) {
     }
 
     setSummary([])
+    setSendError(null)
     setSending(true)
     formRef.current?.setAttribute('aria-busy', 'true')
 
-    window.setTimeout(() => {
-      const topicValue = readField('topic')
-      const topicLabel =
-        strings.topics.find((topic) => topic.value === topicValue)?.label[locale] ??
-        (locale === 'zh' ? '來信' : 'your note')
-      const who = readField('name').trim() || (locale === 'zh' ? '你' : 'You')
-
+    const turnstileToken = readToken() || (turnstileSiteKey ? await awaitToken(readToken) : '')
+    if (turnstileSiteKey && !turnstileToken) {
       formRef.current?.removeAttribute('aria-busy')
       setSending(false)
+      setSendError(strings.errors.captcha[locale])
+      return
+    }
+
+    const payload: InquiryPayload = {
+      name: readField('name').trim(),
+      org: orgRef.current?.value.trim() ?? '',
+      topic: readField('topic'),
+      email: readField('email').trim(),
+      message: readField('message').trim(),
+      website: websiteRef.current?.value ?? '',
+      turnstileToken,
+      locale,
+    }
+
+    const fail = (message: string) => {
+      setSendError(message)
+      setCaptchaReset((count) => count + 1)
+    }
+
+    try {
+      const response = await fetch(INQUIRY_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      const result = (await response.json().catch(() => null)) as { error?: string } | null
+      if (!response.ok) {
+        fail(
+          result?.error === 'captcha_failed'
+            ? strings.errors.captcha[locale]
+            : strings.errors.send[locale],
+        )
+        return
+      }
+
+      const topicLabel =
+        strings.topics.find((topic) => topic.value === payload.topic)?.label[locale] ??
+        (locale === 'zh' ? '來信' : 'your note')
+      const who = payload.name || (locale === 'zh' ? '你' : 'You')
       setSent({ who, topic: topicLabel })
-    }, 900)
+    } catch {
+      fail(strings.errors.send[locale])
+    } finally {
+      formRef.current?.removeAttribute('aria-busy')
+      setSending(false)
+    }
   }
 
   function handleAgain() {
     formRef.current?.reset()
     setErrors({})
     setSummary([])
+    setSendError(null)
     setSent(null)
     setResetCount((count) => count + 1)
   }
@@ -141,7 +226,7 @@ export function InquiryForm({ locale }: Props) {
 
   const textField = (key: 'name' | 'org' | 'email') => {
     const id = key === 'org' ? 'f-org' : FIELD_IDS[key as FieldKey]
-    const ref = key === 'name' ? nameRef : key === 'org' ? undefined : emailRef
+    const ref = key === 'name' ? nameRef : key === 'org' ? orgRef : emailRef
     const placeholder =
       key === 'name'
         ? strings.namePlaceholder[locale]
@@ -151,6 +236,12 @@ export function InquiryForm({ locale }: Props) {
     const label = key === 'name' ? strings.name[locale] : key === 'org' ? strings.org[locale] : strings.email[locale]
     const error = key === 'org' ? undefined : errors[key as FieldKey]
     const required = key !== 'org'
+    const maxLength =
+      key === 'name'
+        ? INQUIRY_LIMITS.name
+        : key === 'org'
+          ? INQUIRY_LIMITS.org
+          : INQUIRY_LIMITS.email
 
     return (
       <div
@@ -171,6 +262,7 @@ export function InquiryForm({ locale }: Props) {
           id={id}
           name={key}
           type={key === 'email' ? 'email' : 'text'}
+          maxLength={maxLength}
           autoComplete={key === 'name' ? 'name' : key === 'org' ? 'organization' : 'email'}
           inputMode={key === 'email' ? 'email' : undefined}
           placeholder={placeholder}
@@ -224,6 +316,17 @@ export function InquiryForm({ locale }: Props) {
 
       {sent ? null : (
         <form ref={formRef} id="inquiry-form" noValidate onSubmit={handleSubmit}>
+          <div aria-hidden="true" className="absolute -left-[5000px] h-0 w-0 overflow-hidden">
+            <input
+              ref={websiteRef}
+              type="text"
+              name="website"
+              tabIndex={-1}
+              defaultValue=""
+              autoComplete="off"
+            />
+          </div>
+
           {textField('name')}
           {textField('org')}
 
@@ -276,6 +379,7 @@ export function InquiryForm({ locale }: Props) {
               id="f-message"
               name="message"
               rows={5}
+              maxLength={INQUIRY_LIMITS.message}
               placeholder={strings.messagePlaceholder[locale]}
               aria-describedby="f-message-error"
               aria-invalid={errors.message ? 'true' : undefined}
@@ -289,6 +393,12 @@ export function InquiryForm({ locale }: Props) {
             </p>
           </div>
 
+          {turnstileSiteKey ? (
+            <div className="turnstile-field">
+              <Turnstile key={captchaReset} siteKey={turnstileSiteKey} locale={locale} />
+            </div>
+          ) : null}
+
           <div className="form-actions">
             <button
               className="btn btn-primary"
@@ -298,6 +408,11 @@ export function InquiryForm({ locale }: Props) {
             >
               {sending ? strings.sending[locale] : strings.submit[locale]}
             </button>
+            {sendError ? (
+              <p className="form-error" role="alert">
+                {sendError}
+              </p>
+            ) : null}
             <p className="form-note">{strings.note[locale]}</p>
           </div>
         </form>

@@ -112,7 +112,7 @@ export const portfolioWorks: PortfolioEntry[] = [
     slug: '57號小豹',
     category: 'picture-book',
     year: '2020',
-    art: { src: '/images/portfolio/work-57-leopard.webp', width: 900, height: 600 },
+    art: { src: '/images/book-cover-57號小豹-portrait.webp', width: 1000, height: 1400 },
     reader: {
       zh: '繪本 · 親子共讀，4 歲以上',
       en: 'Picture book · Read together, ages 4+',
@@ -182,7 +182,7 @@ export const portfolioWorks: PortfolioEntry[] = [
     slug: '暗號偵探社',
     category: 'young-adult-fiction',
     year: '2018',
-    art: { src: '/images/portfolio/work-secret-code.webp', width: 900, height: 729 },
+    art: { src: '/images/book-cover-暗號偵探社.webp', width: 1400, height: 1811 },
     reader: { zh: '長篇小說 · 國中以上', en: 'Novel · Ages 12+' },
     credit: { zh: '', en: '' },
     tagline: {
@@ -390,7 +390,7 @@ export type HomeCopy = {
       messagePlaceholder: Copy
       namePlaceholder: Copy
       topics: { value: string; label: Copy }[]
-      errors: { name: Copy; topic: Copy; email: Copy; message: Copy }
+      errors: { name: Copy; topic: Copy; email: Copy; message: Copy; send: Copy; captcha: Copy }
       summaryTitle: Copy
       submit: Copy
       sending: Copy
@@ -741,17 +741,25 @@ export const homeCopy: Record<Locale, HomeCopy> = {
             zh: '請至少寫 10 個字，說一下時間、地點或你讀到的那一頁。',
             en: 'Write at least 10 characters: dates, a location, or the page you read.',
           },
+          send: {
+            zh: '信沒有送出，請稍後再試一次。',
+            en: 'Your letter did not send. Please try again in a little while.',
+          },
+          captcha: {
+            zh: '請先完成「我不是機器人」驗證，再送出一次。',
+            en: 'Please complete the “I am human” check, then send again.',
+          },
         },
         summaryTitle: { zh: '還有幾處需要補充：', en: 'A few things still need filling in:' },
         submit: { zh: '送出這封信', en: 'Send the letter' },
         sending: { zh: '正在送出…', en: 'Sending…' },
         note: {
-          zh: '這是一份示範表單，內容不會真的寄出。',
-          en: 'This is a demo form; nothing is actually sent.',
+          zh: '送出後會直接寄到作者信箱。',
+          en: "Sends straight to the author's inbox.",
         },
-        successTitle: { zh: '信已經放在桌上了', en: 'The letter is on the desk' },
+        successTitle: { zh: '信已經寄出了', en: 'The letter is on its way' },
         successBody: (who, topic) =>
-          `${who}，你的「${topic}」已經記在這張桌子上了。這是一份示範表單，內容沒有真的寄出；接上真實信箱後，作者會在 3 個工作日內回覆你。`,
+          `${who}，你的「${topic}」已經寄出，作者會在 3 個工作日內回覆你。`,
         again: { zh: '再寫一封', en: 'Write another' },
       },
     },
@@ -1102,17 +1110,25 @@ export const homeCopy: Record<Locale, HomeCopy> = {
             zh: '請至少寫 10 個字，說一下時間、地點或你讀到的那一頁。',
             en: 'Write at least 10 characters: dates, a location, or the page you read.',
           },
+          send: {
+            zh: '信沒有送出，請稍後再試一次。',
+            en: 'Your letter did not send. Please try again in a little while.',
+          },
+          captcha: {
+            zh: '請先完成「我不是機器人」驗證，再送出一次。',
+            en: 'Please complete the “I am human” check, then send again.',
+          },
         },
         summaryTitle: { zh: '還有幾處需要補充：', en: 'A few things still need filling in:' },
         submit: { zh: '送出這封信', en: 'Send the letter' },
         sending: { zh: '正在送出…', en: 'Sending…' },
         note: {
-          zh: '這是一份示範表單，內容不會真的寄出。',
-          en: 'This is a demo form; nothing is actually sent.',
+          zh: '送出後會直接寄到作者信箱。',
+          en: "Sends straight to the author's inbox.",
         },
-        successTitle: { zh: '信已經放在桌上了', en: 'The letter is on the desk' },
+        successTitle: { zh: '信已經寄出了', en: 'The letter is on its way' },
         successBody: (who, topic) =>
-          `${who}, your “${topic}” note is now on this desk. This is a demo form — nothing was actually sent; once a real inbox is connected, the author will reply within 3 working days.`,
+          `${who}, your “${topic}” note is on its way. The author will reply within 3 working days.`,
         again: { zh: '再寫一封', en: 'Write another' },
       },
     },
