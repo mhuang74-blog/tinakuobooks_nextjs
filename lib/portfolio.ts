@@ -6,7 +6,7 @@ import {
   type PortfolioArt,
   type PortfolioCategory,
 } from '@/content/portfolio'
-import type { Locale } from '@/lib/i18n'
+import type { Locale, WorkLanguage } from '@/lib/i18n'
 import { getWorkBySlug } from '@/lib/works'
 
 export type ShelfEntry = {
@@ -23,7 +23,7 @@ export type ShelfEntry = {
   credit: string
   excerpt: string
   enTitle: string
-  hasEnglish: boolean
+  languages: WorkLanguage[]
 }
 
 /**
@@ -55,7 +55,7 @@ export function toShelfEntry(slug: string, locale: Locale): ShelfEntry | null {
     credit: entry.credit[locale],
     excerpt: entry.excerpt[locale],
     enTitle: work.title.en,
-    hasEnglish: work.slugEn !== '',
+    languages: work.languages,
   }
 }
 

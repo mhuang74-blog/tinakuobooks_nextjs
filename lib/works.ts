@@ -3,7 +3,14 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import { collections, getCollection, type CollectionId } from '@/content/collections'
 import { authors, getAuthor, type AuthorId } from '@/content/authors'
-import { estimateReadingMinutes, type Locale, type Localized } from '@/lib/i18n'
+import { seriesYearOrder } from '@/lib/work-order'
+import {
+  estimateReadingMinutes,
+  isWorkLanguage,
+  type Locale,
+  type Localized,
+  type WorkLanguage,
+} from '@/lib/i18n'
 
 export type { Locale, Localized }
 
@@ -13,6 +20,7 @@ export type Work = {
   date: string
   authorId: AuthorId
   collectionId: CollectionId
+  languages: WorkLanguage[]
   cover: string
   title: Localized<string>
   description: Localized<string>
@@ -30,6 +38,7 @@ type ZhFrontMatter = {
   date: string
   author: AuthorId
   collection: CollectionId
+  languages?: unknown
   cover: string
 }
 
@@ -59,6 +68,11 @@ function loadWorks(): Work[] {
     const slug = file.replace(MARKDOWN, '')
     const zhParsed = matter(fs.readFileSync(path.join(zhDir, file), 'utf8'))
     const zh = zhParsed.data as ZhFrontMatter
+    const languages = Array.isArray(zh.languages)
+      ? zh.languages.filter(
+          (code): code is WorkLanguage => typeof code === 'string' && isWorkLanguage(code),
+        )
+      : []
     const zhBody = zhParsed.content.trim()
 
     const enPath = enBySlug.get(slug)
@@ -79,6 +93,8 @@ function loadWorks(): Work[] {
       date: String(zh.date),
       authorId: zh.author,
       collectionId: zh.collection,
+      // Every Work has a Chinese canonical edition; validation rejects missing or unknown codes.
+      languages: languages.length > 0 ? languages : ['zh-Hant'],
       cover: String(zh.cover),
       title: {
         zh: String(zh.title),
@@ -98,7 +114,13 @@ function loadWorks(): Work[] {
   }
 
   return works.sort(
-    (a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug, 'zh-Hant'),
+    (a, b) =>
+      seriesYearOrder(
+        { date: a.date, title: a.title.zh },
+        { date: b.date, title: b.title.zh },
+      ) ||
+      b.date.localeCompare(a.date) ||
+      a.slug.localeCompare(b.slug, 'zh-Hant'),
   )
 }
 

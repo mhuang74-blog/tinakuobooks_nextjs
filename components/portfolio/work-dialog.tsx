@@ -3,7 +3,7 @@
 import { useEffect, useRef, type CSSProperties } from 'react'
 import { CloseIcon } from '@/components/icons'
 import { homeCopy } from '@/content/portfolio'
-import { ui, type Locale } from '@/lib/i18n'
+import { formatWorkLanguages, ui, type Locale } from '@/lib/i18n'
 import type { ShelfEntry } from '@/lib/portfolio'
 import { assetUrl } from '@/lib/site'
 
@@ -59,10 +59,7 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
         [copy.dialog.category[locale], entry.categoryName],
         [copy.dialog.published[locale], entry.year],
         [copy.dialog.reader[locale], entry.reader],
-        [
-          copy.dialog.english[locale],
-          entry.hasEnglish ? copy.dialog.available[locale] : copy.dialog.unavailable[locale],
-        ],
+        [copy.dialog.language[locale], formatWorkLanguages(entry.languages, locale)],
       ]
     : []
 

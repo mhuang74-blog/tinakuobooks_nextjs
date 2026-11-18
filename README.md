@@ -33,7 +33,7 @@ All content lives in the repository; there is no CMS.
 
 ```
 content/
-  works/zh/<legacy-slug>.md   canonical work: title, description, date, author, collection, cover
+  works/zh/<legacy-slug>.md   canonical work: title, description, date, author, collection, cover, languages
   works/en/<legacy-slug>.md   optional English translation: title, description, slug, body
   collections.ts              the five collections (names, descriptions, covers, accents)
   authors.ts                  author profiles
@@ -46,6 +46,10 @@ content/
   of `content/works/zh/57號小豹.md`.
 - `date` is always a quoted `YYYY-MM-DD` string. It is interpreted in
   `Asia/Taipei` so server and client render the same date.
+- `languages` lists the languages in which the Work was published: `zh-Hant`,
+  `zh-Hans`, or `en`. The canonical edition is Chinese; add `zh-Hans` for
+  simplified-Chinese editions and `en` for bilingual books.
+  `scripts/validate-content.ts` fails on missing, unknown, or duplicate codes.
 - The Chinese filename is the legacy public URL (`/<slug>`); never rename it
   without adding a redirect at the hosting layer.
 - `featuredSlug` in `content/portfolio.ts` chooses the homepage hero and dialog
