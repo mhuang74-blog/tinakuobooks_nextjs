@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import { InlineText } from '@/components/inline-text'
 import { JsonLd } from '@/components/json-ld'
 import { FeaturedWork } from '@/components/portfolio/featured-work'
 import { HomeDialogProvider } from '@/components/portfolio/home-dialog-provider'
 import { HomeShelf } from '@/components/portfolio/home-shelf'
+import { ReadingSection } from '@/components/portfolio/reading-section'
 import { InquiryForm } from '@/components/portfolio/inquiry-form'
 import { coloringBook, homeCopy } from '@/content/portfolio'
 import { getFeaturedEntry, getShelfEntries } from '@/lib/portfolio'
@@ -102,31 +104,7 @@ export default function EnHomePage() {
         </div>
       </section>
 
-      <section className="section section-tint" id="reading">
-        <div className="wrap">
-          <header className="section-head">
-            <p className="eyebrow">{copy.reading.eyebrow[locale]}</p>
-            <h2 className="section-title">{copy.reading.title[locale]}</h2>
-            <p className="section-lead">{copy.reading.lead[locale]}</p>
-          </header>
-
-          <div className="reading-grid">
-            {copy.reading.cards.map((card) => (
-              <article className="read-card" data-reveal key={card.title.zh}>
-                <p className="read-age">{card.age[locale]}</p>
-                <h3>{card.title[locale]}</h3>
-                <p>{card.body[locale]}</p>
-                <ul className="prompts">
-                  {card.prompts.map((prompt) => (
-                    <li key={prompt.zh}>{prompt[locale]}</li>
-                  ))}
-                </ul>
-                <p className="read-books">{card.books[locale]}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <ReadingSection locale={locale} />
 
       <section className="section" id="about">
         <div className="wrap about-grid">
@@ -147,9 +125,9 @@ export default function EnHomePage() {
               </figure>
               <div className="bio-text">
                 <h3 className="bio-name">{copy.about.name[locale]}</h3>
-                {copy.about.paragraphs.map((paragraph) => (
-                  <p className="about-para" key={paragraph.zh}>
-                    {paragraph[locale]}
+                {copy.about.paragraphs.map((paragraph, index) => (
+                  <p className="about-para" key={index}>
+                    <InlineText parts={paragraph[locale]} locale={locale} />
                   </p>
                 ))}
               </div>
@@ -243,10 +221,12 @@ export default function EnHomePage() {
                     <span className="contact-label">{row.label[locale]}</span>
                     {row.href ? (
                       <a href={row.href} rel="noopener">
-                        {row.value[locale]}
+                        <InlineText parts={row.value[locale]} locale={locale} />
                       </a>
                     ) : (
-                      <span>{row.value[locale]}</span>
+                      <span>
+                        <InlineText parts={row.value[locale]} locale={locale} />
+                      </span>
                     )}
                   </li>
                 ))}

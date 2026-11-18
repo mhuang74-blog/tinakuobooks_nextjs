@@ -597,6 +597,16 @@ a { color: inherit; }
   line-height: 1.65;
   color: var(--ink-3);
 }
+.read-card a,
+.about-para a,
+.page-lead a,
+.page-meta a,
+.foot-legal a { color: var(--seal); text-underline-offset: 3px; }
+.read-card a:hover,
+.about-para a:hover,
+.page-lead a:hover,
+.page-meta a:hover,
+.foot-legal a:hover { color: var(--seal-hover); }
 
 /* ---------- about ---------- */
 .about-grid {

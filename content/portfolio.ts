@@ -1,4 +1,6 @@
+import type { InlinePart } from '@/lib/inline'
 import type { Locale, Localized } from '@/lib/i18n'
+import { MICHAEL_HUANG_URL } from '@/lib/site'
 
 export type PortfolioCategory =
   | 'picture-book'
@@ -345,7 +347,7 @@ export type HomeCopy = {
     eyebrow: Copy
     title: Copy
     lead: Copy
-    cards: { age: Copy; title: Copy; body: Copy; prompts: Copy[]; books: Copy }[]
+    cards: { age: Copy; title: Copy; body: Localized<InlinePart[]>; prompts: Copy[]; books: Localized<InlinePart[]> }[]
   }
   about: {
     eyebrow: Copy
@@ -353,7 +355,7 @@ export type HomeCopy = {
     source: Copy
     caption: Copy
     name: Copy
-    paragraphs: Copy[]
+    paragraphs: Localized<InlinePart[]>[]
     timelineTitle: Copy
     timeline: { year: string; text: Copy }[]
   }
@@ -369,7 +371,7 @@ export type HomeCopy = {
     title: Copy
     lead: Copy
     reachTitle: Copy
-    rows: { label: Copy; value: Copy; href?: string }[]
+    rows: { label: Copy; value: Localized<InlinePart[]>; href?: string }[]
     licenceTitle: Copy
     licence: Copy
     usageTitle: Copy
@@ -400,10 +402,141 @@ export type HomeCopy = {
   }
   footer: {
     brand: Copy
-    legal: (year: number) => string
+    legal: (year: number) => InlinePart[]
     links: { label: Copy; href: string }[]
   }
 }
+
+const readingCards: HomeCopy['reading']['cards'] = [
+  {
+    age: { zh: '小學中年級', en: 'Upper elementary' },
+    title: { zh: '先認識丁小飛', en: 'Start with Ding Xiaofei' },
+    body: {
+      zh: [
+        {
+          text: '《丁小飛校園日記》的主角是小學四年級生，滿腦子想成為「有名的人」。他的自信、嫉妒和心虛，幾乎就是這個年齡的孩子每天在教室裡經歷的事。',
+        },
+      ],
+      en: [
+        {
+          text: "The hero of Ding Xiaofei's School Diary is a fourth grader convinced he is meant to be famous. His confidence, envy and guilty conscience are almost exactly what children this age live through in the classroom every day.",
+        },
+      ],
+    },
+    prompts: [
+      {
+        zh: '丁小飛最在意別人怎麼看他，你呢？',
+        en: 'Ding Xiaofei cares a lot about how others see him. What about you?',
+      },
+      {
+        zh: '他做的哪一件事，你會做不一樣的決定？',
+        en: 'Which of his choices would you have made differently?',
+      },
+    ],
+    books: {
+      zh: [
+        { text: '從' },
+        { work: '丁小飛校園日記1-時光膠囊的祕密' },
+        { text: '開始，系列共五冊。' },
+      ],
+      en: [
+        { text: 'Start with ' },
+        { work: '丁小飛校園日記1-時光膠囊的祕密' },
+        { text: ' — five books in the series.' },
+      ],
+    },
+  },
+  {
+    age: { zh: '高年級', en: 'Grades 5–6' },
+    title: { zh: '一起解一個謎', en: 'Solve a mystery together' },
+    body: {
+      zh: [
+        { work: '動物星球偵探事件簿' },
+        { text: '是六位、七位作家合寫的短篇推理集，每篇獨立，很適合睡前讀一篇、隔天再猜結局。' },
+      ],
+      en: [
+        { work: '動物星球偵探事件簿' },
+        {
+          text: ' is a short-story mystery collection by six or seven authors. Each case stands alone, which makes it perfect for one story at bedtime and guessing the ending the next day.',
+        },
+      ],
+    },
+    prompts: [
+      {
+        zh: '你最想破哪一個案子？為什麼？',
+        en: 'Which case would you most want to crack, and why?',
+      },
+      {
+        zh: '哪一條線索是你先發現的？',
+        en: 'Which clue did you spot first?',
+      },
+    ],
+    books: {
+      zh: [
+        { work: '動物星球偵探事件簿' },
+        { text: '與第二集' },
+        {
+          work: '動物星球偵探事件簿2-推理要在放學後',
+          label: { zh: '推理要在放學後', en: 'Mystery After School' },
+        },
+        { text: '。' },
+      ],
+      en: [
+        { work: '動物星球偵探事件簿' },
+        { text: ' and its sequel, ' },
+        {
+          work: '動物星球偵探事件簿2-推理要在放學後',
+          label: { zh: '推理要在放學後', en: 'Mystery After School' },
+        },
+        { text: '.' },
+      ],
+    },
+  },
+  {
+    age: { zh: '國中以上', en: 'Middle school and up' },
+    title: { zh: '談那些不好談的事', en: 'Talk about the hard things' },
+    body: {
+      zh: [
+        { work: '暗號偵探社' },
+        { text: '從一張離婚協議書開始，' },
+        { work: '記憶邊境-河川-火林-烏雲光', label: { zh: '記憶邊境', en: 'Memory Border' } },
+        { text: '則直接走進生與死的交界。這兩本不急著給答案，適合讀完再聊。' },
+      ],
+      en: [
+        { work: '暗號偵探社' },
+        { text: ' begins with a divorce agreement, while ' },
+        { work: '記憶邊境-河川-火林-烏雲光', label: { zh: '記憶邊境', en: 'Memory Border' } },
+        {
+          text: ' walks straight into the border between life and death. Neither is in a hurry to hand out answers; they are made to be talked about after the last page.',
+        },
+      ],
+    },
+    prompts: [
+      {
+        zh: '如果人生可以重來，你想改變哪一段記憶？',
+        en: 'If you could live any part of your life again, which memory would you change?',
+      },
+      {
+        zh: '書裡的大人，有哪些話其實沒說出口？',
+        en: 'What are the grown-ups in these books not saying out loud?',
+      },
+    ],
+    books: {
+      zh: [
+        { work: '暗號偵探社' },
+        { text: '、' },
+        { work: '記憶邊境-河川-火林-烏雲光' },
+        { text: '。' },
+      ],
+      en: [
+        { work: '暗號偵探社' },
+        { text: '; ' },
+        { work: '記憶邊境-河川-火林-烏雲光' },
+        { text: '.' },
+      ],
+    },
+  },
+]
 
 export const homeCopy: Record<Locale, HomeCopy> = {
   zh: {
@@ -476,74 +609,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         zh: '三個階段、三種讀法。以下是編者的建議，不是出版社的分級——孩子讀得下去的那一本，就是對的那一本。',
         en: "Three stages, three ways to read. These are our editor's suggestions, not a publisher's reading levels — the right book is the one your child keeps reading.",
       },
-      cards: [
-        {
-          age: { zh: '小學中年級', en: 'Upper elementary' },
-          title: { zh: '先認識丁小飛', en: 'Start with Ding Xiaofei' },
-          body: {
-            zh: '《丁小飛校園日記》的主角是小學四年級生，滿腦子想成為「有名的人」。他的自信、嫉妒和心虛，幾乎就是這個年齡的孩子每天在教室裡經歷的事。',
-            en: "The hero of Ding Xiaofei's School Diary is a fourth grader convinced he is meant to be famous. His confidence, envy and guilty conscience are almost exactly what children this age live through in the classroom every day.",
-          },
-          prompts: [
-            {
-              zh: '丁小飛最在意別人怎麼看他，你呢？',
-              en: 'Ding Xiaofei cares a lot about how others see him. What about you?',
-            },
-            {
-              zh: '他做的哪一件事，你會做不一樣的決定？',
-              en: 'Which of his choices would you have made differently?',
-            },
-          ],
-          books: {
-            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共五冊。',
-            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — five books in the series.",
-          },
-        },
-        {
-          age: { zh: '高年級', en: 'Grades 5–6' },
-          title: { zh: '一起解一個謎', en: 'Solve a mystery together' },
-          body: {
-            zh: '《動物星球偵探事件簿》是六位、七位作家合寫的短篇推理集，每篇獨立，很適合睡前讀一篇、隔天再猜結局。',
-            en: 'Animal Planet Detective Files is a short-story mystery collection by six or seven authors. Each case stands alone, which makes it perfect for one story at bedtime and guessing the ending the next day.',
-          },
-          prompts: [
-            {
-              zh: '你最想破哪一個案子？為什麼？',
-              en: 'Which case would you most want to crack, and why?',
-            },
-            {
-              zh: '哪一條線索是你先發現的？',
-              en: 'Which clue did you spot first?',
-            },
-          ],
-          books: {
-            zh: '《動物星球偵探事件簿》與第二集《推理要在放學後》。',
-            en: 'Animal Planet Detective Files and its sequel, Mystery After School.',
-          },
-        },
-        {
-          age: { zh: '國中以上', en: 'Middle school and up' },
-          title: { zh: '談那些不好談的事', en: 'Talk about the hard things' },
-          body: {
-            zh: '《暗號偵探社》從一張離婚協議書開始，《記憶邊境》則直接走進生與死的交界。這兩本不急著給答案，適合讀完再聊。',
-            en: 'The Secret Code Detective Club begins with a divorce agreement, while Memory Border walks straight into the border between life and death. Neither is in a hurry to hand out answers; they are made to be talked about after the last page.',
-          },
-          prompts: [
-            {
-              zh: '如果人生可以重來，你想改變哪一段記憶？',
-              en: 'If you could live any part of your life again, which memory would you change?',
-            },
-            {
-              zh: '書裡的大人，有哪些話其實沒說出口？',
-              en: 'What are the grown-ups in these books not saying out loud?',
-            },
-          ],
-          books: {
-            zh: '《暗號偵探社》、《記憶邊境：河川．火林．烏雲光》。',
-            en: 'The Secret Code Detective Club; Memory Border: River, Fire Forest, Cloud Light.',
-          },
-        },
-      ],
+      cards: readingCards,
     },
     about: {
       eyebrow: { zh: 'About the Author', en: 'About the Author' },
@@ -559,16 +625,55 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       name: { zh: '郭瀞婷 Tina Kuo', en: 'Tina Kuo' },
       paragraphs: [
         {
-          zh: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
-          en: "Spends her days keeping up with a cute and endlessly energetic little daughter. She stares into space now and then, but the moment she has a free minute she rushes back to the keyboard to type out a few more pages of stories for her children to read in years to come.",
+          zh: [
+            {
+              text: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
+            },
+          ],
+          en: [
+            {
+              text: "Spends her days keeping up with a cute and endlessly energetic little daughter. She stares into space now and then, but the moment she has a free minute she rushes back to the keyboard to type out a few more pages of stories for her children to read in years to come.",
+            },
+          ],
         },
         {
-          zh: '這個網站由孩子爸 Michael S. Huang 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。',
-          en: "This site was built by the kids' dad, Michael S. Huang: a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
+          zh: [
+            { text: '這個網站由孩子爸 ' },
+            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { text: ' 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。' },
+          ],
+          en: [
+            { text: "This site was built by the kids' dad, " },
+            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            {
+              text: ": a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
+            },
+          ],
         },
       ],
       timelineTitle: { zh: '創作年表', en: 'Timeline' },
       timeline: [
+        {
+          year: '2026',
+          text: {
+            zh: '《胡阿布偵探事件簿：誰綁架了黑總統？》',
+            en: 'The Huabu Detective Files: Who Kidnapped President Black?',
+          },
+        },
+        {
+          year: '2023',
+          text: {
+            zh: '《機器人宅急便2：能寄勇氣嗎？》、《丁小飛校園日記5：我要成為YouTuber》',
+            en: "Robot Delivery 2: Can You Send Courage?; Ding Xiaofei's School Diary 5: I'm Going to Be a YouTuber",
+          },
+        },
+        {
+          year: '2022',
+          text: {
+            zh: '《機器人宅急便1：什麼都可以寄》',
+            en: 'Robot Delivery 1: Anything Can Be Sent',
+          },
+        },
         {
           year: '2021',
           text: {
@@ -643,20 +748,22 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       rows: [
         {
           label: { zh: 'Facebook', en: 'Facebook' },
-          value: { zh: '@tinachingting', en: '@tinachingting' },
+          value: { zh: [{ text: '@tinachingting' }], en: [{ text: '@tinachingting' }] },
           href: 'https://www.facebook.com/tinachingting',
         },
         {
           label: { zh: '本站', en: 'This site' },
           value: {
-            zh: '由孩子爸 Michael S. Huang 建立與維護',
-            en: 'Built and maintained by Michael S. Huang',
+            zh: [
+              { text: '由孩子爸 ' },
+              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { text: ' 建立與維護' },
+            ],
+            en: [
+              { text: 'Built and maintained by ' },
+              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            ],
           },
-        },
-        {
-          label: { zh: '原始網站', en: 'Original site' },
-          value: { zh: 'tinakuobooks.com', en: 'tinakuobooks.com' },
-          href: 'https://www.tinakuobooks.com',
         },
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
@@ -761,8 +868,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     footer: {
       brand: { zh: '郭瀞婷 Tina Kuo · 台北', en: 'Tina Kuo · Taipei' },
-      legal: (year) =>
-        `© ${year} 郭瀞婷 · 由 Michael S. Huang 建立 · 內容以 CC BY 4.0 授權`,
+      legal: (year) => [
+        { text: `© ${year} 郭瀞婷 · 由 ` },
+        { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+        { text: ' 建立 · 內容以 CC BY 4.0 授權' },
+      ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/works' },
         { label: { zh: '主題', en: 'Collections' }, href: '/collections' },
@@ -846,74 +956,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         zh: '三個階段、三種讀法。以下是編者的建議，不是出版社的分級——孩子讀得下去的那一本，就是對的那一本。',
         en: "Three stages, three ways to read. These are our editor's suggestions, not a publisher's reading levels — the right book is the one your child keeps reading.",
       },
-      cards: [
-        {
-          age: { zh: '小學中年級', en: 'Upper elementary' },
-          title: { zh: '先認識丁小飛', en: 'Start with Ding Xiaofei' },
-          body: {
-            zh: '《丁小飛校園日記》的主角是小學四年級生，滿腦子想成為「有名的人」。他的自信、嫉妒和心虛，幾乎就是這個年齡的孩子每天在教室裡經歷的事。',
-            en: "The hero of Ding Xiaofei's School Diary is a fourth grader convinced he is meant to be famous. His confidence, envy and guilty conscience are almost exactly what children this age live through in the classroom every day.",
-          },
-          prompts: [
-            {
-              zh: '丁小飛最在意別人怎麼看他，你呢？',
-              en: 'Ding Xiaofei cares a lot about how others see him. What about you?',
-            },
-            {
-              zh: '他做的哪一件事，你會做不一樣的決定？',
-              en: 'Which of his choices would you have made differently?',
-            },
-          ],
-          books: {
-            zh: '從《丁小飛校園日記1：時光膠囊的祕密》開始，系列共五冊。',
-            en: "Start with Ding Xiaofei's School Diary 1: The Time Capsule Secret — five books in the series.",
-          },
-        },
-        {
-          age: { zh: '高年級', en: 'Grades 5–6' },
-          title: { zh: '一起解一個謎', en: 'Solve a mystery together' },
-          body: {
-            zh: '《動物星球偵探事件簿》是六位、七位作家合寫的短篇推理集，每篇獨立，很適合睡前讀一篇、隔天再猜結局。',
-            en: 'Animal Planet Detective Files is a short-story mystery collection by six or seven authors. Each case stands alone, which makes it perfect for one story at bedtime and guessing the ending the next day.',
-          },
-          prompts: [
-            {
-              zh: '你最想破哪一個案子？為什麼？',
-              en: 'Which case would you most want to crack, and why?',
-            },
-            {
-              zh: '哪一條線索是你先發現的？',
-              en: 'Which clue did you spot first?',
-            },
-          ],
-          books: {
-            zh: '《動物星球偵探事件簿》與第二集《推理要在放學後》。',
-            en: 'Animal Planet Detective Files and its sequel, Mystery After School.',
-          },
-        },
-        {
-          age: { zh: '國中以上', en: 'Middle school and up' },
-          title: { zh: '談那些不好談的事', en: 'Talk about the hard things' },
-          body: {
-            zh: '《暗號偵探社》從一張離婚協議書開始，《記憶邊境》則直接走進生與死的交界。這兩本不急著給答案，適合讀完再聊。',
-            en: 'The Secret Code Detective Club begins with a divorce agreement, while Memory Border walks straight into the border between life and death. Neither is in a hurry to hand out answers; they are made to be talked about after the last page.',
-          },
-          prompts: [
-            {
-              zh: '如果人生可以重來，你想改變哪一段記憶？',
-              en: 'If you could live any part of your life again, which memory would you change?',
-            },
-            {
-              zh: '書裡的大人，有哪些話其實沒說出口？',
-              en: 'What are the grown-ups in these books not saying out loud?',
-            },
-          ],
-          books: {
-            zh: '《暗號偵探社》、《記憶邊境：河川．火林．烏雲光》。',
-            en: 'The Secret Code Detective Club; Memory Border: River, Fire Forest, Cloud Light.',
-          },
-        },
-      ],
+      cards: readingCards,
     },
     about: {
       eyebrow: { zh: 'About the Author', en: 'About the Author' },
@@ -926,16 +969,55 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       name: { zh: '郭瀞婷 Tina Kuo', en: 'Tina Kuo' },
       paragraphs: [
         {
-          zh: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
-          en: "Spends her days keeping up with a cute and endlessly energetic little daughter. She stares into space now and then, but the moment she has a free minute she rushes back to the keyboard to type out a few more pages of stories for her children to read in years to come.",
+          zh: [
+            {
+              text: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
+            },
+          ],
+          en: [
+            {
+              text: "Spends her days keeping up with a cute and endlessly energetic little daughter. She stares into space now and then, but the moment she has a free minute she rushes back to the keyboard to type out a few more pages of stories for her children to read in years to come.",
+            },
+          ],
         },
         {
-          zh: '這個網站由孩子爸 Michael S. Huang 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。',
-          en: "This site was built by the kids' dad, Michael S. Huang: a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
+          zh: [
+            { text: '這個網站由孩子爸 ' },
+            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { text: ' 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。' },
+          ],
+          en: [
+            { text: "This site was built by the kids' dad, " },
+            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            {
+              text: ": a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
+            },
+          ],
         },
       ],
       timelineTitle: { zh: '創作年表', en: 'Timeline' },
       timeline: [
+        {
+          year: '2026',
+          text: {
+            zh: '《胡阿布偵探事件簿：誰綁架了黑總統？》',
+            en: 'The Huabu Detective Files: Who Kidnapped President Black?',
+          },
+        },
+        {
+          year: '2023',
+          text: {
+            zh: '《機器人宅急便2：能寄勇氣嗎？》、《丁小飛校園日記5：我要成為YouTuber》',
+            en: "Robot Delivery 2: Can You Send Courage?; Ding Xiaofei's School Diary 5: I'm Going to Be a YouTuber",
+          },
+        },
+        {
+          year: '2022',
+          text: {
+            zh: '《機器人宅急便1：什麼都可以寄》',
+            en: 'Robot Delivery 1: Anything Can Be Sent',
+          },
+        },
         {
           year: '2021',
           text: {
@@ -1010,20 +1092,22 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       rows: [
         {
           label: { zh: 'Facebook', en: 'Facebook' },
-          value: { zh: '@tinachingting', en: '@tinachingting' },
+          value: { zh: [{ text: '@tinachingting' }], en: [{ text: '@tinachingting' }] },
           href: 'https://www.facebook.com/tinachingting',
         },
         {
           label: { zh: '本站', en: 'This site' },
           value: {
-            zh: '由孩子爸 Michael S. Huang 建立與維護',
-            en: 'Built and maintained by Michael S. Huang',
+            zh: [
+              { text: '由孩子爸 ' },
+              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { text: ' 建立與維護' },
+            ],
+            en: [
+              { text: 'Built and maintained by ' },
+              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            ],
           },
-        },
-        {
-          label: { zh: '原始網站', en: 'Original site' },
-          value: { zh: 'tinakuobooks.com', en: 'tinakuobooks.com' },
-          href: 'https://www.tinakuobooks.com',
         },
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
@@ -1128,8 +1212,11 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     footer: {
       brand: { zh: '郭瀞婷 Tina Kuo · 台北', en: 'Tina Kuo · Taipei' },
-      legal: (year) =>
-        `© ${year} Tina Kuo · Site by Michael S. Huang · Content under CC BY 4.0`,
+      legal: (year) => [
+        { text: `© ${year} Tina Kuo · Site by ` },
+        { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+        { text: ' · Content under CC BY 4.0' },
+      ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/en/works' },
         { label: { zh: '主題', en: 'Collections' }, href: '/en/collections' },

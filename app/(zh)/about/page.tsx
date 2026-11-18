@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Breadcrumbs } from '@/components/breadcrumbs'
+import { InlineText } from '@/components/inline-text'
 import { aboutParagraphs } from '@/content/about'
 import { authors } from '@/content/authors'
 import { homeHref, ui, worksHref } from '@/lib/i18n'
@@ -29,9 +30,11 @@ export default function AboutPage() {
       <header className="wrap page-head">
         <p className="eyebrow">{strings.aboutKicker}</p>
         <h1 className="page-title">{strings.navAbout}</h1>
-        <p className="page-lead">{aboutParagraphs.zh[0]}</p>
+        <p className="page-lead">
+          <InlineText parts={aboutParagraphs.zh[0]} locale="zh" />
+        </p>
         <p className="page-meta" lang="en">
-          {aboutParagraphs.en[0]}
+          <InlineText parts={aboutParagraphs.en[0]} locale="zh" />
         </p>
       </header>
 
