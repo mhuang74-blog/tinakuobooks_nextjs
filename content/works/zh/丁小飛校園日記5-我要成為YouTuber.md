@@ -5,6 +5,7 @@ description: >-
 date: "2023-11-30"
 author: tina
 collection: funny-fiction
+languages: [zh-Hant]
 cover: "/images/book-cover-丁小飛校園日記5-我要成為YouTuber.webp"
 ---
 

@@ -10,6 +10,7 @@ import { getCollection } from '@/content/collections'
 import {
   authorHref,
   collectionHref,
+  formatWorkLanguages,
   homeHref,
   ui,
   workHref,
@@ -79,7 +80,7 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
     [strings.collection, collection.name[locale]],
     [strings.detailReader, shelf?.reader ?? work.description[locale]],
     [strings.published, work.date.slice(0, 4)],
-    [strings.englishEdition, work.slugEn ? strings.englishEdition : strings.inPreparation],
+    [strings.language, formatWorkLanguages(work.languages, locale)],
   ]
 
   return (

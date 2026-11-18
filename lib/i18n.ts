@@ -1,6 +1,23 @@
 export type Locale = 'zh' | 'en'
 export type Localized<T> = Record<Locale, T>
 
+export const workLanguageCodes = ['zh-Hant', 'zh-Hans', 'en'] as const
+export type WorkLanguage = (typeof workLanguageCodes)[number]
+
+export function isWorkLanguage(value: string): value is WorkLanguage {
+  return (workLanguageCodes as readonly string[]).includes(value)
+}
+
+export const workLanguageNames: Record<WorkLanguage, Localized<string>> = {
+  'zh-Hant': { zh: '繁體中文', en: 'Traditional Chinese' },
+  'zh-Hans': { zh: '簡體中文', en: 'Simplified Chinese' },
+  en: { zh: '英文', en: 'English' },
+}
+
+export function formatWorkLanguages(languages: readonly WorkLanguage[], locale: Locale): string {
+  return languages.map((code) => workLanguageNames[code][locale]).join(locale === 'zh' ? '、' : ', ')
+}
+
 export const locales: Locale[] = ['zh', 'en']
 
 export function isLocale(value: string): value is Locale {
@@ -97,8 +114,7 @@ const zhUi = {
   author: '作者',
   collection: '主題',
   detailReader: '讀者',
-  englishEdition: '英文版',
-  inPreparation: '準備中',
+  language: '語言',
   contents: '作品內容',
   readContents: '閱讀內容',
   relatedWorks: '相關作品',
@@ -181,8 +197,7 @@ const enUi: Ui = {
   author: 'Author',
   collection: 'Collection',
   detailReader: 'Readers',
-  englishEdition: 'English edition',
-  inPreparation: 'In preparation',
+  language: 'Language',
   contents: 'Contents',
   readContents: 'Read the contents',
   relatedWorks: 'Related works',

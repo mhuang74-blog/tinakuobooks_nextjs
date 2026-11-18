@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 import { isCollectionId } from '@/content/collections'
 import { isAuthorId } from '@/content/authors'
+import { isWorkLanguage } from '@/lib/i18n'
 import { coloringBook, featuredSlug, portfolioWorks } from '@/content/portfolio'
 import { getAllWorks, getWorkBySlug } from '@/lib/works'
 
@@ -59,6 +60,20 @@ for (const file of zhFiles) {
   }
   if (typeof data.collection !== 'string' || !isCollectionId(data.collection)) {
     errors.push(`${label}: unknown collection (${String(data.collection)})`)
+  }
+  if (!Array.isArray(data.languages) || data.languages.length === 0) {
+    errors.push(`${label}: missing languages`)
+  } else {
+    const seenLanguages = new Set<string>()
+    for (const code of data.languages) {
+      if (typeof code !== 'string' || !isWorkLanguage(code)) {
+        errors.push(`${label}: unknown language (${String(code)})`)
+      } else if (seenLanguages.has(code)) {
+        errors.push(`${label}: duplicate language ${code}`)
+      } else {
+        seenLanguages.add(code)
+      }
+    }
   }
   if (typeof data.cover !== 'string' || !data.cover.startsWith('/')) {
     errors.push(`${label}: cover must be an absolute public path`)

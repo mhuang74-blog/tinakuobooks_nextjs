@@ -227,22 +227,6 @@ export const portfolioWorks: PortfolioEntry[] = [
     },
   },
   {
-    slug: '丁小飛校園日記1-時光膠囊的祕密',
-    category: 'funny-fiction',
-    year: '2013',
-    art: { src: '/images/portfolio/work-ding-1.webp', width: 637, height: 900 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '小四生丁小飛，最想成為「有名的人」。',
-      en: 'Ding Xiaofei, fourth grader, wants more than anything to be famous.',
-    },
-    excerpt: {
-      zh: '丁小飛，萌芽小學四年級，擁有異於常人的自信與夢想。最大的願望是成為「有名的人」。某一天，他優於常人的自信卻受到嚴重打擊：班長程友莘在他寫的讀書心得裡畫了一個笑臉做回應。',
-      en: "The school holds a time capsule activity and asks everyone to write a diary entry to themselves fifty years from now. Ding Xiaofei's secret diary entry: the girl he has a crush on actually admires someone else most? Apart from being tall, rich, and handsome, how can he win her heart? The funniest guide to getting along with people — remake yourself together with Ding Xiaofei!",
-    },
-  },
-  {
     slug: '丁小飛校園日記2-誰是最佳小隊長',
     category: 'funny-fiction',
     year: '2013',
@@ -256,6 +240,22 @@ export const portfolioWorks: PortfolioEntry[] = [
     excerpt: {
       zh: '為了凸顯自己的不平凡，丁小飛報名參加「未來領袖夏令營」。原以為自己會是大家注目的主角，卻發現一山還有一山高！領袖訓練課程一波接一波，高手較勁一招過一招。',
       en: 'Who is the best team leader? Ding Xiaofei, number one in self-confidence, has his standing shaken once again!! The Future Leaders Summer Camp is full of hidden tigers and crouching dragons — experts lie in ambush everywhere! When faced with someone who steals the spotlight from you, are you willing to just bow down and concede?',
+    },
+  },
+  {
+    slug: '丁小飛校園日記1-時光膠囊的祕密',
+    category: 'funny-fiction',
+    year: '2013',
+    art: { src: '/images/portfolio/work-ding-1.webp', width: 637, height: 900 },
+    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
+    credit: { zh: '', en: '' },
+    tagline: {
+      zh: '小四生丁小飛，最想成為「有名的人」。',
+      en: 'Ding Xiaofei, fourth grader, wants more than anything to be famous.',
+    },
+    excerpt: {
+      zh: '丁小飛，萌芽小學四年級，擁有異於常人的自信與夢想。最大的願望是成為「有名的人」。某一天，他優於常人的自信卻受到嚴重打擊：班長程友莘在他寫的讀書心得裡畫了一個笑臉做回應。',
+      en: "The school holds a time capsule activity and asks everyone to write a diary entry to themselves fifty years from now. Ding Xiaofei's secret diary entry: the girl he has a crush on actually admires someone else most? Apart from being tall, rich, and handsome, how can he win her heart? The funniest guide to getting along with people — remake yourself together with Ding Xiaofei!",
     },
   },
   {
@@ -336,9 +336,7 @@ export type HomeCopy = {
       category: Copy
       published: Copy
       reader: Copy
-      english: Copy
-      available: Copy
-      unavailable: Copy
+      language: Copy
       note: Copy
       noteLink: Copy
     }
@@ -463,9 +461,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         category: { zh: '分類', en: 'Category' },
         published: { zh: '出版', en: 'Published' },
         reader: { zh: '讀者', en: 'Reader' },
-        english: { zh: '英文版', en: 'English edition' },
-        available: { zh: 'English edition', en: 'Available' },
-        unavailable: { zh: '準備中', en: 'Coming soon' },
+        language: { zh: '語言', en: 'Language' },
         note: {
           zh: '想授權、改編或邀約？',
           en: 'Rights, adaptation or an invitation?',
@@ -835,9 +831,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         category: { zh: '分類', en: 'Category' },
         published: { zh: '出版', en: 'Published' },
         reader: { zh: '讀者', en: 'Reader' },
-        english: { zh: '英文版', en: 'English edition' },
-        available: { zh: 'English edition', en: 'Available' },
-        unavailable: { zh: '準備中', en: 'Coming soon' },
+        language: { zh: '語言', en: 'Language' },
         note: {
           zh: '想授權、改編或邀約？',
           en: 'Rights, adaptation or an invitation?',
