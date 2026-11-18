@@ -59,6 +59,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       newest,
     ),
     entry('/en/about', { 'zh-Hant': '/about/', en: '/en/about', 'x-default': '/about/' }, 0.5, newest),
+    entry('/privacy', { 'zh-Hant': '/privacy', en: '/en/privacy', 'x-default': '/privacy' }, 0.3),
+    entry('/en/privacy', { 'zh-Hant': '/privacy', en: '/en/privacy', 'x-default': '/privacy' }, 0.3),
   ]
 
   for (const work of works) {

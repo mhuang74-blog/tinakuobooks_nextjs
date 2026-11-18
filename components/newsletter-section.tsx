@@ -18,7 +18,7 @@ export function NewsletterSection({ locale, idPrefix }: Props) {
           <p className="newsletter-lead">{strings.newsletterBody}</p>
         </div>
         <div className="newsletter-card">
-          <NewsletterForm locale={locale} idPrefix={idPrefix} />
+          <NewsletterForm locale={locale} idPrefix={idPrefix} source="inline" showAgain />
         </div>
       </div>
     </section>

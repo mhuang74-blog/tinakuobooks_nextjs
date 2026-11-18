@@ -935,6 +935,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { label: { zh: '關於', en: 'About' }, href: '/about/' },
         { label: { zh: 'English', en: '中文' }, href: '/en' },
         { label: { zh: 'RSS', en: 'RSS' }, href: '/feed.xml' },
+        { label: { zh: '隱私權', en: 'Privacy' }, href: '/privacy' },
         {
           label: { zh: '原始碼', en: 'Source' },
           href: 'https://github.com/mhuang74-blog/tinakuobooks_nextjs',
@@ -1335,6 +1336,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { label: { zh: '關於', en: 'About' }, href: '/en/about' },
         { label: { zh: 'English', en: '中文' }, href: '/' },
         { label: { zh: 'RSS', en: 'RSS' }, href: '/en/feed.xml' },
+        { label: { zh: '隱私權', en: 'Privacy' }, href: '/en/privacy' },
         {
           label: { zh: '原始碼', en: 'Source' },
           href: 'https://github.com/mhuang74-blog/tinakuobooks_nextjs',

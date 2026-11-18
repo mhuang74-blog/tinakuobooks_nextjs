@@ -144,6 +144,75 @@ the records Resend prints. Its SPF is per-hostname, so the root record — manag
 by Email Routing — is unrelated. `tina@tinakuobooks.com` is not a real mailbox:
 it is a Cloudflare Email Routing forward to `proteiosic.software@gmail.com`.
 
+### Newsletter
+
+Both subscribe entry points — the header `訂閱` dialog and the inline section on
+work pages — render `components/newsletter-form.tsx`, which posts JSON to
+`app/api/subscribe/route.ts`. The route validates the payload, checks Turnstile,
+and sends a branded confirmation email through Resend. Nothing is written to the
+audience until the recipient opens the signed link: `GET
+/api/subscribe/confirm?token=…` verifies an HMAC over `{ email, name, locale,
+iat }` (48-hour TTL, `SUBSCRIBE_CONFIRM_SECRET`), then creates or re-uses the
+Resend contact, adds it to the newsletter segment, and opts it into the
+newsletter topic. Confirmation lands on `/subscribe/confirmed?status=…`
+(`/en/…` for English) with `noindex`; the statuses are `ok`, `invalid`,
+`expired`, `unsubscribed`, and `error`.
+
+There is no database. Rate limiting is per serverless instance (5 per 10 minutes
+per IP, 3 per 10 minutes per address) and the `website` field is a honeypot that
+answers `200` without sending. Errors never echo the address, name, or token.
+
+Set these variables on the Vercel project for Production and Preview:
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | yes | Sends the confirmation email. Shared with the inquiry route. |
+| `RESEND_CONTACTS_API_KEY` | yes | Full-access key for the Contacts API. A sending-only key is rejected with `restricted_api_key`. |
+| `RESEND_NEWSLETTER_SEGMENT_ID` | yes | Segment that receives broadcasts. Without it the route answers `503 not_configured`. |
+| `RESEND_NEWSLETTER_TOPIC_ID` | no | Topic shown on Resend's unsubscribe page; without it contacts still get broadcasts through the segment. |
+| `SUBSCRIBE_CONFIRM_SECRET` | yes | HMAC key for confirmation links (`openssl rand -base64 32`). Rotating it invalidates outstanding links. |
+| `TURNSTILE_SECRET_KEY` | yes | Checked with Siteverify before every send. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | yes | Read at build time; without it the widget is not rendered. |
+| `SUBSCRIBE_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo <website@send.tinakuobooks.com>`. |
+| `SUBSCRIBE_SITE_URL` | no | Origin used in confirmation links. Defaults to `https://www.tinakuobooks.com`; set it to `http://localhost:3000` to confirm locally. |
+
+In the Resend dashboard: verify `send.tinakuobooks.com` under Domains (it must
+stay verified, because delivery and the confirmation mail both use it), create a
+**Newsletter** segment and a **Newsletter** topic (default subscription
+`opt_in`, visibility `public`), and add a string contact property `locale` with
+fallback `zh`. The contact payload sets `first_name`, `properties.locale`, and
+the segment/topic membership.
+
+The production account is already provisioned: the **Newsletter** segment, the
+**Newsletter** topic (opt-in, public) and the `locale` string property exist.
+Read their IDs from `RESEND_NEWSLETTER_SEGMENT_ID` and
+`RESEND_NEWSLETTER_TOPIC_ID` on the Vercel project instead of hard-coding them
+here; they are Config variables, not secrets.
+
+One API quirk worth knowing: `PATCH /contacts/{id}/topics` takes a **bare
+array** — `[{ "id": "<topic>", "subscription": "opt_in" }]`. The published
+OpenAPI schema describes an object with a `topics` key, and that shape is
+rejected with `422` ("the field must be an array"), so do not rewrite the
+confirm route to match the docs.
+
+Vercel binds environment variables at deployment time, so a deployment created
+before these variables existed keeps answering `503 not_configured` until it is
+rebuilt; redeploy after changing them.
+
+To walk the flow end to end on a laptop, put the required variables in
+`.env.local`, set `SUBSCRIBE_SITE_URL=http://localhost:3000`, and use a mailbox
+you control. Without the override the emailed link points at production, whose
+`SUBSCRIBE_CONFIRM_SECRET` differs, so the locally signed token is rejected
+there. The origin is never taken from the request `Host` header: a spoofed host
+would put an attacker's domain in the confirmation link.
+
+Mailchimp is no longer called: the old `list-manage` form target, the honeypot
+field name, and the `CH_NAME` field are gone. To migrate an audience, export it
+to CSV, import only `subscribed` rows as Resend contacts with `locale=zh`, send
+one broadcast containing `{{{RESEND_UNSUBSCRIBE_URL}}}` so imported contacts can
+opt out, and keep the Mailchimp audience read-only for 30 days before deleting
+it.
+
 ### DNS and bot protection
 
 The zone is on Cloudflare (nameservers moved from Namecheap) and proxied to

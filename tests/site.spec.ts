@@ -232,7 +232,7 @@ test.describe('Chinese site', () => {
     await expect(page.getByRole('heading', { level: 1, name: '找不到頁面' })).toBeVisible()
   })
 
-  test('subscribe dialog opens, contains the Mailchimp form, and closes on Escape', async ({
+  test('subscribe dialog opens, contains the newsletter form, and closes on Escape', async ({
     page,
   }) => {
     await page.goto('/')
@@ -240,11 +240,109 @@ test.describe('Chinese site', () => {
     await page.getByRole('button', { name: '訂閱', exact: true }).click()
     const dialog = page.getByRole('dialog', { name: '訂閱新作品通知' })
     await expect(dialog).toBeVisible()
-    await expect(dialog.locator('form[action*="list-manage"]')).toBeVisible()
-    await expect(dialog.locator('input[name^="b_"]')).toHaveCount(1)
+
+    const form = dialog.locator('form.newsletter-form')
+    await expect(form).toBeVisible()
+    await expect(form.locator('input[name="email"]')).toBeVisible()
+    await expect(form.locator('input[name="name"]')).toBeVisible()
+    await expect(form.locator('input[name="website"]')).toHaveCount(1)
+    expect(await form.getAttribute('action')).toBeNull()
+    await expect(form.locator('a[href="/privacy"]')).toHaveText('隱私權政策')
 
     await page.keyboard.press('Escape')
     await expect(dialog).toBeHidden()
+  })
+
+  test('newsletter form posts to the site and shows the confirmation panel', async ({ page }) => {
+    await stubTurnstile(page)
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true }),
+      }),
+    )
+
+    await page.goto('/')
+    await page.getByRole('button', { name: '訂閱', exact: true }).click()
+    const dialog = page.getByRole('dialog', { name: '訂閱新作品通知' })
+    await dialog.locator('input[name="email"]').fill('Reader@Example.com')
+    await dialog.locator('input[name="name"]').fill('小讀者')
+
+    const request = page.waitForRequest('**/api/subscribe')
+    await dialog.locator('button[type="submit"]').click()
+    const payload = (await request).postDataJSON()
+    expect(payload).toEqual({
+      email: 'reader@example.com',
+      name: '小讀者',
+      locale: 'zh',
+      website: '',
+      turnstileToken: 'test-token',
+    })
+
+    await expect(dialog.getByRole('heading', { name: '請檢查你的信箱' })).toBeFocused()
+    await expect(dialog.locator('form.newsletter-form')).toHaveCount(0)
+    await expect(dialog.getByRole('button', { name: '再訂閱一個' })).toHaveCount(0)
+  })
+
+  test('newsletter form keeps the fields when the send fails', async ({ page }) => {
+    await stubTurnstile(page)
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({
+        status: 502,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'send_failed' }),
+      }),
+    )
+
+    await page.goto('/')
+    await page.getByRole('button', { name: '訂閱', exact: true }).click()
+    const dialog = page.getByRole('dialog', { name: '訂閱新作品通知' })
+    await dialog.locator('input[name="email"]').fill('reader@example.com')
+    await dialog.locator('input[name="name"]').fill('小讀者')
+    await dialog.locator('button[type="submit"]').click()
+
+    await expect(dialog.getByRole('alert')).toHaveText('訂閱沒有送出，請稍後再試。')
+    await expect(dialog.locator('form.newsletter-form')).toBeVisible()
+    await expect(dialog.locator('input[name="email"]')).toHaveValue('reader@example.com')
+    await expect(dialog.locator('button[type="submit"]')).toBeEnabled()
+  })
+
+  test('inline newsletter on a work page subscribes and offers another', async ({ page }) => {
+    await stubTurnstile(page)
+    await page.route('**/api/subscribe', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true }),
+      }),
+    )
+
+    await page.goto('/57號小豹')
+    const section = page.locator('.newsletter-card')
+    await section.locator('input[name="email"]').fill('reader@example.com')
+    await section.locator('input[name="name"]').fill('小讀者')
+    await section.locator('button[type="submit"]').click()
+
+    await expect(section.getByRole('heading', { name: '請檢查你的信箱' })).toBeFocused()
+    await section.getByRole('button', { name: '再訂閱一個' }).click()
+
+    await expect(section.locator('form.newsletter-form')).toBeVisible()
+    await expect(section.locator('input[name="email"]')).toHaveValue('')
+    await expect(section.locator('input[name="name"]')).toHaveValue('')
+    await expect(section.locator('input[name="email"]')).toBeFocused()
+  })
+
+  test('privacy page renders in both locales and the footer links to it', async ({ page }) => {
+    await page.goto('/privacy')
+    await expect(page.getByRole('heading', { level: 1, name: '隱私權' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: '我們收集的資料' })).toBeVisible()
+    await expect(page.locator('.foot-links a[href="/privacy"]')).toBeVisible()
+
+    await page.goto('/en/privacy')
+    await expect(page.getByRole('heading', { level: 1, name: 'Privacy' })).toBeVisible()
+    await expect(page.getByRole('heading', { level: 2, name: 'Processors' })).toBeVisible()
+    await expect(page.locator('.foot-links a[href="/en/privacy"]')).toBeVisible()
   })
 
   test('mobile menu toggles, closes on Escape, and restores focus', async ({ page }) => {

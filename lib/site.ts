@@ -17,9 +17,6 @@ export const SITE_KEYWORDS = [
 ]
 export const GA_ID = 'G-T01JGM3EKW'
 export const ADSENSE_CLIENT = 'ca-pub-6071616698328487'
-export const MAILCHIMP_ACTION =
-  'https://tinakuobooks.us7.list-manage.com/subscribe/post?u=c520f89e29e0da47e72861621&id=e3e22bc014'
-export const MAILCHIMP_HONEYPOT = 'b_c520f89e29e0da47e72861621_e3e22bc014'
 export const FACEBOOK_URL = 'https://facebook.com/tinachingting'
 export const SOURCE_URL = 'https://github.com/mhuang74-blog/tinakuobooks_nextjs'
 export const MICHAEL_HUANG_URL = 'https://michaelhuang.xyz'

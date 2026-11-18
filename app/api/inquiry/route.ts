@@ -1,11 +1,8 @@
 import { homeCopy } from '@/content/portfolio'
-import {
-  INQUIRY_EMAIL_PATTERN,
-  INQUIRY_LIMITS,
-  TURNSTILE_VERIFY_ENDPOINT,
-  type InquiryResponse,
-} from '@/lib/inquiry'
+import { INQUIRY_LIMITS, type InquiryResponse } from '@/lib/inquiry'
 import type { Locale } from '@/lib/i18n'
+import { clientIp, verifyTurnstile } from '@/lib/turnstile'
+import { EMAIL_PATTERN } from '@/lib/validation'
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails'
 const INQUIRY_TO = 'tina@tinakuobooks.com'
@@ -16,13 +13,6 @@ const recentSubmissions = new Map<string, number[]>()
 
 function json(body: InquiryResponse, status: number): Response {
   return Response.json(body, { status })
-}
-
-function clientIp(request: Request): string {
-  const cloudflare = request.headers.get('cf-connecting-ip')?.trim()
-  if (cloudflare) return cloudflare
-  const forwarded = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
-  return forwarded || 'unknown'
 }
 
 function isRateLimited(ip: string): boolean {
@@ -40,31 +30,6 @@ function isRateLimited(ip: string): boolean {
   recentSubmissions.set(ip, stamps)
 
   return stamps.length > INQUIRY_LIMITS.perIpPerWindow
-}
-
-async function verifyTurnstile(secret: string, token: string, ip: string): Promise<boolean> {
-  try {
-    const response = await fetch(TURNSTILE_VERIFY_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret,
-        response: token,
-        remoteip: ip === 'unknown' ? undefined : ip,
-      }),
-    })
-
-    if (!response.ok) {
-      console.error('inquiry: Turnstile rejected the verification', response.status)
-      return false
-    }
-
-    const outcome = (await response.json()) as { success?: boolean }
-    return outcome.success === true
-  } catch (error) {
-    console.error('inquiry: Turnstile request failed', error)
-    return false
-  }
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -102,7 +67,7 @@ export async function POST(request: Request): Promise<Response> {
   if (!topic) fields.push('topic')
 
   const email = typeof payload.email === 'string' ? payload.email.trim() : ''
-  if (email.length > INQUIRY_LIMITS.email || !INQUIRY_EMAIL_PATTERN.test(email)) fields.push('email')
+  if (email.length > INQUIRY_LIMITS.email || !EMAIL_PATTERN.test(email)) fields.push('email')
 
   const message = typeof payload.message === 'string' ? payload.message.trim() : ''
   if (message.length < 10 || message.length > INQUIRY_LIMITS.message) fields.push('message')
