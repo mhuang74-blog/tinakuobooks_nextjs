@@ -599,11 +599,13 @@ a { color: inherit; }
 }
 .read-card a,
 .about-para a,
+.timeline a,
 .page-lead a,
 .page-meta a,
 .foot-legal a { color: var(--seal); text-underline-offset: 3px; }
 .read-card a:hover,
 .about-para a:hover,
+.timeline a:hover,
 .page-lead a:hover,
 .page-meta a:hover,
 .foot-legal a:hover { color: var(--seal-hover); }

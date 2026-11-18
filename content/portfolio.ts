@@ -357,7 +357,7 @@ export type HomeCopy = {
     name: Copy
     paragraphs: Localized<InlinePart[]>[]
     timelineTitle: Copy
-    timeline: { year: string; text: Copy }[]
+    timeline: { year: string; text: Localized<InlinePart[]> }[]
   }
   story: {
     eyebrow: Copy
@@ -656,52 +656,108 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           year: '2026',
           text: {
-            zh: '《胡阿布偵探事件簿：誰綁架了黑總統？》',
-            en: 'The Huabu Detective Files: Who Kidnapped President Black?',
+            zh: [{ work: '胡阿布偵探事件簿-誰綁架了黑總統' }],
+            en: [{ work: '胡阿布偵探事件簿-誰綁架了黑總統' }],
           },
         },
         {
           year: '2023',
           text: {
-            zh: '《機器人宅急便2：能寄勇氣嗎？》、《丁小飛校園日記5：我要成為YouTuber》',
-            en: "Robot Delivery 2: Can You Send Courage?; Ding Xiaofei's School Diary 5: I'm Going to Be a YouTuber",
+            zh: [
+              { work: '機器人宅急便2-能寄勇氣嗎' },
+              { text: '、' },
+              { work: '丁小飛校園日記5-我要成為YouTuber' },
+            ],
+            en: [
+              { work: '機器人宅急便2-能寄勇氣嗎' },
+              { text: '; ' },
+              { work: '丁小飛校園日記5-我要成為YouTuber' },
+            ],
           },
         },
         {
           year: '2022',
           text: {
-            zh: '《機器人宅急便1：什麼都可以寄》',
-            en: 'Robot Delivery 1: Anything Can Be Sent',
+            zh: [{ work: '機器人宅急便1-什麼都可以寄' }],
+            en: [{ work: '機器人宅急便1-什麼都可以寄' }],
           },
         },
         {
           year: '2021',
           text: {
-            zh: '依《57號小豹》手繪的著色本上線，開放下載',
-            en: 'A coloring book drawn from Little Leopard No. 57 goes online as a free download',
+            zh: [{ text: '依' }, { work: '57號小豹' }, { text: '手繪的著色本上線，開放下載' }],
+            en: [
+              { text: 'A coloring book drawn from ' },
+              { work: '57號小豹' },
+              { text: ' goes online as a free download' },
+            ],
           },
         },
         {
           year: '2020',
           text: {
-            zh: '《小兒子報告! 沙發有黑洞》舞台劇、《動物星球偵探事件簿2》、《57號小豹》',
-            en: 'Little Son Report! The Sofa Has a Black Hole on stage; Animal Planet Detective Files 2; Little Leopard No. 57',
+            zh: [
+              { work: '小兒子報告-沙發有黑洞' },
+              { text: '舞台劇、' },
+              {
+                work: '動物星球偵探事件簿2-推理要在放學後',
+                label: { zh: '動物星球偵探事件簿2', en: 'Animal Planet Detective Files 2' },
+              },
+              { text: '、' },
+              { work: '57號小豹' },
+            ],
+            en: [
+              { work: '小兒子報告-沙發有黑洞' },
+              { text: ' on stage; ' },
+              {
+                work: '動物星球偵探事件簿2-推理要在放學後',
+                label: { zh: '動物星球偵探事件簿2', en: 'Animal Planet Detective Files 2' },
+              },
+              { text: '; ' },
+              { work: '57號小豹' },
+            ],
           },
         },
         {
           year: '2019',
           text: {
-            zh: '《記憶邊境：河川．火林．烏雲光》、《動物星球偵探事件簿》',
-            en: 'Memory Border: River, Fire Forest, Cloud Light; Animal Planet Detective Files',
+            zh: [
+              { work: '記憶邊境-河川-火林-烏雲光' },
+              { text: '、' },
+              { work: '動物星球偵探事件簿' },
+            ],
+            en: [
+              { work: '記憶邊境-河川-火林-烏雲光' },
+              { text: '; ' },
+              { work: '動物星球偵探事件簿' },
+            ],
           },
         },
         {
           year: '2018',
-          text: { zh: '《暗號偵探社》', en: 'The Secret Code Detective Club' },
+          text: {
+            zh: [{ work: '暗號偵探社' }],
+            en: [{ work: '暗號偵探社' }],
+          },
         },
         {
           year: '2017',
-          text: { zh: '《丁小飛校園日記》1–4 冊', en: "Ding Xiaofei's School Diary, books 1–4" },
+          text: {
+            zh: [
+              {
+                work: '丁小飛校園日記1-時光膠囊的祕密',
+                label: { zh: '丁小飛校園日記', en: "Ding Xiaofei's School Diary" },
+              },
+              { text: '1–4 冊' },
+            ],
+            en: [
+              {
+                work: '丁小飛校園日記1-時光膠囊的祕密',
+                label: { zh: '丁小飛校園日記', en: "Ding Xiaofei's School Diary" },
+              },
+              { text: ', books 1–4' },
+            ],
+          },
         },
       ],
     },
@@ -1000,52 +1056,108 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           year: '2026',
           text: {
-            zh: '《胡阿布偵探事件簿：誰綁架了黑總統？》',
-            en: 'The Huabu Detective Files: Who Kidnapped President Black?',
+            zh: [{ work: '胡阿布偵探事件簿-誰綁架了黑總統' }],
+            en: [{ work: '胡阿布偵探事件簿-誰綁架了黑總統' }],
           },
         },
         {
           year: '2023',
           text: {
-            zh: '《機器人宅急便2：能寄勇氣嗎？》、《丁小飛校園日記5：我要成為YouTuber》',
-            en: "Robot Delivery 2: Can You Send Courage?; Ding Xiaofei's School Diary 5: I'm Going to Be a YouTuber",
+            zh: [
+              { work: '機器人宅急便2-能寄勇氣嗎' },
+              { text: '、' },
+              { work: '丁小飛校園日記5-我要成為YouTuber' },
+            ],
+            en: [
+              { work: '機器人宅急便2-能寄勇氣嗎' },
+              { text: '; ' },
+              { work: '丁小飛校園日記5-我要成為YouTuber' },
+            ],
           },
         },
         {
           year: '2022',
           text: {
-            zh: '《機器人宅急便1：什麼都可以寄》',
-            en: 'Robot Delivery 1: Anything Can Be Sent',
+            zh: [{ work: '機器人宅急便1-什麼都可以寄' }],
+            en: [{ work: '機器人宅急便1-什麼都可以寄' }],
           },
         },
         {
           year: '2021',
           text: {
-            zh: '依《57號小豹》手繪的著色本上線，開放下載',
-            en: 'A coloring book drawn from Little Leopard No. 57 goes online as a free download',
+            zh: [{ text: '依' }, { work: '57號小豹' }, { text: '手繪的著色本上線，開放下載' }],
+            en: [
+              { text: 'A coloring book drawn from ' },
+              { work: '57號小豹' },
+              { text: ' goes online as a free download' },
+            ],
           },
         },
         {
           year: '2020',
           text: {
-            zh: '《小兒子報告! 沙發有黑洞》舞台劇、《動物星球偵探事件簿2》、《57號小豹》',
-            en: 'Little Son Report! The Sofa Has a Black Hole on stage; Animal Planet Detective Files 2; Little Leopard No. 57',
+            zh: [
+              { work: '小兒子報告-沙發有黑洞' },
+              { text: '舞台劇、' },
+              {
+                work: '動物星球偵探事件簿2-推理要在放學後',
+                label: { zh: '動物星球偵探事件簿2', en: 'Animal Planet Detective Files 2' },
+              },
+              { text: '、' },
+              { work: '57號小豹' },
+            ],
+            en: [
+              { work: '小兒子報告-沙發有黑洞' },
+              { text: ' on stage; ' },
+              {
+                work: '動物星球偵探事件簿2-推理要在放學後',
+                label: { zh: '動物星球偵探事件簿2', en: 'Animal Planet Detective Files 2' },
+              },
+              { text: '; ' },
+              { work: '57號小豹' },
+            ],
           },
         },
         {
           year: '2019',
           text: {
-            zh: '《記憶邊境：河川．火林．烏雲光》、《動物星球偵探事件簿》',
-            en: 'Memory Border: River, Fire Forest, Cloud Light; Animal Planet Detective Files',
+            zh: [
+              { work: '記憶邊境-河川-火林-烏雲光' },
+              { text: '、' },
+              { work: '動物星球偵探事件簿' },
+            ],
+            en: [
+              { work: '記憶邊境-河川-火林-烏雲光' },
+              { text: '; ' },
+              { work: '動物星球偵探事件簿' },
+            ],
           },
         },
         {
           year: '2018',
-          text: { zh: '《暗號偵探社》', en: 'The Secret Code Detective Club' },
+          text: {
+            zh: [{ work: '暗號偵探社' }],
+            en: [{ work: '暗號偵探社' }],
+          },
         },
         {
           year: '2017',
-          text: { zh: '《丁小飛校園日記》1–4 冊', en: "Ding Xiaofei's School Diary, books 1–4" },
+          text: {
+            zh: [
+              {
+                work: '丁小飛校園日記1-時光膠囊的祕密',
+                label: { zh: '丁小飛校園日記', en: "Ding Xiaofei's School Diary" },
+              },
+              { text: '1–4 冊' },
+            ],
+            en: [
+              {
+                work: '丁小飛校園日記1-時光膠囊的祕密',
+                label: { zh: '丁小飛校園日記', en: "Ding Xiaofei's School Diary" },
+              },
+              { text: ', books 1–4' },
+            ],
+          },
         },
       ],
     },

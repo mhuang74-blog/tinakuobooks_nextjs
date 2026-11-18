@@ -140,7 +140,9 @@ export default function HomePage() {
               {copy.about.timeline.map((row) => (
                 <li key={row.year}>
                   <span className="year">{row.year}</span>
-                  <span>{row.text[locale]}</span>
+                  <span>
+                    <InlineText parts={row.text[locale]} locale={locale} />
+                  </span>
                 </li>
               ))}
             </ul>
