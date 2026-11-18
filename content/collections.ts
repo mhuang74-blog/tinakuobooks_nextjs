@@ -13,40 +13,47 @@ export type Collection = {
   accent: string
 }
 
+// Cover photos: Pexels free license (no attribution required), recorded for maintainability.
+// Sources live in assets/source-images/stock/collection-*.jpg; `pnpm images` regenerates the WebP.
+//   funny-fiction        18830120  Muziyan Du — two siblings laughing on an orange sofa
+//   young-adult-fiction  27300378  xiao zheng geng — high-school girl reading by a classroom window
+//   picture-book         18830152  Muziyan Du — girl playfully holding a picture book in class
+//   stage-performance    13726442  klub boks — children in Chinese-opera costume and makeup
+//   story-continues      18830100  Muziyan Du — two girls sharing a book in window light
 export const collections: Collection[] = [
   {
     id: 'funny-fiction',
     name: { zh: '愛搞笑', en: 'Funny Fiction' },
     description: { zh: '就是愛搞笑', en: 'Just for laughs' },
-    cover: '/images/school-chulkboard.webp',
+    cover: '/images/collection-funny-fiction.webp',
     accent: 'var(--collection-funny)',
   },
   {
     id: 'young-adult-fiction',
     name: { zh: '青少', en: 'Young Adult Fiction' },
     description: { zh: '給愛讀書的妳', en: 'For the young reader' },
-    cover: '/images/speeches.webp',
+    cover: '/images/collection-young-adult-fiction.webp',
     accent: 'var(--collection-ya)',
   },
   {
     id: 'picture-book',
     name: { zh: '繪本', en: 'Picture Book' },
     description: { zh: '看圖說故事', en: 'Stories told in pictures' },
-    cover: '/images/fables.webp',
+    cover: '/images/collection-picture-book.webp',
     accent: 'var(--collection-picture)',
   },
   {
     id: 'stage-performance',
     name: { zh: '戲劇', en: 'Stage Performance' },
     description: { zh: '讓故事活起來', en: 'Stories come alive' },
-    cover: '/images/sky.webp',
+    cover: '/images/collection-stage-performance.webp',
     accent: 'var(--collection-stage)',
   },
   {
     id: 'story-continues',
     name: { zh: '故事延伸', en: 'Story Continues' },
     description: { zh: '故事延伸', en: 'Beyond the story' },
-    cover: '/images/design.webp',
+    cover: '/images/collection-story-continues.webp',
     accent: 'var(--collection-story)',
   },
 ]
