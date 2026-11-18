@@ -36,7 +36,8 @@ The YAML fences are load-bearing: the verification script in §5 parses them wit
 - **`in_site` must match the filesystem.** It flips to `true` only when
   `content/works/zh/<slug>.md` exists.
 - **`collection` must be a real `CollectionId`** from `content/collections.ts`.
-- **Order is newest first, then series ascending** for same-day/related titles. Keep the
+- **Order is newest first, then series descending** for same-year titles in the same
+  series: a higher series number was published later, so it comes first. Keep the
   index table and the entry list in the same order.
 - **`待查事項` is part of the deliverable.** Every unresolved gap or inference goes
   there. Never quietly resolve an inference by deleting the note.

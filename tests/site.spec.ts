@@ -29,6 +29,12 @@ test.describe('Chinese home', () => {
 
     await expect(page.locator('.shelf article')).toHaveCount(16)
     await expect(page.locator('#result-count')).toHaveText('共 16 部作品')
+
+    const shelfTitles = await page.locator('.shelf .book-title').allTextContents()
+    const seriesTwo = shelfTitles.indexOf('《丁小飛校園日記2：誰是最佳小隊長？》')
+    const seriesOne = shelfTitles.indexOf('《丁小飛校園日記1：時光膠囊的祕密》')
+    expect(seriesTwo).toBeGreaterThan(-1)
+    expect(seriesOne).toBeGreaterThan(seriesTwo)
   })
 
   test('filters the shelf and resets it', async ({ page }) => {
@@ -159,6 +165,12 @@ test.describe('Chinese site', () => {
     const search = page.getByLabel('搜尋作品')
     await expect(page.locator('main article')).toHaveCount(17)
 
+    const worksTitles = await page.locator('main article .book-title').allTextContents()
+    const seriesTwo = worksTitles.indexOf('《丁小飛校園日記2：誰是最佳小隊長？》')
+    const seriesOne = worksTitles.indexOf('《丁小飛校園日記1：時光膠囊的祕密》')
+    expect(seriesTwo).toBeGreaterThan(-1)
+    expect(seriesOne).toBeGreaterThan(seriesTwo)
+
     await search.fill('豹')
     await expect(status).toHaveText('2 件作品')
     await expect(page).toHaveURL(/\/works\?q=%E8%B1%B9$/)
@@ -286,6 +298,12 @@ test.describe('English site', () => {
     const status = page.getByRole('status')
     const search = page.getByLabel('Search works')
     await expect(page.locator('main article')).toHaveCount(17)
+
+    const worksTitles = await page.locator('main article .book-title').allTextContents()
+    const seriesTwo = worksTitles.indexOf("Ding Xiaofei's School Diary 2: Who Is the Best Team Leader?")
+    const seriesOne = worksTitles.indexOf("Ding Xiaofei's School Diary 1: The Time Capsule Secret")
+    expect(seriesTwo).toBeGreaterThan(-1)
+    expect(seriesOne).toBeGreaterThan(seriesTwo)
 
     await search.fill('leopard')
     await expect(status).toHaveText('2 works')
