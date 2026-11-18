@@ -137,6 +137,15 @@ export function workJsonLd(work: Work, locale: Locale) {
         : undefined
       : absoluteUrl(`/${work.slug}`)
 
+  const leadName =
+    work.authorId === 'tina'
+      ? locale === 'zh'
+        ? '郭瀞婷 Tina Kuo'
+        : 'Tina Kuo'
+      : locale === 'zh'
+        ? '孩子爸 Michael'
+        : 'Michael S. Huang'
+
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -146,17 +155,22 @@ export function workJsonLd(work: Work, locale: Locale) {
     inLanguage: locale === 'zh' ? 'zh-Hant' : 'en',
     url: absoluteUrl(workPath(work, locale)),
     image: absoluteUrl(workOgImage(work.cover)),
-    author: {
-      '@type': 'Person',
-      name:
-        work.authorId === 'tina'
-          ? locale === 'zh'
-            ? '郭瀞婷 Tina Kuo'
-            : 'Tina Kuo'
-          : locale === 'zh'
-            ? '孩子爸 Michael'
-            : 'Michael S. Huang',
-    },
+    author: [
+      { '@type': 'Person', name: leadName },
+      ...work.facts.credits.coAuthors.map((name) => ({ '@type': 'Person', name })),
+    ],
+    illustrator: work.facts.credits.illustrator
+      ? { '@type': 'Person', name: work.facts.credits.illustrator }
+      : undefined,
+    contributor: work.facts.credits.playwrights.length
+      ? work.facts.credits.playwrights.map((name) => ({ '@type': 'Person', name }))
+      : undefined,
+    publisher: work.facts.publisher
+      ? { '@type': 'Organization', name: work.facts.publisher }
+      : undefined,
+    isbn: work.facts.isbn || undefined,
+    numberOfPages: work.facts.pages ?? undefined,
+    awards: work.facts.awards.join('; ') || undefined,
     workTranslation: translationUrl
       ? {
           '@type': 'CreativeWork',
