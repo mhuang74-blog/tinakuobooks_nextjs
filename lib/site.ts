@@ -26,3 +26,13 @@ export const SOURCE_URL = 'https://github.com/mhuang74-blog/tinakuobooks_nextjs'
 export function absoluteUrl(path: string): string {
   return new URL(path, SITE_URL).toString()
 }
+
+/**
+ * Percent-encode a public asset path. React emits eager `<img>` elements as a
+ * `Link: <…>; rel=preload; as="image"` response header, and Node rejects
+ * header values containing non-ASCII bytes (`ERR_INVALID_CHAR`), so cover
+ * filenames authored in Chinese must be encoded before they reach `src`.
+ */
+export function assetUrl(src: string): string {
+  return encodeURI(src)
+}

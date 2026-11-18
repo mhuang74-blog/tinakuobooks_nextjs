@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { CSSProperties, ReactNode } from 'react'
 import { ArrowIcon } from '@/components/icons'
 import { ui, type Locale } from '@/lib/i18n'
+import { assetUrl } from '@/lib/site'
 import type { WorkCardData } from '@/lib/work-card'
 
 type Props = {
@@ -41,7 +42,7 @@ export function WorkCard({ work, locale, linkMode }: Props) {
         <span className="cover-frame">
           <img
             className="cover-img"
-            src={work.art.src}
+            src={assetUrl(work.art.src)}
             width={work.art.width}
             height={work.art.height}
             alt={work.bookTitle}

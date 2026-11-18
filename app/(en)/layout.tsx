@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 
 export default function EnRootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="min-h-screen bg-paper text-ink">
         <Script id="js-flag" strategy="beforeInteractive">
           {`document.documentElement.classList.add('js')`}

@@ -5,6 +5,7 @@ import { useWorkDialog } from '@/components/portfolio/home-dialog-provider'
 import { homeCopy } from '@/content/portfolio'
 import type { Locale } from '@/lib/i18n'
 import type { ShelfEntry } from '@/lib/portfolio'
+import { assetUrl } from '@/lib/site'
 
 type Props = {
   entry: ShelfEntry
@@ -23,7 +24,7 @@ export function FeaturedWork({ entry, locale }: Props) {
         <span className="cover-frame">
           <img
             className="cover-img"
-            src={entry.art.src}
+            src={assetUrl(entry.art.src)}
             width={entry.art.width}
             height={entry.art.height}
             alt={entry.bookTitle}
