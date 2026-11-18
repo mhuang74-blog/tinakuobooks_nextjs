@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { WorkCard } from '@/components/work-card'
 import type { CollectionId } from '@/content/collections'
 import { ui, type Locale } from '@/lib/i18n'
+import { seriesYearOrder } from '@/lib/work-order'
 import type { WorkCardData } from '@/lib/work-card'
 
 type SortKey = 'newest' | 'oldest' | 'title'
@@ -76,9 +77,17 @@ export function WorksExplorer({ works, collections, locale, linkMode }: Props) {
     return filtered.sort((a, b) => {
       if (sort === 'title') return a.title.localeCompare(b.title, localeName)
       if (sort === 'oldest') {
-        return a.date.localeCompare(b.date) || a.title.localeCompare(b.title, localeName)
+        return (
+          -seriesYearOrder(a, b) ||
+          a.date.localeCompare(b.date) ||
+          a.title.localeCompare(b.title, localeName)
+        )
       }
-      return b.date.localeCompare(a.date) || a.title.localeCompare(b.title, localeName)
+      return (
+        seriesYearOrder(a, b) ||
+        b.date.localeCompare(a.date) ||
+        a.title.localeCompare(b.title, localeName)
+      )
     })
   }, [works, collection, deferredQuery, sort, locale, localeName])
 
