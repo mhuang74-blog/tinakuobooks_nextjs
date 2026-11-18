@@ -1,4 +1,20 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+// The suite builds with Cloudflare's always-passing test sitekey, so the widget
+// mounts, but no challenge is fetched: the API stub answers with a fixed token.
+// Passed as source text because Playwright serializes function scripts verbatim.
+async function stubTurnstile(page: Page) {
+  await page.addInitScript({
+    content: `window.turnstile = {
+  render: function (_container, options) {
+    if (options && options.callback) options.callback('test-token')
+    return 'test-widget'
+  },
+  reset: function () {},
+  remove: function () {},
+};`,
+  })
+}
 
 test.describe('Chinese home', () => {
   test('renders the hero, featured work, and the sixteen-work shelf', async ({ page }) => {
@@ -44,7 +60,18 @@ test.describe('Chinese home', () => {
   })
 
   test('inquiry form validates, submits, and resets', async ({ page }) => {
+    await stubTurnstile(page)
     await page.goto('/')
+
+    let submitted: unknown
+    await page.route('**/api/inquiry', async (route) => {
+      submitted = route.request().postDataJSON()
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true }),
+      })
+    })
 
     await page.locator('#f-message').fill('短短')
     await page.locator('#f-message').blur()
@@ -62,13 +89,65 @@ test.describe('Chinese home', () => {
 
     const success = page.locator('#form-success')
     await expect(success).toBeVisible()
-    await expect(success.getByRole('heading', { name: '信已經放在桌上了' })).toBeFocused()
+    await expect(success.getByRole('heading', { name: '信已經寄出了' })).toBeFocused()
     await expect(success).toContainText('林小姐')
+
+    expect(submitted).toMatchObject({
+      name: '林小姐',
+      org: '',
+      topic: 'rights',
+      email: 'reader@example.com',
+      message: '想請教《57號小豹》的授權方式，謝謝。',
+      website: '',
+      turnstileToken: 'test-token',
+      locale: 'zh',
+    })
 
     await page.getByRole('button', { name: '再寫一封' }).click()
     await expect(page.locator('#inquiry-form')).toBeVisible()
     await expect(page.locator('#form-success')).toBeHidden()
     await expect(page.locator('#f-name')).toBeFocused()
+  })
+
+  test('inquiry form keeps the message when the send fails', async ({ page }) => {
+    await stubTurnstile(page)
+    await page.route('**/api/inquiry', (route) =>
+      route.fulfill({
+        status: 502,
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'send_failed' }),
+      }),
+    )
+
+    await page.goto('/')
+    await page.locator('#f-name').fill('林小姐')
+    await page.locator('#f-topic').selectOption('rights')
+    await page.locator('#f-email').fill('reader@example.com')
+    await page.locator('#f-message').fill('想請教《57號小豹》的授權方式，謝謝。')
+    await page.locator('#form-submit').click()
+
+    await expect(page.locator('.form-error')).toHaveText('信沒有送出，請稍後再試一次。')
+    await expect(page.locator('#inquiry-form')).toBeVisible()
+    await expect(page.locator('#f-message')).toHaveValue('想請教《57號小豹》的授權方式，謝謝。')
+    await expect(page.locator('#form-submit')).toBeEnabled()
+    await expect(page.locator('#form-success')).toBeHidden()
+  })
+
+  test('every shelf cover is portrait', async ({ page }) => {
+    await page.goto('/')
+    const images = page.locator('.shelf article .cover-img')
+    for (let i = 0; i < (await images.count()); i++) {
+      await images.nth(i).scrollIntoViewIfNeeded()
+      await images.nth(i).evaluate((img: HTMLImageElement) => img.decode())
+    }
+    const ratios = await images.evaluateAll((nodes) =>
+      nodes.map((node) => {
+        const img = node as HTMLImageElement
+        return { src: img.getAttribute('src') ?? '', ratio: img.naturalWidth / img.naturalHeight }
+      }),
+    )
+    expect(ratios).toHaveLength(16)
+    for (const { src, ratio } of ratios) expect(ratio, src).toBeLessThan(1)
   })
 })
 
