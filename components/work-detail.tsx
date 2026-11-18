@@ -18,7 +18,7 @@ import {
 } from '@/lib/i18n'
 import { Markdown } from '@/lib/markdown'
 import { toShelfEntry } from '@/lib/portfolio'
-import { absoluteUrl } from '@/lib/site'
+import { absoluteUrl, assetUrl } from '@/lib/site'
 import type { Work } from '@/lib/works'
 import { toWorkCardData } from '@/lib/work-card'
 import { workJsonLd, workPath } from '@/lib/seo'
@@ -102,7 +102,7 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
           <span className="cover-frame">
             <img
               className="cover-img"
-              src={shelf?.art.src ?? work.cover}
+              src={assetUrl(shelf?.art.src ?? work.cover)}
               width={shelf?.art.width}
               height={shelf?.art.height}
               alt={alt}

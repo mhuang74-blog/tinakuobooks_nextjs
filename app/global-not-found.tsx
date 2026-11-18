@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function GlobalNotFound() {
   return (
-    <html lang="zh-Hant">
+    <html lang="zh-Hant" suppressHydrationWarning>
       <body className="min-h-screen bg-paper text-ink">
         <Script id="js-flag" strategy="beforeInteractive">
           {`document.documentElement.classList.add('js')`}

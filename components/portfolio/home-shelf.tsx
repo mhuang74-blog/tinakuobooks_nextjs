@@ -6,6 +6,7 @@ import { useWorkDialog } from '@/components/portfolio/home-dialog-provider'
 import { categoryChips, homeCopy, type PortfolioCategory } from '@/content/portfolio'
 import type { Locale } from '@/lib/i18n'
 import type { ShelfEntry } from '@/lib/portfolio'
+import { assetUrl } from '@/lib/site'
 
 type Props = {
   entries: ShelfEntry[]
@@ -89,7 +90,7 @@ export function HomeShelf({ entries, locale }: Props) {
                 <span className="cover-frame">
                   <img
                     className="cover-img"
-                    src={entry.art.src}
+                    src={assetUrl(entry.art.src)}
                     width={entry.art.width}
                     height={entry.art.height}
                     alt={entry.bookTitle}

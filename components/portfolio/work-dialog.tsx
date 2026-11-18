@@ -5,6 +5,7 @@ import { CloseIcon } from '@/components/icons'
 import { homeCopy } from '@/content/portfolio'
 import { ui, type Locale } from '@/lib/i18n'
 import type { ShelfEntry } from '@/lib/portfolio'
+import { assetUrl } from '@/lib/site'
 
 type Props = {
   entry: ShelfEntry | null
@@ -93,7 +94,7 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
               <span className="cover-frame">
                 <img
                   className="cover-img"
-                  src={entry.art.src}
+                  src={assetUrl(entry.art.src)}
                   width={entry.art.width}
                   height={entry.art.height}
                   alt={entry.bookTitle}
