@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   locale: 'en',
   title: 'Collections',
   description:
-    'Browse Tina Kuo works by collection: funny fiction, young adult fiction, picture books, stage performance, and story continuations.',
+    'Browse Tina Kuo works by collection: funny fiction, young adult fiction, picture books, early chapter books, stage performance, and story continuations.',
   path: '/en/collections',
   alternates: { zh: '/collections', en: '/en/collections', xDefault: '/collections' },
 })
@@ -25,7 +25,7 @@ export default function EnCollectionsPage() {
         <p className="eyebrow">{strings.collectionsKicker}</p>
         <h1 className="page-title">{strings.navCollections}</h1>
         <p className="page-lead">
-          Five collections, five ways to read. Pick one and let the story continue.
+          Six collections, six ways to read. Pick one and let the story continue.
         </p>
       </div>
 
