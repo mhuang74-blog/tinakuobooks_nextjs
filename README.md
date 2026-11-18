@@ -20,6 +20,9 @@ pnpm run lint        # eslint
 pnpm run typecheck   # tsc --noEmit
 pnpm run test:e2e    # Playwright suite (builds and serves automatically)
 pnpm run images      # regenerate WebP covers, OG images, and the legacy PDF copy
+pnpm run scan:secrets         # tracked files only
+pnpm run scan:secrets:history # every commit reachable from any ref
+pnpm run scan:secrets:bundle  # built browser output (run after pnpm run build)
 ```
 
 `pnpm run build` runs `prebuild` → `scripts/validate-content.ts` first, which
@@ -212,6 +215,44 @@ to CSV, import only `subscribed` rows as Resend contacts with `locale=zh`, send
 one broadcast containing `{{{RESEND_UNSUBSCRIBE_URL}}}` so imported contacts can
 opt out, and keep the Mailchimp audience read-only for 30 days before deleting
 it.
+
+### Secret handling
+
+All server credentials live in the Vercel project's Environment Variables
+(Production and Preview) as **Secret** entries. The repository stores only the
+names, in `.env.example`; never values. `.env*` is gitignored.
+
+Only `NEXT_PUBLIC_TURNSTILE_SITE_KEY` is browser-visible and may carry the
+`NEXT_PUBLIC_` prefix. Never prefix a server credential with `NEXT_PUBLIC_`.
+
+Local checks (also run in CI):
+
+```sh
+pnpm run scan:secrets           # tracked files
+pnpm run scan:secrets:history   # every commit reachable from any ref
+pnpm run scan:secrets:bundle    # built browser output, after pnpm run build
+```
+
+Enable the commit hook once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+GitHub secret scanning and push protection are enabled on the repository.
+
+If a credential is exposed, revoke it at the provider first, then replace it:
+
+```sh
+vercel env rm RESEND_API_KEY production --yes
+vercel env add RESEND_API_KEY production
+vercel deploy --prod
+```
+
+`SUBSCRIBE_CONFIRM_SECRET` is generated with `openssl rand -base64 32`;
+rotating it invalidates outstanding confirmation links. `RESEND_CONTACTS_API_KEY`
+is a full-access Resend key: revoke and recreate it in the Resend dashboard,
+then update both Production and Preview.
 
 ### DNS and bot protection
 

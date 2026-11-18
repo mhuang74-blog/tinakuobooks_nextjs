@@ -6,11 +6,16 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
         with:
           version: 10.24.0
@@ -19,9 +24,22 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run scan:secrets
+      - run: pnpm run scan:secrets:history
       - run: pnpm run lint
       - run: pnpm exec next typegen
       - run: pnpm run typecheck
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm run build
+        env:
+          RESEND_API_KEY: canary-resend-api-key-000000000000
+          RESEND_CONTACTS_API_KEY: canary-resend-contacts-key-000000000000
+          SUBSCRIBE_CONFIRM_SECRET: canary-subscribe-confirm-secret-000000
+          TURNSTILE_SECRET_KEY: canary-turnstile-secret-000000000000
+      - run: pnpm run scan:secrets:bundle
+        env:
+          RESEND_API_KEY: canary-resend-api-key-000000000000
+          RESEND_CONTACTS_API_KEY: canary-resend-contacts-key-000000000000
+          SUBSCRIBE_CONFIRM_SECRET: canary-subscribe-confirm-secret-000000
+          TURNSTILE_SECRET_KEY: canary-turnstile-secret-000000000000
       - run: pnpm run test:e2e
