@@ -4,6 +4,7 @@ import { JsonLd } from '@/components/json-ld'
 import { NewsletterSection } from '@/components/newsletter-section'
 import { ReadingProgress } from '@/components/reading-progress'
 import { ShareButtons } from '@/components/share-buttons'
+import { WorkFactsPanel } from '@/components/work-facts'
 import { WorkCard } from '@/components/work-card'
 import { getAuthor } from '@/content/authors'
 import { getCollection } from '@/content/collections'
@@ -76,12 +77,6 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
         : null
 
   const alt = toWorkCardData(work, locale).bookTitle
-  const facts: [string, string][] = [
-    [strings.collection, collection.name[locale]],
-    [strings.detailReader, shelf?.reader ?? work.description[locale]],
-    [strings.published, work.date.slice(0, 4)],
-    [strings.language, formatWorkLanguages(work.languages, locale)],
-  ]
 
   return (
     <article>
@@ -120,18 +115,14 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
           ) : null}
           <p className="detail-blurb">{work.description[locale]}</p>
 
-          <dl className="fact-list">
-            {facts.map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-            <div>
-              <dt>{strings.author}</dt>
-              <dd>{authorCard}</dd>
-            </div>
-          </dl>
+          <WorkFactsPanel
+            facts={work.facts}
+            date={work.date}
+            locale={locale}
+            author={authorCard}
+            collection={collection.name[locale]}
+            languages={formatWorkLanguages(work.languages, locale)}
+          />
 
           <div className="detail-share">
             <ShareButtons
@@ -149,9 +140,12 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
         </div>
       </div>
 
-      {notice ? (
+      {notice || (locale === 'en' && work.facts.titleStatus === 'proposed') ? (
         <div className="wrap">
-          <p className="notice">{notice}</p>
+          {notice ? <p className="notice">{notice}</p> : null}
+          {locale === 'en' && work.facts.titleStatus === 'proposed' ? (
+            <p className="notice">{strings.siteTranslation}</p>
+          ) : null}
         </div>
       ) : null}
 
@@ -160,6 +154,16 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
         <Markdown className="work-body" lang={bodyLang}>
           {work.body[locale]}
         </Markdown>
+        <section className="work-notes" aria-labelledby="work-notes-heading">
+          <h2 id="work-notes-heading">{strings.forFamilies}</h2>
+          {work.facts.contentNote[locale] ? (
+            <p className="work-note"><strong>{strings.contentNote}</strong> {work.facts.contentNote[locale]}</p>
+          ) : null}
+          <p className="work-note-label">{strings.discussion}</p>
+          <ol className="work-questions">
+            {work.facts.discussion[locale].map((question) => <li key={question}>{question}</li>)}
+          </ol>
+        </section>
       </section>
 
       <div className="wrap detail-foot">
