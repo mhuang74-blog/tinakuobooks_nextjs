@@ -16,7 +16,11 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "scan:secrets": "node scripts/scan-secrets.mjs",
+    "scan:secrets:staged": "node scripts/scan-secrets.mjs --staged",
+    "scan:secrets:history": "node scripts/scan-secrets.mjs --history",
+    "scan:secrets:bundle": "node scripts/scan-secrets.mjs --bundle"
   },
   "dependencies": {
     "gray-matter": "4.0.3",
