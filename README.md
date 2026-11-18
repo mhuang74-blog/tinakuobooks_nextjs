@@ -55,6 +55,12 @@ content/
 - `featuredSlug` in `content/portfolio.ts` chooses the homepage hero and dialog
   entry. `portfolioWorks` order is the shelf order (newest first) and must cover
   every work; `scripts/validate-content.ts` fails when a slug is missing.
+- Copy that must contain a link is authored as `InlinePart[]`
+  (`lib/inline.ts`) and rendered with `components/inline-text.tsx`: `{ text }`
+  for literal text, `{ href, label }` for an external link, and `{ work }` for a
+  work page, whose title and href are resolved from `content/works` at render
+  time (an unknown slug throws and fails the build).
+
 
 ### Missing or partial translations
 
@@ -134,7 +140,9 @@ Set these variables on the Vercel project for Production and Preview:
 | `INQUIRY_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo Website <website@send.tinakuobooks.com>`. |
 
 `send.tinakuobooks.com` is the Resend sending subdomain; verify it there and add
-the records Resend prints. The root `tinakuobooks.com` SPF record is untouched.
+the records Resend prints. Its SPF is per-hostname, so the root record — managed
+by Email Routing — is unrelated. `tina@tinakuobooks.com` is not a real mailbox:
+it is a Cloudflare Email Routing forward to `proteiosic.software@gmail.com`.
 
 ### DNS and bot protection
 
@@ -157,9 +165,18 @@ Migration order:
 - `tinakuobooks.com` `A` → `216.198.79.1` and `64.29.17.1`; `www` `CNAME` →
   `c2a15262f57dfef7.vercel-dns-017.com`; both **proxied**. SSL/TLS mode must be
   **Full (strict)** — Flexible loops against Vercel's HTTPS redirect.
-- Namecheap email forwarding `MX` (`eforward1`–`eforward5.registrar-servers.com`),
-  the SPF `TXT` record, the Google site-verification `TXT`, and the Resend
-  records for `send.` stay **DNS only**.
+- Inbound mail is Cloudflare Email Routing: apex `MX` is
+  `route1`–`route3.mx.cloudflare.net` (priorities 37/82/20) and apex SPF is
+  `v=spf1 include:_spf.mx.cloudflare.net ~all`. `cf email-routing enable` adds
+  and locks the `MX` set and the `cf2024-1._domainkey` DKIM `TXT`; the SPF `TXT`
+  is not marked read-only but must equal that template or routing reports
+  `spf.foreign`/`misconfigured` — it replaces the old Namecheap include. The
+  Google site-verification `TXT` and the Resend records for `send.` stay **DNS
+  only**. The catch-all rule stays disabled, so mail to any address without a
+  routing rule is rejected at SMTP time instead of dropped. One rule exists:
+  `tina@tinakuobooks.com` → `proteiosic.software@gmail.com`, managed with
+  `cf email-routing rules`. The Namecheap forwarding MX records were removed
+  when routing was enabled.
 - Free-plan rate limiting (one rule): path `/api/inquiry`, 10 requests per
   10 seconds per IP, Block with status `429`. Cloudflare Free fixes the counting
   and mitigation periods at 10 seconds and counts by IP only.
