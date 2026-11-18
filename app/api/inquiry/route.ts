@@ -6,7 +6,7 @@ import { EMAIL_PATTERN } from '@/lib/validation'
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails'
 const INQUIRY_TO = 'tina@tinakuobooks.com'
-const DEFAULT_FROM = 'Tina Kuo Website <website@send.tinakuobooks.com>'
+const DEFAULT_FROM = 'Tina Kuo Website <website@tinakuobooks.com>'
 const TOPICS = homeCopy.zh.contact.form.topics
 
 const recentSubmissions = new Map<string, number[]>()
@@ -139,7 +139,16 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   if (!response.ok) {
-    console.error('inquiry: Resend rejected the message', response.status)
+    const detail = (await response.json().catch(() => null)) as {
+      name?: string
+      message?: string
+    } | null
+    console.error(
+      'inquiry: Resend rejected the message',
+      response.status,
+      detail?.name ?? '',
+      detail?.message ?? '',
+    )
     return json({ error: 'send_failed' }, 502)
   }
 
