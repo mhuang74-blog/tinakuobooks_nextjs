@@ -13,7 +13,7 @@ export const runtime = 'nodejs'
 
 const RESEND_ENDPOINT = 'https://api.resend.com/emails'
 const REPLY_TO = 'tina@tinakuobooks.com'
-const DEFAULT_FROM = 'Tina Kuo <website@send.tinakuobooks.com>'
+const DEFAULT_FROM = 'Tina Kuo <website@tinakuobooks.com>'
 
 // Terraform-free limiter: one bucket per serverless instance, same trade-off as
 // the inquiry route. A distributed limiter would need a store this site lacks.
@@ -162,7 +162,16 @@ export async function POST(request: Request): Promise<Response> {
   }
 
   if (!response.ok) {
-    console.error('subscribe: Resend rejected the message', response.status)
+    const detail = (await response.json().catch(() => null)) as {
+      name?: string
+      message?: string
+    } | null
+    console.error(
+      'subscribe: Resend rejected the message',
+      response.status,
+      detail?.name ?? '',
+      detail?.message ?? '',
+    )
     return json({ error: 'send_failed' }, 502)
   }
 

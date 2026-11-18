@@ -137,12 +137,18 @@ Set these variables on the Vercel project for Production and Preview:
 | `RESEND_API_KEY` | yes | Resend API key. Without it the route answers `503 not_configured`. |
 | `TURNSTILE_SECRET_KEY` | yes | Cloudflare Turnstile secret, checked with Siteverify before every send. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | yes | Turnstile site key, read at build time. Without it the widget is not rendered. |
-| `INQUIRY_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo Website <website@send.tinakuobooks.com>`. |
+| `INQUIRY_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo Website <website@tinakuobooks.com>`. |
 
-`send.tinakuobooks.com` is the Resend sending subdomain; verify it there and add
-the records Resend prints. Its SPF is per-hostname, so the root record — managed
-by Email Routing — is unrelated. `tina@tinakuobooks.com` is not a real mailbox:
-it is a Cloudflare Email Routing forward to `proteiosic.software@gmail.com`.
+`tinakuobooks.com` is the domain verified in Resend; its DKIM record is
+`resend._domainkey.tinakuobooks.com`. `send.tinakuobooks.com` is only the
+Return-Path subdomain — the Forge `CNAME` to `send.forge.rmta.net`, the
+`feedback.forge.rmta.net` MX, and the SPF for Forge's IPs (`rmta.net` is
+Resend's own mail infrastructure). It is not a sending identity: a `from`
+address on it is rejected with `403 validation_error`, so both `from`
+defaults stay on `tinakuobooks.com`. That SPF is per-hostname, so the root
+record — managed by Email Routing — is unrelated. `tina@tinakuobooks.com` is
+not a real mailbox: it is a Cloudflare Email Routing forward to
+`proteiosic.software@gmail.com`.
 
 ### Newsletter
 
@@ -173,11 +179,14 @@ Set these variables on the Vercel project for Production and Preview:
 | `SUBSCRIBE_CONFIRM_SECRET` | yes | HMAC key for confirmation links (`openssl rand -base64 32`). Rotating it invalidates outstanding links. |
 | `TURNSTILE_SECRET_KEY` | yes | Checked with Siteverify before every send. |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | yes | Read at build time; without it the widget is not rendered. |
-| `SUBSCRIBE_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo <website@send.tinakuobooks.com>`. |
+| `SUBSCRIBE_FROM_EMAIL` | no | Sender address. Defaults to `Tina Kuo <website@tinakuobooks.com>`. |
 | `SUBSCRIBE_SITE_URL` | no | Origin used in confirmation links. Defaults to `https://www.tinakuobooks.com`; set it to `http://localhost:3000` to confirm locally. |
 
-In the Resend dashboard: verify `send.tinakuobooks.com` under Domains (it must
-stay verified, because delivery and the confirmation mail both use it), create a
+In the Resend dashboard: verify `tinakuobooks.com` under Domains (its DKIM
+lives at `resend._domainkey.tinakuobooks.com`; the `send` subdomain is only
+the Return-Path). Delivery and the confirmation mail must send from an
+address on that exact domain — a subdomain such as `send.` is not a verified
+sending domain and returns `403`. Also create a
 **Newsletter** segment and a **Newsletter** topic (default subscription
 `opt_in`, visibility `public`), and add a string contact property `locale` with
 fallback `zh`. The contact payload sets `first_name`, `properties.locale`, and
