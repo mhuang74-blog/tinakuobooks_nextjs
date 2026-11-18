@@ -27,7 +27,7 @@ export default function WorksPage() {
         <p className="eyebrow">{strings.worksKicker}</p>
         <h1 className="page-title">{strings.allWorks}</h1>
         <p className="page-lead">
-          從愛搞笑的校園日記到青少年小說、繪本與戲劇，這裡收錄了郭瀞婷的每一部作品。
+          從愛搞笑的校園日記到橋梁書、青少年小說、繪本與戲劇，這裡收錄了郭瀞婷的每一部作品。
         </p>
         <p className="page-meta">
           <a className="link-btn" href="/collections">

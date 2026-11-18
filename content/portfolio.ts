@@ -4,6 +4,7 @@ import { MICHAEL_HUANG_URLS } from '@/lib/site'
 
 export type PortfolioCategory =
   | 'picture-book'
+  | 'bridge-books'
   | 'funny-fiction'
   | 'young-adult-fiction'
   | 'stage-performance'
@@ -58,7 +59,7 @@ export const portfolioWorks: PortfolioEntry[] = [
   },
   {
     slug: "機器人宅急便2-能寄勇氣嗎",
-    category: 'young-adult-fiction',
+    category: 'bridge-books',
     year: '2023',
     art: { src: "/images/book-cover-機器人宅急便2.webp", width: 1000, height: 1373 },
     reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
@@ -74,7 +75,7 @@ export const portfolioWorks: PortfolioEntry[] = [
   },
   {
     slug: "機器人宅急便1-什麼都可以寄",
-    category: 'young-adult-fiction',
+    category: 'bridge-books',
     year: '2022',
     art: { src: "/images/book-cover-機器人宅急便1.webp", width: 1000, height: 1372 },
     reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
@@ -121,8 +122,8 @@ export const portfolioWorks: PortfolioEntry[] = [
     },
     credit: { zh: '', en: '' },
     tagline: {
-      zh: '如果那個「不一樣」是你喜歡、別人不喜歡的，你會怎麼做？',
-      en: "What if the thing that makes you different is something you love — and others don't?",
+      zh: '一隻不想被看見的豹，最後得面對自己身上的「不一樣」。',
+      en: 'A leopard that would rather not be seen ends up facing what makes it different.',
     },
     excerpt: {
       zh: '57號小豹，是動物園豹群中的一隻豹，牠不希望看起來太獨特，因為身邊的豹群們恐嚇牠：「人類喜歡獵豹看起來很勇猛，如果你看起來不像人類想的那樣，就會被做成衣服或圍巾……」',
@@ -153,8 +154,8 @@ export const portfolioWorks: PortfolioEntry[] = [
     reader: { zh: '長篇小說 · 青少年', en: 'Novel · Young adult' },
     credit: { zh: '', en: '' },
     tagline: {
-      zh: '如果人生可以重來，你想改變哪一段記憶？',
-      en: 'If life could start over, which memory would you change?',
+      zh: '一場車禍把他送到生死邊境，三次機會改寫一段記憶。',
+      en: 'A crash leaves him at the border of life and death, with three chances to rewrite one memory.',
     },
     excerpt: {
       zh: '26歲的宋宥安是演藝界的明日之星，原本擁有大好前途的他，卻因為一場車禍陷入昏迷。當他再度睜開眼睛，發現自己身處一個奇特的異境，紫灰色的天空一望無際。',
@@ -220,8 +221,8 @@ export const portfolioWorks: PortfolioEntry[] = [
     reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
     credit: { zh: '', en: '' },
     tagline: {
-      zh: '副班長頭銜與好朋友，哪一個比較重要？',
-      en: 'Vice class president, or a good friend — which matters more?',
+      zh: '為了副班長，他開始對最好的朋友動手腳。',
+      en: 'To win the deputy post, he starts playing tricks on his best friend.',
     },
     excerpt: {
       zh: '據說有名的人小時候都當過「幹部」，丁小飛決心爭取副班長的職位。誰知半路殺出程咬金——好朋友何李羅不僅被提名，最後還高票當選！妒意如霧氣籠罩丁小飛。',
@@ -303,6 +304,7 @@ export const coloringBook = {
 export const categoryChips: { id: 'all' | PortfolioCategory; label: Localized<string> }[] = [
   { id: 'all', label: { zh: '全部', en: 'All' } },
   { id: 'picture-book', label: { zh: '繪本', en: 'Picture books' } },
+  { id: 'bridge-books', label: { zh: '橋梁書', en: 'Early chapter books' } },
   { id: 'funny-fiction', label: { zh: '愛搞笑', en: 'Funny' } },
   { id: 'young-adult-fiction', label: { zh: '青少', en: 'YA' } },
   { id: 'stage-performance', label: { zh: '戲劇', en: 'Stage' } },
@@ -574,10 +576,10 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
+      title: { zh: '十六部作品，五種讀法', en: 'Sixteen works, five ways to read' },
       lead: {
-        zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
-        en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
+        zh: '繪本、橋梁書、校園日記、青少年小說、舞台劇——同一個說故事的人，換了五種聲調。點開封面，看簡介、適讀年齡和出版資訊。',
+        en: 'Picture books, early chapter books, school diaries, young adult novels, a stage play — one storyteller, five voices. Open a cover for the synopsis, reading age, and publication details.',
       },
       reset: { zh: '重置篩選', en: 'Reset filters' },
       countAll: (n) => `共 ${n} 部作品`,
@@ -974,10 +976,10 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
+      title: { zh: '十六部作品，五種讀法', en: 'Sixteen works, five ways to read' },
       lead: {
-        zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
-        en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
+        zh: '繪本、橋梁書、校園日記、青少年小說、舞台劇——同一個說故事的人，換了五種聲調。點開封面，看簡介、適讀年齡和出版資訊。',
+        en: 'Picture books, early chapter books, school diaries, young adult novels, a stage play — one storyteller, five voices. Open a cover for the synopsis, reading age, and publication details.',
       },
       reset: { zh: '重置篩選', en: 'Reset filters' },
       countAll: (n) => `${n} works`,

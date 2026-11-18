@@ -28,7 +28,7 @@ export default function EnWorksPage() {
         <p className="eyebrow">{strings.worksKicker}</p>
         <h1 className="page-title">{strings.allWorks}</h1>
         <p className="page-lead">
-          From slapstick school diaries to young adult novels, picture books, and stage
+          From slapstick school diaries to early chapter books, young adult novels, picture books, and stage
           adaptations — every work by Tina Kuo in one place.
         </p>
         <p className="page-meta">
