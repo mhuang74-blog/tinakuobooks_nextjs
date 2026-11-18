@@ -91,7 +91,10 @@ const SKIP_VALUE_PREFIXES = [
 const CLOUDFLARE_TEST_KEY = /^[123]x0{10,}/
 
 const SKIP_SEGMENTS = new Set(['node_modules', '.next', 'playwright-report', 'test-results'])
-const SKIP_ROOT_PREFIXES = ['public/', 'assets/']
+// `public/` is served verbatim from the deployment root, so it is scanned (binaries
+// are dropped by the NUL check) — the bundle scan only walks `.next/static` and
+// would never see a key dropped there. `assets/` holds unserved source images.
+const SKIP_ROOT_PREFIXES = ['assets/']
 const SKIP_BASENAMES = new Set(['pnpm-lock.yaml'])
 const SKIP_SUFFIXES = ['.tsbuildinfo']
 const CLIENT_MODULE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx'])
