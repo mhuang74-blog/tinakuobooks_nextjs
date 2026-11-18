@@ -351,11 +351,11 @@ awards: []
 status: 在版
 in_site: true
 cover_source_url: https://www.books.com.tw/img/001/087/39/0010873969.jpg
-cover_file: assets/source-images/book-cover-57號小豹-flat.jpg
+cover_file: assets/source-images/book-cover-57號小豹-portrait.jpg
 editions: []
 sources:
   - https://www.books.com.tw/products/0010873969
-notes: ""
+notes: 繪本本身為橫式；5:7 直式圖由 scripts/compose-leopard-portrait.mjs 自 book-cover-57號小豹-flat.jpg 產生——逐欄縱向校正掃描的梯形變形、去掉書脊後置中，上下填封面底色（取樣 #ABC1AA），未裁切任何畫面。
 ```
 
 ### 動物星球偵探事件簿2：推理要在放學後
@@ -556,8 +556,8 @@ awards:
   - 臺灣文學館推薦文學好書
 status: 在版
 in_site: true
-cover_source_url: https://www.books.com.tw/img/001/101/70/0011017028.jpg
-cover_file: assets/source-images/book-cover-暗號偵探社-flat.jpg
+cover_source_url: https://cdn.readmoo.com/cover/pt/higjunt.jpg
+cover_file: assets/source-images/book-cover-暗號偵探社.jpg
 editions:
   - label: 二版
     date: "2025-03-26"
