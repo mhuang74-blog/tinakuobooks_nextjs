@@ -6,5 +6,5 @@ import type { Localized } from '@/lib/i18n'
  */
 export type InlinePart =
   | { text: string }
-  | { href: string; label: string }
+  | { href: string | Localized<string>; label: string }
   | { work: string; label?: Localized<string> }

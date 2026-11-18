@@ -1,6 +1,6 @@
 import type { InlinePart } from '@/lib/inline'
 import type { Locale, Localized } from '@/lib/i18n'
-import { MICHAEL_HUANG_URL } from '@/lib/site'
+import { MICHAEL_HUANG_URLS } from '@/lib/site'
 
 export type PortfolioCategory =
   | 'picture-book'
@@ -639,12 +639,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           zh: [
             { text: '這個網站由孩子爸 ' },
-            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
             { text: ' 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。' },
           ],
           en: [
             { text: "This site was built by the kids' dad, " },
-            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
             {
               text: ": a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
             },
@@ -812,12 +812,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
           value: {
             zh: [
               { text: '由孩子爸 ' },
-              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
               { text: ' 建立與維護' },
             ],
             en: [
               { text: 'Built and maintained by ' },
-              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
             ],
           },
         },
@@ -926,7 +926,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       brand: { zh: '郭瀞婷 Tina Kuo · 台北', en: 'Tina Kuo · Taipei' },
       legal: (year) => [
         { text: `© ${year} 郭瀞婷 · 由 ` },
-        { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+        { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
         { text: ' 建立 · 內容以 CC BY 4.0 授權' },
       ],
       links: [
@@ -936,10 +936,6 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { label: { zh: 'English', en: '中文' }, href: '/en' },
         { label: { zh: 'RSS', en: 'RSS' }, href: '/feed.xml' },
         { label: { zh: '隱私權', en: 'Privacy' }, href: '/privacy' },
-        {
-          label: { zh: '原始碼', en: 'Source' },
-          href: 'https://github.com/mhuang74-blog/tinakuobooks_nextjs',
-        },
       ],
     },
   },
@@ -1040,12 +1036,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           zh: [
             { text: '這個網站由孩子爸 ' },
-            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
             { text: ' 建立：收錄心愛老婆郭瀞婷的作品，也用他的方式把她的故事延伸出去。' },
           ],
           en: [
             { text: "This site was built by the kids' dad, " },
-            { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+            { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
             {
               text: ": a home for his beloved wife Tina Kuo's work, and his own way of carrying her stories further.",
             },
@@ -1213,12 +1209,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
           value: {
             zh: [
               { text: '由孩子爸 ' },
-              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
               { text: ' 建立與維護' },
             ],
             en: [
               { text: 'Built and maintained by ' },
-              { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+              { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
             ],
           },
         },
@@ -1327,7 +1323,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       brand: { zh: '郭瀞婷 Tina Kuo · 台北', en: 'Tina Kuo · Taipei' },
       legal: (year) => [
         { text: `© ${year} Tina Kuo · Site by ` },
-        { href: MICHAEL_HUANG_URL, label: 'Michael S. Huang' },
+        { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
         { text: ' · Content under CC BY 4.0' },
       ],
       links: [
@@ -1337,10 +1333,6 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         { label: { zh: 'English', en: '中文' }, href: '/' },
         { label: { zh: 'RSS', en: 'RSS' }, href: '/en/feed.xml' },
         { label: { zh: '隱私權', en: 'Privacy' }, href: '/en/privacy' },
-        {
-          label: { zh: '原始碼', en: 'Source' },
-          href: 'https://github.com/mhuang74-blog/tinakuobooks_nextjs',
-        },
       ],
     },
   },
