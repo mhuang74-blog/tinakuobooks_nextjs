@@ -710,8 +710,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
       licence: {
-        zh: '本站文字與書封圖像以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封與插畫的著作權屬原出版社與繪者所有。',
-        en: 'Text and cover images on this site are released under CC BY 4.0. When reposting, credit the author Tina Kuo and the original source tinakuobooks.com. Copyright in the covers and illustrations remains with the original publishers and illustrators.',
+        zh: '本站由郭瀞婷撰寫的文字以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封、插畫與出版社文案的著作權屬原出版社與繪者所有，不在本授權範圍內。',
+        en: 'Original text written for this site by Tina Kuo is released under CC BY 4.0; when reposting, credit the author and tinakuobooks.com. Covers, illustrations, and publisher copy remain the copyright of the original publishers and illustrators and are not covered by this licence.',
       },
       usageTitle: { zh: '作品使用', en: 'Using the work' },
       usage: [
@@ -732,8 +732,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           label: { zh: '外版', en: 'Foreign editions' },
           text: {
-            zh: '部分作品已有英文版，其他語言請來信',
-            en: 'Some works have English editions; for other languages, write to us',
+            zh: '英文摘要由本站翻譯，不是出版社發行的版本；其他語言請來信',
+            en: 'English summaries on this site are our translations, not publisher-issued editions; for other languages, write to us',
           },
         },
       ],
@@ -813,7 +813,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       legal: (year) => [
         { text: `© ${year} 郭瀞婷 · 由 ` },
         { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
-        { text: ' 建立 · 內容以 CC BY 4.0 授權' },
+        { text: ' 建立 · 本站原創文字以 CC BY 4.0 授權' },
       ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/works' },
@@ -1106,8 +1106,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
       licence: {
-        zh: '本站文字與書封圖像以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封與插畫的著作權屬原出版社與繪者所有。',
-        en: 'Text and cover images on this site are released under CC BY 4.0. When reposting, credit the author Tina Kuo and the original source tinakuobooks.com. Copyright in the covers and illustrations remains with the original publishers and illustrators.',
+        zh: '本站由郭瀞婷撰寫的文字以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封、插畫與出版社文案的著作權屬原出版社與繪者所有，不在本授權範圍內。',
+        en: 'Original text written for this site by Tina Kuo is released under CC BY 4.0; when reposting, credit the author and tinakuobooks.com. Covers, illustrations, and publisher copy remain the copyright of the original publishers and illustrators and are not covered by this licence.',
       },
       usageTitle: { zh: '作品使用', en: 'Using the work' },
       usage: [
@@ -1128,8 +1128,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           label: { zh: '外版', en: 'Foreign editions' },
           text: {
-            zh: '部分作品已有英文版，其他語言請來信',
-            en: 'Some works have English editions; for other languages, write to us',
+            zh: '英文摘要由本站翻譯，不是出版社發行的版本；其他語言請來信',
+            en: 'English summaries on this site are our translations, not publisher-issued editions; for other languages, write to us',
           },
         },
       ],
@@ -1209,7 +1209,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       legal: (year) => [
         { text: `© ${year} Tina Kuo · Site by ` },
         { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
-        { text: ' · Content under CC BY 4.0' },
+        { text: ' · Original site text under CC BY 4.0' },
       ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/en/works' },
