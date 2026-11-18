@@ -1,3 +1,4 @@
+import { InlineText } from '@/components/inline-text'
 import { homeCopy } from '@/content/portfolio'
 import { type Locale } from '@/lib/i18n'
 
@@ -18,7 +19,9 @@ export function SiteFooter({ locale }: Props) {
             tinakuobooks.com
           </a>
         </p>
-        <p className="foot-legal">{copy.legal(year)}</p>
+        <p className="foot-legal">
+          <InlineText parts={copy.legal(year)} locale={locale} />
+        </p>
       </div>
       <div className="wrap foot-links">
         {copy.links.map((link) => (
