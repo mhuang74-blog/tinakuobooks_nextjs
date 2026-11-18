@@ -1,12 +1,6 @@
 import type { Locale } from '@/lib/i18n'
 
 export const INQUIRY_ENDPOINT = '/api/inquiry'
-export const INQUIRY_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-
-export const TURNSTILE_SCRIPT =
-  'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
-export const TURNSTILE_VERIFY_ENDPOINT =
-  'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
 export const INQUIRY_LIMITS = {
   name: 100,

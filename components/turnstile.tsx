@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { TURNSTILE_SCRIPT } from '@/lib/inquiry'
+import { TURNSTILE_SCRIPT } from '@/lib/turnstile'
 import type { Locale } from '@/lib/i18n'
 
 const API_POLL_MS = 100

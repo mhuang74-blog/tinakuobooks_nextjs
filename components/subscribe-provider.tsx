@@ -12,6 +12,7 @@ import {
 } from 'react'
 import { CloseIcon } from '@/components/icons'
 import { NewsletterForm } from '@/components/newsletter-form'
+import { trackEvent } from '@/lib/analytics'
 import { ui, type Locale } from '@/lib/i18n'
 
 type SubscribeContextValue = {
@@ -43,7 +44,8 @@ export function SubscribeProvider({ locale, children }: ProviderProps) {
     if (!dialog || dialog.open) return
     dialog.showModal()
     setOpen(true)
-  }, [])
+    trackEvent('newsletter_open', { locale })
+  }, [locale])
 
   const closeSubscribe = useCallback(() => {
     const dialog = dialogRef.current
@@ -89,7 +91,7 @@ export function SubscribeProvider({ locale, children }: ProviderProps) {
           </h2>
           <p className="dialog-blurb">{strings.subscribeDescription}</p>
 
-          <NewsletterForm locale={locale} />
+          {open ? <NewsletterForm locale={locale} source="dialog" /> : null}
         </div>
       </dialog>
     </SubscribeContext.Provider>

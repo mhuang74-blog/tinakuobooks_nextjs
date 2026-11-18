@@ -8,14 +8,11 @@ import {
   type SyntheticEvent,
 } from 'react'
 import { homeCopy } from '@/content/portfolio'
-import {
-  INQUIRY_EMAIL_PATTERN,
-  INQUIRY_ENDPOINT,
-  INQUIRY_LIMITS,
-  type InquiryPayload,
-} from '@/lib/inquiry'
+import { INQUIRY_ENDPOINT, INQUIRY_LIMITS, type InquiryPayload } from '@/lib/inquiry'
 import { Turnstile } from '@/components/turnstile'
 import type { Locale } from '@/lib/i18n'
+import { awaitTurnstileToken } from '@/lib/turnstile-client'
+import { EMAIL_PATTERN } from '@/lib/validation'
 
 type FieldKey = 'name' | 'topic' | 'email' | 'message'
 
@@ -24,21 +21,6 @@ type Props = {
 }
 
 const ICON_STYLE = { '--od-icon-size': '28px' } as CSSProperties
-
-// Turnstile can still be solving when the letter is ready, so give the widget
-// 30 × 100 ms before blaming the visitor for skipping the check.
-const TOKEN_WAIT_STEPS = 30
-
-async function awaitToken(read: () => string): Promise<string> {
-  for (let step = 0; step < TOKEN_WAIT_STEPS; step += 1) {
-    // Next's browser baseline includes Safari 16.4, which has no
-    // Promise.withResolvers, and built-ins are not polyfilled.
-    await new Promise<void>((resolve) => window.setTimeout(resolve, 100))
-    const token = read()
-    if (token) return token
-  }
-  return ''
-}
 
 const FIELD_ORDER: FieldKey[] = ['name', 'topic', 'email', 'message']
 
@@ -100,7 +82,7 @@ export function InquiryForm({ locale }: Props) {
     email: (value) => {
       const trimmed = value.trim()
       return (
-        INQUIRY_EMAIL_PATTERN.test(trimmed) && trimmed.length <= INQUIRY_LIMITS.email
+        EMAIL_PATTERN.test(trimmed) && trimmed.length <= INQUIRY_LIMITS.email
       )
     },
     message: (value) => {
@@ -160,7 +142,7 @@ export function InquiryForm({ locale }: Props) {
     setSending(true)
     formRef.current?.setAttribute('aria-busy', 'true')
 
-    const turnstileToken = readToken() || (turnstileSiteKey ? await awaitToken(readToken) : '')
+    const turnstileToken = readToken() || (turnstileSiteKey ? await awaitTurnstileToken(readToken) : '')
     if (turnstileSiteKey && !turnstileToken) {
       formRef.current?.removeAttribute('aria-busy')
       setSending(false)

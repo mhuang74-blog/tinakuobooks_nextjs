@@ -56,6 +56,10 @@ export function aboutHref(locale: Locale): string {
   return locale === 'en' ? '/en/about' : '/about/'
 }
 
+export function privacyHref(locale: Locale): string {
+  return locale === 'en' ? '/en/privacy' : '/privacy'
+}
+
 export function feedHref(locale: Locale): string {
   return locale === 'en' ? '/en/feed.xml' : '/feed.xml'
 }
@@ -99,10 +103,22 @@ const zhUi = {
   home: '首頁',
   subscribe: '訂閱',
   subscribeTitle: '訂閱新作品通知',
-  subscribeDescription: '通過搞笑有趣的丁小飛故事學英文？！有興趣的爸爸媽媽請訂閱！',
+  subscribeDescription: '新作品與活動消息，直接寄到你的信箱。',
   subscribeEmail: '電郵',
   subscribeName: '名字/綽號',
   subscribeSubmit: '我要訂閱',
+  subscribeSending: '送出中…',
+  subscribeInvalidEmail: '請輸入有效的電郵地址。',
+  subscribeInvalidName: '請輸入名字或綽號。',
+  subscribeConsent: '送出即表示你同意我們用 Resend 寄送新作品與活動消息；你可以隨時取消訂閱。',
+  subscribePrivacyLink: '隱私權政策',
+  subscribeSuccessTitle: '請檢查你的信箱',
+  subscribeSuccessBody: '我們已寄出確認信。請點擊信中的連結完成訂閱。',
+  subscribeAgain: '再訂閱一個',
+  subscribeError: '訂閱沒有送出，請稍後再試。',
+  subscribeCaptchaError: '驗證失敗，請重新整理再試。',
+  subscribeRateLimitedError: '嘗試次數太多，請稍後再試。',
+  privacy: '隱私權',
   close: '關閉',
   languageToggleToEnglish: '切換到英文版',
   languageToggleUnavailable: '英文版準備中',
@@ -181,11 +197,23 @@ const enUi: Ui = {
   home: 'Home',
   subscribe: 'Subscribe',
   subscribeTitle: 'Get new work updates',
-  subscribeDescription:
-    'Learn English through the funny Ding Xiaofei stories?! Parents who are interested, subscribe here!',
+  subscribeDescription: 'New works and events, straight to your inbox.',
   subscribeEmail: 'Email',
   subscribeName: 'Name / nickname',
   subscribeSubmit: 'Subscribe',
+  subscribeSending: 'Sending…',
+  subscribeInvalidEmail: 'Enter a valid email address.',
+  subscribeInvalidName: 'Enter a name or nickname.',
+  subscribeConsent:
+    'By subscribing, you agree to receive news about new works and events via Resend. You can unsubscribe at any time.',
+  subscribePrivacyLink: 'Privacy policy',
+  subscribeSuccessTitle: 'Check your inbox',
+  subscribeSuccessBody: 'We sent a confirmation email. Click the link in it to finish subscribing.',
+  subscribeAgain: 'Subscribe another',
+  subscribeError: 'Could not subscribe. Please try again.',
+  subscribeCaptchaError: 'Verification failed. Reload and try again.',
+  subscribeRateLimitedError: 'Too many attempts. Try again later.',
+  privacy: 'Privacy',
   close: 'Close',
   languageToggleToEnglish: 'Switch to English',
   languageToggleUnavailable: 'English translation coming soon',
