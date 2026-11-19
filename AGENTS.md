@@ -19,6 +19,14 @@ GH_TOKEN="$v" gh pr create --base main --head <branch>
 
 The stored credential in `~/.config/gh/hosts.yml` covers reads (`gh pr list`, `gh api`) and git pushes over SSH, and answers the pull-request write endpoints with `403 Resource not accessible by personal access token`. Keep `GH_TOKEN` scoped to the command so `hosts.yml` stays the default.
 
+## Dev server
+
+One `next dev` per checkout. Next 16 enables `experimental.lockDistDir`, so `.next/dev/lock` makes a second server in this directory exit 1 with `⨯ Another next dev server is already running` — the port does not matter, `--port 3100` included. The lock is an OS file lock: a leftover `lock` file from a dead process does not block a fresh start.
+
+Stop the server with the PID it printed (`- PID: <n>`) or `kill "$(jq -r .pid .next/dev/lock)"`. Never `pkill -f 'next dev'` or `killall node`: those patterns also match the user's foreground `pnpm dev` and other agents' shells in this directory.
+
+`pnpm dev` ending in `ELIFECYCLE  Command failed.` (exit 143) with no Next error means the `pnpm → sh -c next dev → node next dev → next-server` chain received SIGTERM from outside. It is not a code, config, or dependency failure.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
