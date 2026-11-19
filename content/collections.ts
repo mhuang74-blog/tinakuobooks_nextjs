@@ -19,8 +19,9 @@ export type Collection = {
 //   funny-fiction        18830120  Muziyan Du — two siblings laughing on an orange sofa
 //   young-adult-fiction  27300378  xiao zheng geng — high-school girl reading by a classroom window
 //   picture-book         18830152  Muziyan Du — girl playfully holding a picture book in class
+//   bridge-books         18830100  Muziyan Du — two girls sharing a book in window light
 //   stage-performance    13726442  klub boks — children in Chinese-opera costume and makeup
-//   story-continues      18830100  Muziyan Du — two girls sharing a book in window light
+//   story-continues      7025527   Vlada Karpovich — three children drawing and coloring at a table
 export const collections: Collection[] = [
   {
     id: 'funny-fiction',
@@ -47,7 +48,7 @@ export const collections: Collection[] = [
     id: 'bridge-books',
     name: { zh: '橋梁書', en: 'Early Chapter Books' },
     description: { zh: '從共讀走向自己讀下一章', en: 'From reading together to reading the next chapter on their own' },
-    cover: '/images/collection-story-continues.webp',
+    cover: '/images/collection-bridge-books.webp',
     accent: 'var(--collection-bridge)',
   },
   {
