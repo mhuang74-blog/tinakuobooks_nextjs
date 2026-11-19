@@ -657,7 +657,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       stage: {
         kind: { zh: '舞台劇 · 2020', en: 'STAGE · 2020' },
         title: {
-          zh: '小兒子報告! 沙發有黑洞',
+          zh: '小兒子報告！沙發有黑洞',
           en: 'Little Son Report! The Sofa Has a Black Hole',
         },
         body: {
@@ -1053,7 +1053,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       stage: {
         kind: { zh: '舞台劇 · 2020', en: 'STAGE · 2020' },
         title: {
-          zh: '小兒子報告! 沙發有黑洞',
+          zh: '小兒子報告！沙發有黑洞',
           en: 'Little Son Report! The Sofa Has a Black Hole',
         },
         body: {
