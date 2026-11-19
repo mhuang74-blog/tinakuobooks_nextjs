@@ -11,7 +11,7 @@ export const metadata: Metadata = buildMetadata({
   locale: 'en',
   title: 'Collections',
   description:
-    'Browse Tina Kuo works by collection: funny fiction, young adult fiction, picture books, stage performance, and story continuations.',
+    'Browse picture books, early chapter books, funny fiction, mystery and fantasy, stage works, and activities.',
   path: '/en/collections',
   alternates: { zh: '/collections', en: '/en/collections', xDefault: '/collections' },
 })
@@ -25,7 +25,7 @@ export default function EnCollectionsPage() {
         <p className="eyebrow">{strings.collectionsKicker}</p>
         <h1 className="page-title">{strings.navCollections}</h1>
         <p className="page-lead">
-          Five collections, five ways to read. Pick one and let the story continue.
+          Find a picture book to share or a mystery a young reader can get lost in on their own.
         </p>
       </div>
 

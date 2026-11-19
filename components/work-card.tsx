@@ -58,7 +58,7 @@ export function WorkCard({ work, locale, linkMode }: Props) {
           <span className="book-genre">{work.year}</span>
         </p>
         <h3 className="book-title">{work.bookTitle}</h3>
-        <p className="book-line">{work.tagline}</p>
+        <p className="book-line">{work.description}</p>
         <CardLink href={work.href} className="link-btn" ariaLabel={readAria} legacy={legacy}>
           {strings.readWork}
           <ArrowIcon className="od-icon" style={{ '--od-icon-size': '14px' } as CSSProperties} />

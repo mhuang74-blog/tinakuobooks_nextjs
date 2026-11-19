@@ -139,10 +139,15 @@ for (const entry of portfolioWorks) {
   const work = getWorkBySlug(entry.slug)
   if (!work) {
     errors.push(`${label}: no matching work in content/works/zh`)
-  } else if (entry.category !== work.collectionId) {
-    errors.push(
-      `${label}: category ${entry.category} does not match collection ${work.collectionId}`,
-    )
+  } else {
+    if (entry.category !== work.collectionId) {
+      errors.push(
+        `${label}: category ${entry.category} does not match collection ${work.collectionId}`,
+      )
+    }
+    if (!work.preview.zh.trim() || (!work.translationPending && !work.preview.en.trim())) {
+      errors.push(`${label}: missing shelf preview`)
+    }
   }
 
   if (!fs.existsSync(path.join(ROOT, 'public', entry.art.src))) {

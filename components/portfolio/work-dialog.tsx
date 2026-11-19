@@ -107,8 +107,12 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
               <h2 className="dialog-title" id="dialog-title">
                 {entry.bookTitle}
               </h2>
-              <p className="dialog-en">{entry.enTitle}</p>
               <p className="dialog-blurb">{entry.description}</p>
+              {entry.preview ? (
+                <div className="dialog-preview">
+                  {entry.preview.split('\n\n').map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+              ) : null}
 
               <dl className="fact-list">
                 {facts.map(([label, value]) => (
@@ -119,11 +123,9 @@ export function WorkDialog({ entry, locale, trigger, onClosed }: Props) {
                 ))}
               </dl>
 
-              <blockquote className="excerpt">
-                <p>{entry.excerpt}</p>
-              </blockquote>
-
-              {entry.credit ? <p className="dialog-credit">{entry.credit}</p> : null}
+              <p className="detail-actions">
+                <a className="link-btn" href={entry.href}>{copy.cardCta[locale]}</a>
+              </p>
 
               <p className="dialog-note">
                 {copy.dialog.note[locale]}{' '}

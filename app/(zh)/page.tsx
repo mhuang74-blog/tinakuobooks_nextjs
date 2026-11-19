@@ -110,8 +110,6 @@ export default function HomePage() {
         <div className="wrap about-grid">
           <div className="about-copy">
             <p className="eyebrow">{copy.about.eyebrow[locale]}</p>
-            <blockquote className="pull">{copy.about.quote[locale]}</blockquote>
-            <p className="quote-src">{copy.about.source[locale]}</p>
 
             <div className="bio-row" data-reveal>
               <figure className="author-photo">

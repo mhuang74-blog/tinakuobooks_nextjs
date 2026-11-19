@@ -35,7 +35,7 @@ export async function generateMetadata({
     alternates: workAlternates(work),
     type: 'article',
     image: workImage(work),
-    publishedTime: `${work.date}T00:00:00+08:00`,
+    publishedTime: work.publication.yearOnly ? undefined : `${work.date}T00:00:00+08:00`,
     authors: [getAuthor(work.authorId).name.en],
     section: getCollection(work.collectionId).name.en,
     keywords: [work.title.en, work.title.zh, 'Tina Kuo'],

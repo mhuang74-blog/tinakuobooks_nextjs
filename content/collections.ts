@@ -2,6 +2,7 @@ export type CollectionId =
   | 'funny-fiction'
   | 'young-adult-fiction'
   | 'picture-book'
+  | 'bridge-books'
   | 'stage-performance'
   | 'story-continues'
 
@@ -30,8 +31,8 @@ export const collections: Collection[] = [
   },
   {
     id: 'young-adult-fiction',
-    name: { zh: '青少', en: 'Young Adult Fiction' },
-    description: { zh: '給愛讀書的妳', en: 'For the young reader' },
+    name: { zh: '推理與奇想', en: 'Mystery & Fantasy' },
+    description: { zh: '追線索，也走進不一樣的世界', en: 'Follow a clue or step into another world' },
     cover: '/images/collection-young-adult-fiction.webp',
     accent: 'var(--collection-ya)',
   },
@@ -41,6 +42,13 @@ export const collections: Collection[] = [
     description: { zh: '看圖說故事', en: 'Stories told in pictures' },
     cover: '/images/collection-picture-book.webp',
     accent: 'var(--collection-picture)',
+  },
+  {
+    id: 'bridge-books',
+    name: { zh: '橋梁書', en: 'Early Chapter Books' },
+    description: { zh: '從共讀走向自己讀下一章', en: 'From reading together to reading the next chapter on their own' },
+    cover: '/images/collection-story-continues.webp',
+    accent: 'var(--collection-bridge)',
   },
   {
     id: 'stage-performance',

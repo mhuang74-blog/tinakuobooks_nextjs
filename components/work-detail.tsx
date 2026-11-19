@@ -22,6 +22,7 @@ import { toShelfEntry } from '@/lib/portfolio'
 import { absoluteUrl, assetUrl } from '@/lib/site'
 import type { Work } from '@/lib/works'
 import { toWorkCardData } from '@/lib/work-card'
+import { getWorkPublicationRows, getWorkReadership } from '@/lib/work-publication'
 import { workJsonLd, workPath } from '@/lib/seo'
 
 type Props = {
@@ -76,12 +77,15 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
         : null
 
   const alt = toWorkCardData(work, locale).bookTitle
+  const readership = getWorkReadership(work, locale)
+  const authorLabel = work.publication.playwrights?.length
+    ? (locale === 'zh' ? '故事構成' : 'Story development')
+    : strings.author
   const facts: [string, string][] = [
-    [strings.collection, collection.name[locale]],
-    [strings.detailReader, shelf?.reader ?? work.description[locale]],
-    [strings.published, work.date.slice(0, 4)],
+    ...getWorkPublicationRows(work, locale),
     [strings.language, formatWorkLanguages(work.languages, locale)],
   ]
+  if (readership) facts.unshift([strings.detailReader, readership])
 
   return (
     <article>
@@ -115,8 +119,11 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
         <div>
           {collectionCard}
           <h1 className="detail-title">{title}</h1>
-          {work.title.en && work.title.en !== title ? (
-            <p className="detail-en">{work.title.en}</p>
+          {locale === 'en' ? (
+            <p className="detail-en" lang="zh-Hant">{work.title.zh}</p>
+          ) : null}
+          {locale === 'en' && work.workingTitle ? (
+            <p className="detail-en">Working English title used for this introduction.</p>
           ) : null}
           <p className="detail-blurb">{work.description[locale]}</p>
 
@@ -128,7 +135,7 @@ export function WorkDetail({ work, locale, newer, older, related }: Props) {
               </div>
             ))}
             <div>
-              <dt>{strings.author}</dt>
+              <dt>{authorLabel}</dt>
               <dd>{authorCard}</dd>
             </div>
           </dl>

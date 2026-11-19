@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import type { Author } from '@/content/authors'
+import { getAuthor, type Author } from '@/content/authors'
 import type { Collection } from '@/content/collections'
 import { collectionHref, authorHref, type Locale } from '@/lib/i18n'
 import { absoluteUrl, SITE_TITLE_EN, SITE_TITLE_ZH } from '@/lib/site'
@@ -129,6 +129,9 @@ export function websiteJsonLd(locale: Locale) {
 }
 
 export function workJsonLd(work: Work, locale: Locale) {
+  const { illustrator, coAuthors, playwrights, yearOnly } = work.publication
+  const person = (name: string) => ({ '@type': 'Person', name })
+  const primary = person(getAuthor(work.authorId).name[locale])
   const otherLocale: Locale = locale === 'zh' ? 'en' : 'zh'
   const translationUrl =
     locale === 'zh'
@@ -142,21 +145,13 @@ export function workJsonLd(work: Work, locale: Locale) {
     '@type': 'CreativeWork',
     name: work.title[locale],
     description: work.description[locale],
-    datePublished: work.date,
+    datePublished: yearOnly ? work.date.slice(0, 4) : work.date,
     inLanguage: locale === 'zh' ? 'zh-Hant' : 'en',
     url: absoluteUrl(workPath(work, locale)),
     image: absoluteUrl(workOgImage(work.cover)),
-    author: {
-      '@type': 'Person',
-      name:
-        work.authorId === 'tina'
-          ? locale === 'zh'
-            ? '郭瀞婷 Tina Kuo'
-            : 'Tina Kuo'
-          : locale === 'zh'
-            ? '孩子爸 Michael'
-            : 'Michael S. Huang',
-    },
+    author: playwrights?.map(person) ?? (coAuthors ? [primary, ...coAuthors.map(person)] : primary),
+    contributor: playwrights ? primary : undefined,
+    illustrator: illustrator ? person(illustrator) : undefined,
     workTranslation: translationUrl
       ? {
           '@type': 'CreativeWork',

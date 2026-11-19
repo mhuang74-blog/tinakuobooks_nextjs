@@ -6,23 +6,22 @@ import {
   type PortfolioArt,
   type PortfolioCategory,
 } from '@/content/portfolio'
-import type { Locale, WorkLanguage } from '@/lib/i18n'
+import { workHref, type Locale, type WorkLanguage } from '@/lib/i18n'
+import { getWorkReadership } from '@/lib/work-publication'
 import { getWorkBySlug } from '@/lib/works'
 
 export type ShelfEntry = {
   slug: string
+  href: string
   year: string
   category: PortfolioCategory
   categoryName: string
   title: string
   bookTitle: string
   art: PortfolioArt
-  tagline: string
   description: string
+  preview: string
   reader: string
-  credit: string
-  excerpt: string
-  enTitle: string
   languages: WorkLanguage[]
 }
 
@@ -43,18 +42,16 @@ export function toShelfEntry(slug: string, locale: Locale): ShelfEntry | null {
 
   return {
     slug,
-    year: entry.year,
+    href: workHref(locale, work),
+    year: work.date.slice(0, 4),
     category: entry.category,
     categoryName: collection.name[locale],
     title: work.title[locale],
     bookTitle: formatWorkTitle(locale, work.title[locale]),
     art: entry.art,
-    tagline: entry.tagline[locale],
     description: work.description[locale],
-    reader: entry.reader[locale],
-    credit: entry.credit[locale],
-    excerpt: entry.excerpt[locale],
-    enTitle: work.title.en,
+    preview: work.preview[locale],
+    reader: getWorkReadership(work, locale),
     languages: work.languages,
   }
 }

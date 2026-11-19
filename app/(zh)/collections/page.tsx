@@ -10,7 +10,7 @@ const strings = ui.zh
 export const metadata: Metadata = buildMetadata({
   locale: 'zh',
   title: '主題',
-  description: '依主題瀏覽郭瀞婷的作品：愛搞笑、青少、繪本、戲劇與故事延伸。',
+  description: '依主題瀏覽郭瀞婷的作品與延伸活動，包括繪本、橋梁書、校園日記、推理與奇想和音樂劇。',
   path: '/collections',
   alternates: { zh: '/collections', en: '/en/collections', xDefault: '/collections' },
 })
@@ -22,7 +22,7 @@ export default function CollectionsPage() {
         <p className="eyebrow">{strings.collectionsKicker}</p>
         <h1 className="page-title">{strings.navCollections}</h1>
         <p className="page-lead">
-          五個主題，五種閱讀的方式。挑一個喜歡的，讓故事繼續延伸。
+          從想和孩子一起翻的繪本，到可以自己追線索的小說，挑一個主題開始。
         </p>
       </div>
 

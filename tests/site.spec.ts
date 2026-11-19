@@ -59,6 +59,8 @@ test.describe('Chinese home', () => {
     await expect(dialog).toBeVisible()
     await expect(dialog.locator('.fact-list dd')).toHaveCount(4)
     await expect(dialog.locator('.fact-list')).toContainText('繪本')
+    await expect(dialog.locator('.dialog-preview')).toContainText('找小豹')
+    await expect(dialog.getByRole('link', { name: '看這部作品' })).toHaveAttribute('href', '/57號小豹')
 
     await page.keyboard.press('Escape')
     await expect(dialog).toBeHidden()
@@ -195,13 +197,40 @@ test.describe('Chinese site', () => {
   test('work page links to its English counterpart', async ({ page }) => {
     await page.goto('/57號小豹')
     await expect(page.getByRole('heading', { level: 1, name: '57號小豹' })).toBeVisible()
-    await expect(page.locator('#contents')).toContainText('作品內容')
+    await expect(page.locator('#contents')).toContainText('作品介紹')
 
     await page.getByRole('link', { name: '切換到英文版' }).click()
     await expect(page).toHaveURL(/\/en\/works\/little-leopard-no-57$/)
     await expect(
       page.getByRole('heading', { level: 1, name: 'Little Leopard No. 57' }),
     ).toBeVisible()
+  })
+
+  test('work introductions show the right shelf, credits, and reading details', async ({ page }) => {
+    await page.goto('/tag/bridge-books/')
+    await expect(page.locator('main article')).toHaveCount(2)
+
+    await page.goto('/en/works/robot-delivery-2-can-you-send-courage')
+    const facts = page.locator('.fact-list')
+    await expect(facts).toContainText('Early chapter book')
+    await expect(facts).toContainText('摸摸傑夫')
+    await expect(facts).toContainText('Traditional Chinese')
+    await expect(page.getByText('Working English title used for this introduction.')).toBeVisible()
+
+    await page.goto('/en/works/angel-factory')
+    await expect(facts).toContainText('2009')
+    await expect(facts).not.toContainText('January')
+
+    await page.goto('/動物星球偵探事件簿')
+    await expect(facts).toContainText('王宇清')
+    await expect(facts).toContainText('九子')
+
+    await page.goto('/57號小豹著色本')
+    const download = page.getByRole('link', { name: '下載《57號小豹著色本》（PDF）' })
+    await expect(download).toBeVisible()
+    const href = await download.getAttribute('href')
+    expect(href).toBeTruthy()
+    expect((await page.request.get(href!)).ok()).toBe(true)
   })
 
   test('legacy trailing-slash routes keep working', async ({ page }) => {

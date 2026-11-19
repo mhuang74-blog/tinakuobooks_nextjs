@@ -105,7 +105,7 @@ export function HomeShelf({ entries, locale }: Props) {
                   <span className="book-genre">{entry.year}</span>
                 </p>
                 <h3 className="book-title">{entry.bookTitle}</h3>
-                <p className="book-line">{entry.tagline}</p>
+                <p className="book-line">{entry.description}</p>
                 <button
                   className="link-btn"
                   type="button"
