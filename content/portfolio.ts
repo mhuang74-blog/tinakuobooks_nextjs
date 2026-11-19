@@ -4,6 +4,7 @@ import { MICHAEL_HUANG_URLS } from '@/lib/site'
 
 export type PortfolioCategory =
   | 'picture-book'
+  | 'bridge-books'
   | 'funny-fiction'
   | 'young-adult-fiction'
   | 'stage-performance'
@@ -13,12 +14,7 @@ export type PortfolioArt = { src: string; width: number; height: number }
 export type PortfolioEntry = {
   slug: string
   category: PortfolioCategory
-  year: string
   art: PortfolioArt
-  reader: Localized<string>
-  credit: Localized<string>
-  tagline: Localized<string>
-  excerpt: Localized<string>
 }
 
 export const featuredSlug = '暗號偵探社'
@@ -27,270 +23,82 @@ export const portfolioWorks: PortfolioEntry[] = [
   {
     slug: "胡阿布偵探事件簿-誰綁架了黑總統",
     category: 'young-adult-fiction',
-    year: '2026',
     art: { src: "/images/book-cover-胡阿布偵探事件簿.webp", width: 1000, height: 1389 },
-    reader: { zh: "小說 · 小學中年級以上", en: "Novel · Ages 10+" },
-    credit: { zh: "插畫：Salt&Finger", en: "Illustrations by Salt&Finger" },
-    tagline: {
-      zh: "紅狐狸胡阿布的第一樁大案：掌管陸地的黑猩猩總統不見了。",
-      en: "The red fox Hu Abu's first big case: the chimpanzee president who governs the land has vanished.",
-    },
-    excerpt: {
-      zh: "《丁小飛校園日記》、《機器人宅急便》人氣作家郭瀞婷 首部短篇連作小說 歡樂爆笑登場！ 友愛環境、相互扶持、動人親情 真相原來不是最終的答案，每個案件都有更揪心的抉擇！ 三次謎案任務 次次都有驚喜結局！",
-      en: "After humans abandon Earth, red fox Hu Abu inherits an eight-generation line of detectives and finally lands the case that could make his name: the chimpanzee president who governs the land has vanished. He sets out with a willow ptarmigan and an amphibious salamander investigator, flying on a vulture-piloted presidential plane into affairs that span land, sea, and sky. Three linked stories, each hiding a harder choice than the mystery itself.",
-    },
   },
   {
     slug: "丁小飛校園日記5-我要成為YouTuber",
     category: 'funny-fiction',
-    year: '2023',
     art: { src: "/images/book-cover-丁小飛校園日記5-我要成為YouTuber.webp", width: 1000, height: 1401 },
-    reader: { zh: "校園日記 · 小學中年級以上", en: "School diary · Ages 8+" },
-    credit: { zh: "插畫：水腦", en: "Illustrations by Shui Nao" },
-    tagline: {
-      zh: "丁小飛架起鏡頭開頻道，才發現做節目比吃飯睡覺還難。",
-      en: "Ding Xiaofei sets up a camera and starts a channel, only to find a show is harder than eating or sleeping.",
-    },
-    excerpt: {
-      zh: "★★等待多年，《丁小飛校園日記》最新續集終於登場★★ 且看小小囧男丁小飛如何華麗變身為超人氣Youtuber！ \\小學生好口碑不斷，最想說服爸媽買的書！// 無厘頭功力媲美櫻桃小丸子，搞笑程度更勝《葛瑞的囧日記》， 最爆笑最勵志最有共鳴的校園生存守則！",
-      en: "When classmates start their own livestream channels, Ding Xiaofei sets up a camera too, only to find that running a show is far harder than eating or sleeping. He has to pick a channel theme, find a producer, design every episode, and deal with his older brother A-Da, who has abruptly become an \"idiom prophecy master.\" The fifth book turns a livestream beginner's fumbling into a school survival guide.",
-    },
   },
   {
     slug: "機器人宅急便2-能寄勇氣嗎",
-    category: 'young-adult-fiction',
-    year: '2023',
+    category: 'bridge-books',
     art: { src: "/images/book-cover-機器人宅急便2.webp", width: 1000, height: 1373 },
-    reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
-    credit: { zh: "插畫：摸摸傑夫", en: "Illustrations by Momo Jeff" },
-    tagline: {
-      zh: "看不見也摸不到的「勇氣」，該怎麼寄給九十六歲的奶奶？",
-      en: "How do you deliver \"courage\" — invisible and intangible — to a ninety-six-year-old grandmother?",
-    },
-    excerpt: {
-      zh: "最爆笑的《丁小飛校園日記》系列暢銷作家 郭瀞婷 幽默暖心讀本 機器人宅急便系列第二彈！ 「什麼都可以寄」宅急便面臨關店危機！ 有心人士惡意陷害，讓宅急便生意岌岌可危， 一個女孩的神祕委託，可以挽救宅急便嗎？",
-      en: "After their \"we deliver anything\" courier shop becomes locally famous, Bala and Billy are ordered by a robot inspector to fix a compliance problem within three days, or the shop closes and both are shipped back to the factory. Just then a girl walks in wanting to send \"courage\" to her ninety-six-year-old grandmother. Working out how to deliver something invisible becomes their only way to keep the shop open.",
-    },
   },
   {
     slug: "機器人宅急便1-什麼都可以寄",
-    category: 'young-adult-fiction',
-    year: '2022',
+    category: 'bridge-books',
     art: { src: "/images/book-cover-機器人宅急便1.webp", width: 1000, height: 1372 },
-    reader: { zh: "橋梁書 · 小學低中年級", en: "Early chapter book · Ages 6–10" },
-    credit: { zh: "插畫：摸摸傑夫", en: "Illustrations by Momo Jeff" },
-    tagline: {
-      zh: "二〇九九年，一間「什麼都可以寄」的機器人宅急便開張了。",
-      en: "In 2099, a robot courier shop that delivers anything opens for business.",
-    },
-    excerpt: {
-      zh: "最爆笑的《丁小飛校園日記》系列暢銷作家 郭瀞婷全新幽默暖心讀本 你有東西要寄嗎？ 不管是有形的物品，還是無形的期待， 「什麼都可以寄」機器人宅急便全都使命必達， 化不可能為可能，傳遞所有的心意！ ──書末附機器人宅急便手作桌上立牌──",
-      en: "In 2099 humans leave everything to robots. Courier Bala is thrown out by her boss for being too thorough and too slow, so she and the robot Billy open their own \"we deliver anything\" shop. Their first customer wants an enormous block of ice delivered to a polar bear, and the pair must beat melting, a blizzard, and some meddling seabirds to finish the job.",
-    },
   },
   {
     slug: '小兒子報告-沙發有黑洞',
     category: 'stage-performance',
-    year: '2020',
     art: { src: '/images/portfolio/work-sofa-poster.webp', width: 763, height: 1080 },
-    reader: {
-      zh: '舞台劇本 · 小學以上，親子劇場',
-      en: 'Stage play · Ages 6+, family theatre',
-    },
-    credit: {
-      zh: '取材自駱以軍《小兒子》',
-      en: "Adapted from Luo Yijun's Little Son",
-    },
-    tagline: {
-      zh: '爸爸和弟弟搭上沙發號太空船，去黑洞裡把哥哥找回來。',
-      en: 'Dad and little brother board the Sofa Spaceship to bring big brother back from the black hole.',
-    },
-    excerpt: {
-      zh: '有一天，哥哥阿白為了逃避不想校慶上台致詞，於是在家躲藏起來，而不小心誤入沙發底下的黑洞。為了找回哥哥阿白，弟弟阿甯咕決定和爸爸以及狗狗端端搭乘沙發號太空船進入黑洞異世界中一探究竟……',
-      en: 'One day, to avoid having to give a speech on stage at the school anniversary, older brother A-Bai hides at home and accidentally stumbles into a black hole underneath the sofa. To find his brother A-Bai, younger brother A-Ninggu decides to board the Sofa Spaceship with Dad and the dog Duanduan and venture into the alien world of the black hole to see what is there…',
-    },
   },
   {
     slug: '57號小豹',
     category: 'picture-book',
-    year: '2020',
     art: { src: '/images/book-cover-57號小豹-portrait.webp', width: 1000, height: 1400 },
-    reader: {
-      zh: '繪本 · 親子共讀，4 歲以上',
-      en: 'Picture book · Read together, ages 4+',
-    },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '如果那個「不一樣」是你喜歡、別人不喜歡的，你會怎麼做？',
-      en: "What if the thing that makes you different is something you love — and others don't?",
-    },
-    excerpt: {
-      zh: '57號小豹，是動物園豹群中的一隻豹，牠不希望看起來太獨特，因為身邊的豹群們恐嚇牠：「人類喜歡獵豹看起來很勇猛，如果你看起來不像人類想的那樣，就會被做成衣服或圍巾……」',
-      en: 'Everyone has times when they are different from everybody else — very different. Dressing differently; eating differently; speaking differently; thinking differently. But if that "different" is something you like and others don\'t, what will you do?',
-    },
   },
   {
     slug: '動物星球偵探事件簿2-推理要在放學後',
     category: 'young-adult-fiction',
-    year: '2020',
     art: { src: '/images/portfolio/work-animal-2.webp', width: 626, height: 881 },
-    reader: {
-      zh: '短篇推理 · 高年級以上',
-      en: 'Short mysteries · Ages 10+',
-    },
-    credit: { zh: '七位作者合著', en: 'By seven authors' },
-    tagline: { zh: '放學後，開始推理。', en: 'After school, the deduction begins.' },
-    excerpt: {
-      zh: '鑰匙又不見了？有請「野貓情報網」來進行大規模搜索。從商朝封印至今的巫術即將全面釋放，唯有到故宮博物院尋找千年古玉來解救……',
-      en: "After school, the deduction begins! A detective story collection full of the unbelievable and the surprising. Seven popular authors show off their skills, setting up puzzle after puzzle — waiting for you to solve them!",
-    },
   },
   {
     slug: '記憶邊境-河川-火林-烏雲光',
     category: 'young-adult-fiction',
-    year: '2019',
     art: { src: '/images/portfolio/work-memory-border.webp', width: 635, height: 900 },
-    reader: { zh: '長篇小說 · 青少年', en: 'Novel · Young adult' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '如果人生可以重來，你想改變哪一段記憶？',
-      en: 'If life could start over, which memory would you change?',
-    },
-    excerpt: {
-      zh: '26歲的宋宥安是演藝界的明日之星，原本擁有大好前途的他，卻因為一場車禍陷入昏迷。當他再度睜開眼睛，發現自己身處一個奇特的異境，紫灰色的天空一望無際。',
-      en: "If life could start over, which memory would you change? Tina Kuo, the year's most anticipated author, takes on life and death in her latest work that shakes the soul!",
-    },
   },
   {
     slug: '動物星球偵探事件簿',
     category: 'young-adult-fiction',
-    year: '2019',
     art: { src: '/images/portfolio/work-animal-1.webp', width: 445, height: 641 },
-    reader: { zh: '短篇推理 · 高年級以上', en: 'Short mysteries · Ages 10+' },
-    credit: {
-      zh: '與王宇清、翁裕庭、陳郁如、鄭宗弦、寵物先生合著',
-      en: 'With Wang Yuqing, Weng Yuting, Chen Yuju, Zheng Zongxian and Mr. Pet',
-    },
-    tagline: {
-      zh: '六位說故事高手，一場動物大集合的推理。',
-      en: 'Six master storytellers, one animal-packed mystery.',
-    },
-    excerpt: {
-      zh: '原創故事 X 華麗陣容，六位作家聯手出擊：《妖怪新聞社》王宇清、《尋找被詛咒的彩畫》翁裕庭、《仙靈傳奇》陳郁如、《暗號偵探社》郭瀞婷、《少年廚俠》鄭宗弦、《虛擬街頭漂流記》寵物先生。',
-      en: "Six master storytellers: Wang Yuqing, Weng Yuting, Chen Yuju, Tina Kuo, Zheng Zongxian, and Mr. Pet. The liveliest gathering of animals × a detective story collection you can't stop turning pages for!",
-    },
   },
   {
     slug: '暗號偵探社',
     category: 'young-adult-fiction',
-    year: '2018',
     art: { src: '/images/book-cover-暗號偵探社.webp', width: 1400, height: 1811 },
-    reader: { zh: '長篇小說 · 國中以上', en: 'Novel · Ages 12+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '一張離婚協議書，三個孩子，一整個夏天的暗號。',
-      en: 'One divorce agreement, three kids, and a whole summer of secret codes.',
-    },
-    excerpt: {
-      zh: '整本小說講的是愛的暗號。在人生的旅途上，每個人都有需要被療癒的事情，那些大大小小的擦傷、瘀青和內心縫不起來的傷疤，都需要愛的暗號來治療。',
-      en: 'This is a novel that heals adults and children alike, and its story circles around a junior-high boy named Lanya. Ever since he sees the divorce agreement on his father\'s desk, his world collapses in an instant; fortunately his good friends Chicken Drumstick Hero and Qiqi step forward and accompany him on a journey to try to save his parents\' marriage.',
-    },
   },
   {
     slug: '丁小飛校園日記4-聰明眼鏡',
     category: 'funny-fiction',
-    year: '2017',
     art: { src: '/images/portfolio/work-ding-4.webp', width: 284, height: 406 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '一句「我也有」，滾成了愈來愈大的謊。',
-      en: 'One “me too” rolls into a lie that keeps growing.',
-    },
-    excerpt: {
-      zh: '聽到班上同學炫耀自己有一副全球限量眼鏡，丁小飛脫口而出：「我也有！」為了掩蓋自己說謊的事實，丁小飛開始瞎掰眼鏡的「不在場證明」。',
-      en: 'Because of a pair of globally limited-edition "clever glasses," Ding Xiaofei is nicknamed "Ding the Puppet" by his classmates. Everyone starts looking at Xiaofei differently — how can he escape the shadow of being a liar? The most agonizing tug-of-war in his mind — face it bravely together with Ding Xiaofei!',
-    },
   },
   {
     slug: '丁小飛校園日記3-副班長爭奪戰',
     category: 'funny-fiction',
-    year: '2014',
     art: { src: '/images/portfolio/work-ding-3.webp', width: 289, height: 417 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '副班長頭銜與好朋友，哪一個比較重要？',
-      en: 'Vice class president, or a good friend — which matters more?',
-    },
-    excerpt: {
-      zh: '據說有名的人小時候都當過「幹部」，丁小飛決心爭取副班長的職位。誰知半路殺出程咬金——好朋友何李羅不僅被提名，最後還高票當選！妒意如霧氣籠罩丁小飛。',
-      en: 'To defend his standing, Ding Xiaofei goes to war! The title of vice class president vs. a good friend — which one matters more? The most moving tug-of-war over friendship — protect what is most precious together with Ding Xiaofei!',
-    },
   },
   {
     slug: '丁小飛校園日記2-誰是最佳小隊長',
     category: 'funny-fiction',
-    year: '2013',
     art: { src: '/images/portfolio/work-ding-2.webp', width: 290, height: 418 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '夏令營裡高手如雲，他居然被派去演一匹馬。',
-      en: 'At a camp full of high achievers, he gets cast as a horse.',
-    },
-    excerpt: {
-      zh: '為了凸顯自己的不平凡，丁小飛報名參加「未來領袖夏令營」。原以為自己會是大家注目的主角，卻發現一山還有一山高！領袖訓練課程一波接一波，高手較勁一招過一招。',
-      en: 'Who is the best team leader? Ding Xiaofei, number one in self-confidence, has his standing shaken once again!! The Future Leaders Summer Camp is full of hidden tigers and crouching dragons — experts lie in ambush everywhere! When faced with someone who steals the spotlight from you, are you willing to just bow down and concede?',
-    },
   },
   {
     slug: '丁小飛校園日記1-時光膠囊的祕密',
     category: 'funny-fiction',
-    year: '2013',
     art: { src: '/images/portfolio/work-ding-1.webp', width: 637, height: 900 },
-    reader: { zh: '校園日記 · 小學中年級以上', en: 'School diary · Ages 8+' },
-    credit: { zh: '', en: '' },
-    tagline: {
-      zh: '小四生丁小飛，最想成為「有名的人」。',
-      en: 'Ding Xiaofei, fourth grader, wants more than anything to be famous.',
-    },
-    excerpt: {
-      zh: '丁小飛，萌芽小學四年級，擁有異於常人的自信與夢想。最大的願望是成為「有名的人」。某一天，他優於常人的自信卻受到嚴重打擊：班長程友莘在他寫的讀書心得裡畫了一個笑臉做回應。',
-      en: "The school holds a time capsule activity and asks everyone to write a diary entry to themselves fifty years from now. Ding Xiaofei's secret diary entry: the girl he has a crush on actually admires someone else most? Apart from being tall, rich, and handsome, how can he win her heart? The funniest guide to getting along with people — remake yourself together with Ding Xiaofei!",
-    },
   },
   {
     slug: "你願不願意做我最好的朋友",
     category: 'picture-book',
-    year: '2009',
     art: { src: "/images/book-cover-你願不願意做我最好的朋友.webp", width: 200, height: 280 },
-    reader: { zh: "繪本 · 親子共讀，學前至低年級", en: "Picture book · Read together, preschool–early grade" },
-    credit: { zh: "文·圖：郭瀞婷", en: "Written and illustrated by Tina Kuo" },
-    tagline: {
-      zh: "小狗舒比出發，去尋找什麼才是「真正的」好朋友。",
-      en: "A puppy named Shubi sets out to find what a \"real\" best friend is.",
-    },
-    excerpt: {
-      zh: "當孩子慢慢成長，接觸群體生活之後，「朋友」將成為他們的另一個生活重心，此時父母也一定會擔心自己的孩子如何交朋友，以及是否交到了真正的好朋友。本書以樸素的繪圖風格、簡單的故事情節，藉由一隻小狗舒比尋找好朋友的過程，教導孩子何謂「真正的」好朋友。",
-      en: "A puppy named Shubi sets out to find a best friend and meets a monkey, a blue elephant, and an orange-red crab along the way. The picture book uses a simple story to ask what a \"real\" best friend is, with Chinese-English parallel text, zhuyin, and a bilingual story CD.",
-    },
   },
   {
     slug: "天使工廠",
     category: 'picture-book',
-    year: '2009',
     art: { src: "/images/book-cover-天使工廠.webp", width: 424, height: 580 },
-    reader: { zh: "繪本 · 親子共讀，學前至低年級", en: "Picture book · Read together, preschool–early grade" },
-    credit: { zh: "文·圖：郭瀞婷", en: "Written and illustrated by Tina Kuo" },
-    tagline: {
-      zh: "烏龜諾門什麼都不快樂，直到天使工廠寄來一封信。",
-      en: "A turtle named Nomen is unhappy with everything — until a letter from the Angel Factory arrives.",
-    },
-    excerpt: {
-      zh: "在地球的另一端，有一個烏龜的世界。那裡的烏龜們都很快樂，不過......烏龜諾門除外！",
-      en: "On the other side of the world is a world of turtles, where a turtle named Nomen is unhappy at work, on the walk, and at meals. Then a letter from the \"Angel Factory\" arrives and things begin to change. A picture book about imagination and kindness, with English text alongside the Chinese.",
-    },
   },
 ]
 
@@ -304,7 +112,8 @@ export const categoryChips: { id: 'all' | PortfolioCategory; label: Localized<st
   { id: 'all', label: { zh: '全部', en: 'All' } },
   { id: 'picture-book', label: { zh: '繪本', en: 'Picture books' } },
   { id: 'funny-fiction', label: { zh: '愛搞笑', en: 'Funny' } },
-  { id: 'young-adult-fiction', label: { zh: '青少', en: 'YA' } },
+  { id: 'bridge-books', label: { zh: '橋梁書', en: 'Early chapter books' } },
+  { id: 'young-adult-fiction', label: { zh: '推理與奇想', en: 'Mystery & fantasy' } },
   { id: 'stage-performance', label: { zh: '戲劇', en: 'Stage' } },
 ]
 
@@ -351,8 +160,6 @@ export type HomeCopy = {
   }
   about: {
     eyebrow: Copy
-    quote: Copy
-    source: Copy
     caption: Copy
     name: Copy
     paragraphs: Localized<InlinePart[]>[]
@@ -409,7 +216,25 @@ export type HomeCopy = {
 
 const readingCards: HomeCopy['reading']['cards'] = [
   {
-    age: { zh: '小學中年級', en: 'Upper elementary' },
+    age: { zh: '小學低年級', en: 'Early elementary' },
+    title: { zh: '從看圖到自己讀一章', en: 'From looking at pictures to reading a chapter' },
+    body: {
+      zh: [{ text: '和孩子讀《57號小豹》時，可以請孩子先說說圖上發生了什麼。想試著自己讀一章，可以從芭拉和比利接到第一件包裹的故事開始。' }],
+      en: [{ text: 'With Little Leopard No. 57, let children tell you what’s happening in the picture before you read the words. If they’re ready to try a chapter on their own, start with Bala and Billy’s first delivery.' }],
+    },
+    prompts: [
+      {
+        zh: '你會在包著冰塊的箱子上寫什麼提醒？',
+        en: 'What warning would you write on a box with a block of ice in it?',
+      },
+    ],
+    books: {
+      zh: [{ work: '57號小豹' }, { text: '、' }, { work: '機器人宅急便1-什麼都可以寄' }],
+      en: [{ work: '57號小豹' }, { text: ' or ' }, { work: '機器人宅急便1-什麼都可以寄' }],
+    },
+  },
+  {
+    age: { zh: '小學中年級', en: 'Grades 3–4' },
     title: { zh: '先認識丁小飛', en: 'Start with Ding Xiaofei' },
     body: {
       zh: [
@@ -425,8 +250,8 @@ const readingCards: HomeCopy['reading']['cards'] = [
     },
     prompts: [
       {
-        zh: '丁小飛最在意別人怎麼看他，你呢？',
-        en: 'Ding Xiaofei cares a lot about how others see him. What about you?',
+        zh: '丁小飛希望同學怎麼看他？他做了什麼讓你看出來？',
+        en: 'How does Ding Xiaofei want his classmates to see him? What does he do that tells you so?',
       },
       {
         zh: '他做的哪一件事，你會做不一樣的決定？',
@@ -452,12 +277,12 @@ const readingCards: HomeCopy['reading']['cards'] = [
     body: {
       zh: [
         { work: '動物星球偵探事件簿' },
-        { text: '是六位、七位作家合寫的短篇推理集，每篇獨立，很適合睡前讀一篇、隔天再猜結局。' },
+        { text: '第一冊有六篇，第二冊有七篇。可以各挑一篇，讀到快揭曉時先停一下，說說現在最可疑的是誰。' },
       ],
       en: [
         { work: '動物星球偵探事件簿' },
         {
-          text: ' is a short-story mystery collection by six or seven authors. Each case stands alone, which makes it perfect for one story at bedtime and guessing the ending the next day.',
+          text: ' has six stories in the first volume and seven in the second. Pick one, pause just before the reveal, and see whether you suspect the same character.',
         },
       ],
     },
@@ -513,8 +338,8 @@ const readingCards: HomeCopy['reading']['cards'] = [
     },
     prompts: [
       {
-        zh: '如果人生可以重來，你想改變哪一段記憶？',
-        en: 'If you could live any part of your life again, which memory would you change?',
+        zh: '宋宥安重回記憶裡的時候，哪件事在他眼裡有了不同的意思？',
+        en: 'When Song Youan goes back into a memory, what looks different to him this time?',
       },
       {
         zh: '書裡的大人，有哪些話其實沒說出口？',
@@ -547,17 +372,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     hero: {
       kicker: {
-        zh: '繪本 · 校園日記 · 青少年小說 · 舞台劇',
-        en: 'PICTURE BOOKS · SCHOOL DIARIES · YA FICTION · STAGE',
+        zh: '繪本 · 橋梁書 · 小說 · 音樂劇',
+        en: 'PICTURE BOOKS · EARLY CHAPTER BOOKS · FICTION · MUSICAL THEATRE',
       },
       name: { zh: '郭瀞婷', en: 'Tina Kuo' },
       subtitle: { zh: 'Tina Kuo · Taipei', en: '郭瀞婷 · Taipei' },
       lead: {
-        zh: '從校園裡的尷尬與好笑，到關於記憶、離別與生死的邊境——寫給小學中年級到青少年，也寫給陪他們一起讀的大人。',
-        en: 'From the awkward and hilarious corners of school to the borderlands of memory, loss and what comes after — stories for readers from upper elementary through the teen years, and for the grown-ups reading beside them.',
+        zh: '可以從小豹的繪本開始，也可以陪丁小飛過一天，再走到關於記憶和告別的小說裡。這裡有給孩子和青少年的故事，也有陪讀時可以聊的話題。',
+        en: 'Start with a little leopard, spend a school day with Ding Xiaofei, or pick up a novel about memory and loss. There are stories here for children and teens, and things to talk about with the adults reading alongside them.',
       },
       primaryCta: { zh: '看看作品', en: 'Explore the works' },
-      secondaryCta: { zh: '我是出版社或學校', en: "I'm a publisher or school" },
+      secondaryCta: { zh: '出版、授權與學校邀約', en: "Rights & school enquiries" },
       stats: [
         { value: '', caption: { zh: '部作品', en: 'works' } },
         { value: '', caption: { zh: '個分類', en: 'categories' } },
@@ -567,17 +392,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     feature: {
       label: { zh: '主推小說 · 2018', en: 'FEATURED NOVEL · 2018' },
       line: {
-        zh: '一張離婚協議書，三個孩子，一整個夏天的暗號。',
-        en: 'One divorce agreement, three kids, and a whole summer of secret codes.',
+        zh: '爸媽沒說出口的事，藍芽想從日常裡找出答案。',
+        en: 'Lanya looks for clues in the everyday things his parents leave unsaid.',
       },
       cta: { zh: '翻開這本書', en: 'Open this book' },
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
+      title: { zh: '作品書架', en: 'Browse the works' },
       lead: {
-        zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
-        en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
+        zh: '點開封面，就能看到故事簡介、適讀年齡和完整作品頁。',
+        en: 'Open a cover for a short introduction, reading guidance and a link to the full work page.',
       },
       reset: { zh: '重置篩選', en: 'Reset filters' },
       countAll: (n) => `共 ${n} 部作品`,
@@ -606,28 +431,20 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       eyebrow: { zh: 'Reading Together', en: 'Reading Together' },
       title: { zh: '從哪一本開始？', en: 'Where should you start?' },
       lead: {
-        zh: '三個階段、三種讀法。以下是編者的建議，不是出版社的分級——孩子讀得下去的那一本，就是對的那一本。',
-        en: "Three stages, three ways to read. These are our editor's suggestions, not a publisher's reading levels — the right book is the one your child keeps reading.",
+        zh: '可以依孩子現在想讀的故事挑一本，再從角色遇到的事聊起。',
+        en: "Pick a story that suits what your reader is in the mood for, and start with something that happens to a character.",
       },
       cards: readingCards,
     },
     about: {
       eyebrow: { zh: 'About the Author', en: 'About the Author' },
-      quote: {
-        zh: '「我跟你說，小芽，不要害怕。沒關係，只是一張紙而已，還沒經過法官那個大槌子敲幾下，就表示還有希望，懂嗎？」',
-        en: "Let me tell you, Xiao Ya — don't be afraid. It's all right. It's only a piece of paper. Until the judge's gavel has come down a few times, there's still hope. Understand?",
-      },
-      source: {
-        zh: '—《暗號偵探社》',
-        en: '— The Secret Code Detective Club',
-      },
       caption: { zh: '台北，台灣', en: 'Taipei, Taiwan' },
       name: { zh: '郭瀞婷 Tina Kuo', en: 'Tina Kuo' },
       paragraphs: [
         {
           zh: [
             {
-              text: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
+              text: '整天跟可愛又好動的小女兒鬥智，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
             },
           ],
           en: [
@@ -771,12 +588,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       stage: {
         kind: { zh: '舞台劇 · 2020', en: 'STAGE · 2020' },
         title: {
-          zh: '小兒子報告! 沙發有黑洞',
+          zh: '小兒子報告！沙發有黑洞',
           en: 'Little Son Report! The Sofa Has a Black Hole',
         },
         body: {
-          zh: '取材自駱以軍《小兒子》。哥哥阿白為了逃避校慶致詞躲進沙發底下的黑洞，弟弟阿甯咕和爸爸、狗狗端端只好搭上沙發號太空船去找他。',
-          en: "Adapted from Luo Yijun's Little Son. To dodge a school-anniversary speech, older brother A-Bai hides inside a black hole under the sofa. Younger brother A-Ninggu, Dad and the dog Duanduan have no choice but to board the Sofa Spaceship and go find him.",
+          zh: '取材自駱以軍《小兒子》的親子音樂劇。哥哥阿白意外掉進黑洞，一家人只好把客廳的沙發當成太空船。',
+          en: "A family musical based on Luo Yijun's Little Son. After A-Bai falls into a black hole, the family sofa has to do duty as a spaceship.",
         },
         credit: {
           zh: '海報提供：AMcreative 夢田影像',
@@ -787,8 +604,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         kind: { zh: '著色本 · 2021', en: 'COLORING BOOK · 2021' },
         title: { zh: '57號小豹著色本', en: 'Little Leopard No. 57 Coloring Book' },
         body: {
-          zh: '照著 57 號小豹的造型手繪的幾頁著色本，由孩子爸整理上線。孩子塗得開心，大人也順便療癒一下。',
-          en: "A few pages hand-drawn from Little Leopard No. 57's shape and put online by the kids' dad. Children color; grown-ups get a little healing on the side.",
+          zh: '家裡小妹照著 57 號小豹的造型畫了幾張線稿，由孩子爸整理成可以列印的著色本。',
+          en: "Michael put together this printable colouring book from pages his younger sister drew of Little Leopard No. 57.",
         },
         cta: { zh: '下載著色本（PDF）', en: 'Download the coloring book (PDF)' },
       },
@@ -824,16 +641,16 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
       licence: {
-        zh: '本站文字與書封圖像以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封與插畫的著作權屬原出版社與繪者所有。',
-        en: 'Text and cover images on this site are released under CC BY 4.0. When reposting, credit the author Tina Kuo and the original source tinakuobooks.com. Copyright in the covers and illustrations remains with the original publishers and illustrators.',
+        zh: '本站原創介紹文字採 CC BY 4.0 授權。轉載時請註明撰文者與出處 tinakuobooks.com。使用書籍內文、封面、插畫或劇照，請向權利人洽詢。',
+        en: 'Original editorial text on this site is available under CC BY 4.0. Credit the writer and tinakuobooks.com when reusing it. For book text, covers, illustrations or production images, contact the relevant rights holder.',
       },
       usageTitle: { zh: '作品使用', en: 'Using the work' },
       usage: [
         {
           label: { zh: '教學', en: 'Teaching' },
           text: {
-            zh: '可複製、朗讀、改作教材，請註明作者與出處',
-            en: 'Copy, read aloud or adapt for materials, with credit to the author and source',
+            zh: '可依本站原創介紹的授權使用文字。若要使用書中內容作為教材，請先洽詢。',
+            en: 'Use the site introductions under their licence. Get in touch about using material from the books in class.',
           },
         },
         {
@@ -846,8 +663,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           label: { zh: '外版', en: 'Foreign editions' },
           text: {
-            zh: '部分作品已有英文版，其他語言請來信',
-            en: 'Some works have English editions; for other languages, write to us',
+            zh: '本站提供英文作品介紹。若要洽詢翻譯出版，請來信註明書名、語種與地區。',
+            en: 'The site includes English introductions. For translation rights, please send the title, language and territory.',
           },
         },
       ],
@@ -927,7 +744,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       legal: (year) => [
         { text: `© ${year} 郭瀞婷 · 由 ` },
         { href: MICHAEL_HUANG_URLS.zh, label: 'Michael S. Huang' },
-        { text: ' 建立 · 內容以 CC BY 4.0 授權' },
+        { text: ' 建立 · 原創介紹文字採 CC BY 4.0 授權' },
       ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/works' },
@@ -947,17 +764,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     },
     hero: {
       kicker: {
-        zh: '繪本 · 校園日記 · 青少年小說 · 舞台劇',
-        en: 'PICTURE BOOKS · SCHOOL DIARIES · YA FICTION · STAGE',
+        zh: '繪本 · 橋梁書 · 小說 · 音樂劇',
+        en: 'PICTURE BOOKS · EARLY CHAPTER BOOKS · FICTION · MUSICAL THEATRE',
       },
       name: { zh: '郭瀞婷', en: 'Tina Kuo' },
       subtitle: { zh: 'Tina Kuo · Taipei', en: '郭瀞婷 · Taipei' },
       lead: {
-        zh: '從校園裡的尷尬與好笑，到關於記憶、離別與生死的邊境——寫給小學中年級到青少年，也寫給陪他們一起讀的大人。',
-        en: 'From the awkward and hilarious corners of school to the borderlands of memory, loss and what comes after — stories for readers from upper elementary through the teen years, and for the grown-ups reading beside them.',
+        zh: '可以從小豹的繪本開始，也可以陪丁小飛過一天，再走到關於記憶和告別的小說裡。這裡有給孩子和青少年的故事，也有陪讀時可以聊的話題。',
+        en: 'Start with a little leopard, spend a school day with Ding Xiaofei, or pick up a novel about memory and loss. There are stories here for children and teens, and things to talk about with the adults reading alongside them.',
       },
       primaryCta: { zh: '看看作品', en: 'Explore the works' },
-      secondaryCta: { zh: '我是出版社或學校', en: "I'm a publisher or school" },
+      secondaryCta: { zh: '出版、授權與學校邀約', en: "Rights & school enquiries" },
       stats: [
         { value: '', caption: { zh: '部作品', en: 'works' } },
         { value: '', caption: { zh: '個分類', en: 'categories' } },
@@ -967,17 +784,17 @@ export const homeCopy: Record<Locale, HomeCopy> = {
     feature: {
       label: { zh: '主推小說 · 2018', en: 'FEATURED NOVEL · 2018' },
       line: {
-        zh: '一張離婚協議書，三個孩子，一整個夏天的暗號。',
-        en: 'One divorce agreement, three kids, and a whole summer of secret codes.',
+        zh: '爸媽沒說出口的事，藍芽想從日常裡找出答案。',
+        en: 'Lanya looks for clues in the everyday things his parents leave unsaid.',
       },
       cta: { zh: '翻開這本書', en: 'Open this book' },
     },
     works: {
       eyebrow: { zh: 'The Works', en: 'The Works' },
-      title: { zh: '十六部作品，四種讀法', en: 'Sixteen works, four ways to read' },
+      title: { zh: '作品書架', en: 'Browse the works' },
       lead: {
-        zh: '繪本、校園日記、青少年小說、舞台劇——同一個說故事的人，換了四種聲調。點開封面，可以看簡介和書裡的一段話。',
-        en: 'Picture books, school diaries, young adult novels, a stage play — one storyteller, four voices. Open a cover for the synopsis and a passage from the book.',
+        zh: '點開封面，就能看到故事簡介、適讀年齡和完整作品頁。',
+        en: 'Open a cover for a short introduction, reading guidance and a link to the full work page.',
       },
       reset: { zh: '重置篩選', en: 'Reset filters' },
       countAll: (n) => `${n} works`,
@@ -1006,25 +823,20 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       eyebrow: { zh: 'Reading Together', en: 'Reading Together' },
       title: { zh: '從哪一本開始？', en: 'Where should you start?' },
       lead: {
-        zh: '三個階段、三種讀法。以下是編者的建議，不是出版社的分級——孩子讀得下去的那一本，就是對的那一本。',
-        en: "Three stages, three ways to read. These are our editor's suggestions, not a publisher's reading levels — the right book is the one your child keeps reading.",
+        zh: '可以依孩子現在想讀的故事挑一本，再從角色遇到的事聊起。',
+        en: "Pick a story that suits what your reader is in the mood for, and start with something that happens to a character.",
       },
       cards: readingCards,
     },
     about: {
       eyebrow: { zh: 'About the Author', en: 'About the Author' },
-      quote: {
-        zh: '「我跟你說，小芽，不要害怕。沒關係，只是一張紙而已，還沒經過法官那個大槌子敲幾下，就表示還有希望，懂嗎？」',
-        en: "Let me tell you, Xiao Ya — don't be afraid. It's all right. It's only a piece of paper. Until the judge's gavel has come down a few times, there's still hope. Understand?",
-      },
-      source: { zh: '—《暗號偵探社》', en: '— The Secret Code Detective Club' },
       caption: { zh: '台北，台灣', en: 'Taipei, Taiwan' },
       name: { zh: '郭瀞婷 Tina Kuo', en: 'Tina Kuo' },
       paragraphs: [
         {
           zh: [
             {
-              text: '整天跟可愛又好動小女兒鬥志，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
+              text: '整天跟可愛又好動的小女兒鬥智，偶爾會發呆，但一有空就衝回電腦敲出幾頁要留給孩子以後讀的故事。',
             },
           ],
           en: [
@@ -1168,12 +980,12 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       stage: {
         kind: { zh: '舞台劇 · 2020', en: 'STAGE · 2020' },
         title: {
-          zh: '小兒子報告! 沙發有黑洞',
+          zh: '小兒子報告！沙發有黑洞',
           en: 'Little Son Report! The Sofa Has a Black Hole',
         },
         body: {
-          zh: '取材自駱以軍《小兒子》。哥哥阿白為了逃避校慶致詞躲進沙發底下的黑洞，弟弟阿甯咕和爸爸、狗狗端端只好搭上沙發號太空船去找他。',
-          en: "Adapted from Luo Yijun's Little Son. To dodge a school-anniversary speech, older brother A-Bai hides inside a black hole under the sofa. Younger brother A-Ninggu, Dad and the dog Duanduan have no choice but to board the Sofa Spaceship and go find him.",
+          zh: '取材自駱以軍《小兒子》的親子音樂劇。哥哥阿白意外掉進黑洞，一家人只好把客廳的沙發當成太空船。',
+          en: "A family musical based on Luo Yijun's Little Son. After A-Bai falls into a black hole, the family sofa has to do duty as a spaceship.",
         },
         credit: {
           zh: '海報提供：AMcreative 夢田影像',
@@ -1184,8 +996,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         kind: { zh: '著色本 · 2021', en: 'COLORING BOOK · 2021' },
         title: { zh: '57號小豹著色本', en: 'Little Leopard No. 57 Coloring Book' },
         body: {
-          zh: '照著 57 號小豹的造型手繪的幾頁著色本，由孩子爸整理上線。孩子塗得開心，大人也順便療癒一下。',
-          en: "A few pages hand-drawn from Little Leopard No. 57's shape and put online by the kids' dad. Children color; grown-ups get a little healing on the side.",
+          zh: '家裡小妹照著 57 號小豹的造型畫了幾張線稿，由孩子爸整理成可以列印的著色本。',
+          en: "Michael put together this printable colouring book from pages his younger sister drew of Little Leopard No. 57.",
         },
         cta: { zh: '下載著色本（PDF）', en: 'Download the coloring book (PDF)' },
       },
@@ -1221,16 +1033,16 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       ],
       licenceTitle: { zh: '授權', en: 'Licence' },
       licence: {
-        zh: '本站文字與書封圖像以 CC BY 4.0 授權釋出，轉載請註明作者郭瀞婷與原始出處 tinakuobooks.com。書封與插畫的著作權屬原出版社與繪者所有。',
-        en: 'Text and cover images on this site are released under CC BY 4.0. When reposting, credit the author Tina Kuo and the original source tinakuobooks.com. Copyright in the covers and illustrations remains with the original publishers and illustrators.',
+        zh: '本站原創介紹文字採 CC BY 4.0 授權。轉載時請註明撰文者與出處 tinakuobooks.com。使用書籍內文、封面、插畫或劇照，請向權利人洽詢。',
+        en: 'Original editorial text on this site is available under CC BY 4.0. Credit the writer and tinakuobooks.com when reusing it. For book text, covers, illustrations or production images, contact the relevant rights holder.',
       },
       usageTitle: { zh: '作品使用', en: 'Using the work' },
       usage: [
         {
           label: { zh: '教學', en: 'Teaching' },
           text: {
-            zh: '可複製、朗讀、改作教材，請註明作者與出處',
-            en: 'Copy, read aloud or adapt for materials, with credit to the author and source',
+            zh: '可依本站原創介紹的授權使用文字。若要使用書中內容作為教材，請先洽詢。',
+            en: 'Use the site introductions under their licence. Get in touch about using material from the books in class.',
           },
         },
         {
@@ -1243,8 +1055,8 @@ export const homeCopy: Record<Locale, HomeCopy> = {
         {
           label: { zh: '外版', en: 'Foreign editions' },
           text: {
-            zh: '部分作品已有英文版，其他語言請來信',
-            en: 'Some works have English editions; for other languages, write to us',
+            zh: '本站提供英文作品介紹。若要洽詢翻譯出版，請來信註明書名、語種與地區。',
+            en: 'The site includes English introductions. For translation rights, please send the title, language and territory.',
           },
         },
       ],
@@ -1324,7 +1136,7 @@ export const homeCopy: Record<Locale, HomeCopy> = {
       legal: (year) => [
         { text: `© ${year} Tina Kuo · Site by ` },
         { href: MICHAEL_HUANG_URLS.en, label: 'Michael S. Huang' },
-        { text: ' · Content under CC BY 4.0' },
+        { text: ' · Original editorial text under CC BY 4.0' },
       ],
       links: [
         { label: { zh: '作品', en: 'Works' }, href: '/en/works' },

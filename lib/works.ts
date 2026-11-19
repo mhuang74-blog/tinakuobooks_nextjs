@@ -14,6 +14,15 @@ import {
 
 export type { Locale, Localized }
 
+export type WorkPublication = {
+  kind?: string
+  readers?: string
+  yearOnly?: boolean
+  illustrator?: string
+  coAuthors?: string[]
+  playwrights?: string[]
+}
+
 export type Work = {
   slug: string
   slugEn: string
@@ -24,17 +33,21 @@ export type Work = {
   cover: string
   title: Localized<string>
   description: Localized<string>
+  preview: Localized<string>
   body: Localized<string>
   readingMinutes: Localized<number>
   translationPending: boolean
+  workingTitle: boolean
+  publication: WorkPublication
 }
 
 const WORKS_ROOT = path.join(process.cwd(), 'content', 'works')
 const MARKDOWN = /\.md$/
 
-type ZhFrontMatter = {
+type ZhFrontMatter = WorkPublication & {
   title: string
   description: string
+  preview?: string
   date: string
   author: AuthorId
   collection: CollectionId
@@ -45,7 +58,9 @@ type ZhFrontMatter = {
 type EnFrontMatter = {
   title: string
   description: string
+  preview?: string
   slug: string
+  workingTitle?: boolean
 }
 
 function readMarkdownFiles(directory: string): string[] {
@@ -104,12 +119,22 @@ function loadWorks(): Work[] {
         zh: String(zh.description),
         en: en?.description?.trim() || String(zh.description),
       },
+      preview: { zh: zh.preview ?? '', en: en?.preview ?? '' },
       body: { zh: zhBody, en: bodyEn },
       readingMinutes: {
         zh: estimateReadingMinutes(zhBody),
         en: estimateReadingMinutes(bodyEn),
       },
       translationPending: slugEn === '' || enBody === '',
+      workingTitle: en?.workingTitle === true,
+      publication: {
+        kind: zh.kind,
+        readers: zh.readers,
+        yearOnly: zh.yearOnly,
+        illustrator: zh.illustrator,
+        coAuthors: zh.coAuthors,
+        playwrights: zh.playwrights,
+      },
     })
   }
 

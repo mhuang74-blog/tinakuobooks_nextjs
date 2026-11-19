@@ -36,13 +36,12 @@ All content lives in the repository; there is no CMS.
 
 ```
 content/
-  works/zh/<legacy-slug>.md   canonical work: title, description, date, author, collection, cover, languages
-  works/en/<legacy-slug>.md   optional English translation: title, description, slug, body
-  collections.ts              the five collections (names, descriptions, covers, accents)
+  works/zh/<legacy-slug>.md   canonical work, credits, and Traditional Chinese introduction
+  works/en/<legacy-slug>.md   English title, route slug, shelf preview, and introduction
+  collections.ts              collection definitions (names, descriptions, covers, accents)
   authors.ts                  author profiles
   about.ts                    about copy for the home teaser and the about pages
-  portfolio.ts                home presentation data: shelf order, tags, cover art,
-                              reader notes, excerpts, and all home-page copy
+  portfolio.ts                shelf order, cover art, filters, and home-page copy
 ```
 
 - Pairing is by filename. `content/works/en/57號小豹.md` is the English version

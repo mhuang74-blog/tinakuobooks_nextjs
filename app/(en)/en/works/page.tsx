@@ -14,7 +14,7 @@ const strings = ui.en
 export const metadata: Metadata = buildMetadata({
   locale: 'en',
   title: 'All works',
-  description: 'Search and filter every book, picture book, and stage story written by Tina Kuo.',
+  description: 'Browse Tina Kuo’s books and stage work, plus activities inspired by the stories.',
   path: '/en/works',
   alternates: { zh: '/works', en: '/en/works', xDefault: '/works' },
 })
@@ -28,8 +28,8 @@ export default function EnWorksPage() {
         <p className="eyebrow">{strings.worksKicker}</p>
         <h1 className="page-title">{strings.allWorks}</h1>
         <p className="page-lead">
-          From slapstick school diaries to young adult novels, picture books, and stage
-          adaptations — every work by Tina Kuo in one place.
+          Find a picture book to read aloud, an early chapter book for a new independent reader,
+          or a novel to share with a teen. The musical and colouring book are here too.
         </p>
         <p className="page-meta">
           <Link className="link-btn" href="/en/collections">
